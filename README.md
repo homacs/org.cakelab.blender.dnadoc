@@ -19,6 +19,9 @@ the Creative Commons Attribution-ShareAlike License V3.0 [3].
 
 # Further Reading
 [1] http://homac.cakelab.org/projects/JavaBlend/index.html
+
 [2] http://homac.cakelab.org/projects/JavaBlend/spec.html
+
 [3] http://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License
+
 [4] http://blender.org
