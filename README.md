@@ -2,19 +2,30 @@
 This is the externally maintained source code documentation
 to generated Java classes of the Java .Blend data model.
 Java .Blend (see [1]) is a generic Blender file import/export 
-toolkit for Java. Refer to the Java .Blend documentation 
-(see [2]) to get more information. Blender (see [4]) is an 
-open source 3D graphics design and rendering environment.
+toolkit for Java. Refer to the Java .Blend documentation [2] 
+to get more information. Blender [5] is an open source 
+3D graphics design and rendering environment.
 
 
 # Contributors License Agreement
 By sending a pull request, contributors agree to publish 
-their contribution under the terms of the conditions of 
-the Creative Commons Attribution-ShareAlike License V3.0 [3].
+their contribution under the terms of conditions of 
+the GPL V3.0 [4] (refer to Section 'Licensing' for reasons).
 
 
 # Contributors
 1. Holger Machens
+
+
+# Licensing
+This set of documentation files is licensed under the terms of the
+GPLv3.
+
+Documentation in the files is partially derived from Blender's
+source code documentation, which is licensed under GPL v2 [3].
+Therefore, this set of documentation files had to be published under
+a non-permissive license, too.
+
 
 
 # Further Reading
@@ -22,6 +33,10 @@ the Creative Commons Attribution-ShareAlike License V3.0 [3].
 
 [2] http://homac.cakelab.org/projects/JavaBlend/spec.html
 
-[3] http://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License
+[3] http://www.gnu.org/licenses/gpl-2.0.txt
+    or: "licenses/gpl-2.0.txt"
 
-[4] http://blender.org
+[3] http://www.gnu.org/licenses/gpl-3.0.txt
+    or: "licenses/gpl-3.0.txt"
+
+[5] http://blender.org
