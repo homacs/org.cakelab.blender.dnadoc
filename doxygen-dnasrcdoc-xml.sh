@@ -2,9 +2,8 @@
 #
 # This is a script which calls doxygen to produce xml output
 # from blender dna header files.
-# Unfortunately, I have deleted the xml2doc classes (have to 
-# write them again).
-#
+# The xml files are then processed by org.cakelab.jdoxml
+# to generate Java .Blend documentation files.
 #
 # -homac
 #
@@ -25,27 +24,34 @@ ENV_PATH_BASE="/home/homac/workspaces/blender/blender-2.78a"
 
 # REL_SRC_PATH
 #
-# Relative path to DNA structs (shouldn't change soon)
+# Path to DNA structs relative to ENV_PATH_BASE.
 REL_SRC_PATH="source/blender/makesdna"
 
 # OUTPUT_PATH
 # 
-# This is the root path of the target Java.Blend documentation path.
+# This is the root path of the target Java.Blend documentation.
+# The script will create a subdirectory $BLENDER_VERSION/dnasrc.
 OUTPUT_PATH="/home/homac/repos/git/github/homacs/JavaBlendDocs/resources/dnadoc"
 
 # ALL_COMMENTS
 #
-# Whether to convert existing documentation into doxygen
-# conform documentation.
+# Whether to convert all comments found in source code
+# into doxygen conform documentation.
 ALL_COMMENTS=true
 
 # JDOXML_CLASSPATH
+#
+# Classpath to the JDOX Parser implementation.
 JDOXML_CLASSPATH="/home/homac/repos/svn/cakelab.org/playground/org.cakelab.jdoxml/bin"
 
 # JSON_CLASSPATH
+#
+# Classpath to the JSON Codec implementation.
 JSON_CLASSPATH="/home/homac/repos/svn/cakelab.org/playground/org.cakelab.json/bin"
 
 # DNADOC_CLASSPATH
+#
+# Classpath to the Java .Blend Documentation generator.
 JAVA_BLEND_CLASSPATH="/home/homac/repos/svn/cakelab.org/playground/org.cakelab.blender.io/bin"
 
 
@@ -88,7 +94,7 @@ function preprocess () {
 
 if $ALL_COMMENTS ; then
 	# preprocess the source files and change every non-doxygen comment into a
-	# doxygen conform comment.
+	# doxygen conform comment (even // ).
 
 	# make a clean copy
 	tmp="/tmp/blender-$BLENDER_VERSION-preprocessed"
