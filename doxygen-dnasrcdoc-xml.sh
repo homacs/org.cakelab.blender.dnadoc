@@ -15,12 +15,12 @@
 # BLENDER_VERSION
 #
 # Major and minor part of blender version string
-BLENDER_VERSION=2.78
+BLENDER_VERSION=2.79
 
 # ENV_PATH_BASE
 #
 # Path to blender source code directory
-ENV_PATH_BASE="/home/homac/workspaces/blender/blender-2.78a"
+ENV_PATH_BASE="/home/homac/repos/git/blender.org/blender"
 
 # REL_SRC_PATH
 #
@@ -89,7 +89,9 @@ function preprocess () {
 	done
 }	
 
-
+if ! [ -d "$ENV_INPUT" ] ; then
+	error_exit "can't find '$ENV_INPUT'"
+fi
 
 
 if $ALL_COMMENTS ; then
@@ -103,7 +105,7 @@ if $ALL_COMMENTS ; then
 	cp -r $ENV_INPUT/* $tmp/$REL_SRC_PATH/.
 
 	# run preprocessing over copy
-	preprocess $tmp
+	preprocess $tmp || error_exit "preprocessing failed"
 	
 	# update environment variables
 	export ENV_PATH_BASE="$tmp"
@@ -122,8 +124,8 @@ export ENV_OUTPUT_DIR
 # config is in ./doxygen-dnasrcdoc-xml.doxygen
 # result goes in $ENV_OUTPUT_DIR
 rm -rf $ENV_OUTPUT_DIR
-doxygen ./blender-dnasrc-xml.doxygen
+doxygen ./blender-dnasrc-xml.doxygen || error_exit "doxygen execution failed"
 
 # extract documentation to dnadoc
 CLASSPATH="$JDOXML_CLASSPATH:$JSON_CLASSPATH:$JAVA_BLEND_CLASSPATH"
-java -cp $CLASSPATH org.cakelab.blender.doc.extract.dnadocs.Main -in "$ENV_OUTPUT_DIR" -out "$OUTPUT_PATH" -v "$BLENDER_VERSION"
+java -cp $CLASSPATH org.cakelab.blender.doc.extract.dnadocs.Main -in "$ENV_OUTPUT_DIR" -out "$OUTPUT_PATH" -v "$BLENDER_VERSION" || error_exit "dnadox extraction failed"
