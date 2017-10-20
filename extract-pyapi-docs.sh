@@ -15,13 +15,25 @@
 
 # Some default variables (maybe overridden by the user in config section below)
 # using standard installation.
+BLENDER_BASE=/home/homac/opt/blender-2.79-linux-glibc219-x86_64
+
+
+BLENDER=${BLENDER_BASE}/blender
+
 BLENDER_SYSTEM_SCRIPTS="/usr/share/blender/scripts"
-BLENDER=~/opt/blender-2.78a-linux-glibc211-x86_64/blender
 
 
 
 
 ################# CONFIGURATION SECTION ################
+
+# BLENDER_SYSTEM_SCRIPTS
+#
+# Directory which contains blender system scripts.
+# Default is "/usr/share/blender/scripts" .
+# When downloading and extracting blender manually it is instead
+# $BLENDER_BASE/$VERSION/scripts
+BLENDER_SYSTEM_SCRIPTS="${BLENDER_BASE}/*/scripts"
 
 # BLENDER_BUILD_ENV
 #
@@ -98,6 +110,18 @@ TMP=/tmp
 
 ################# END OF CONFIGURATION SECTION ################
 
+
+
+function error_exit () {
+	echo "error: $1" 1>&2
+	exit -1
+}
+
+function length () {
+	wc -l $1 | awk '{ print $1 }' 
+}
+
+
 if $BLENDER_BUILD_ENV ; then
 	# preparing to run the custom build blender executable
 
@@ -117,6 +141,15 @@ if [ -z "$VERSION" ] ; then
 	VERSION=`$BLENDER -v | grep "Blender" | head -n 1 | awk '{print $2}'`
 fi
 
+if [ -z "$VERSION" ] ; then
+	echo_exit "cannot determine blender version"
+fi
+
+if ! [ -e $SCRIPT ] ; then
+	echo_exit "script '$SCRIPT' does not exist." 
+fi
+
+
 
 echo "extracting blenders python api documentation."
 echo "blender executable: ${BLENDER}"
@@ -129,21 +162,36 @@ SCRIPT_OUTPUT=$TMP/pyapi-${VERSION}.txt
 CONVERTER_INPUT=$TMP/pyapi-${VERSION}-clean.txt
 
 rm -f $SCRIPT_OUTPUT
-$BLENDER --background -noaudio --python $SCRIPT 2> $SCRIPT_OUTPUT >/dev/null
+$BLENDER --background -noaudio --python $SCRIPT 2> $SCRIPT_OUTPUT >/dev/null || error_exit "blender did not successfully executed the script"
 
+len=`length $SCRIPT_OUTPUT`
+if [ $len -lt 10 ] ; then
+	error_exit "output contains less than 10 lines!"
+fi
+echo "output contains $len lines"
+count=1
 echo "removing debug output"
 cat $SCRIPT_OUTPUT | while read line && [ "$line" != "EOF" ] ; do 
+	echo -n -e "\rprocessing $((count++))" 1>&2
 	#
 	# filter debug output
 	#
 	if expr "$line" : "^[^\\.\\:]*:" >/dev/null; then 
 		continue ;
 	fi
-	echo "$line"	
+	echo "$line"
 done > $CONVERTER_INPUT
 
+echo ""
+
+len=`length "$CONVERTER_INPUT"`
+if [ $len -lt 10 ] ; then
+	error_exit "output contains less than 10 lines after removal of debug output!"
+fi
 
 
+
+echo "stripped output contains $len lines"
 echo "calling converter class: org.cakelab.blender.doc.extract.ExtractPyAPIDoc"
 
 CLASSPATH="$JSON_CLASSPATH:$JAVA_BLEND_CLASSPATH"
@@ -156,4 +204,5 @@ java -cp ${CLASSPATH} org.cakelab.blender.doc.extract.rnadocs.ExtractPyAPIDoc -v
 
 rm -f $SCRIPT_OUTPUT
 rm -f $CONVERTER_INPUT
+echo "successfully added documentation in \"${OUTPUT}\""
 echo "done."
