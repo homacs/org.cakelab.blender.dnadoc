@@ -14,7 +14,7 @@
 			}
 		},
 		"LinkData" : {
-			"doc" : "simple subclass of Link--use this when it is not worth defining a custom one...",
+			"doc" : "simple subclass of Link -- use this when it is not worth defining a custom one...",
 			"inherits" : ["Link"],
 			"fields" : {
 				"data" : "byte stream of arbitrary data."

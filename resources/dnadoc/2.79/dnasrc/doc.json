@@ -3,7 +3,7 @@
   "source": "Blender Source Code", 
   "structs": {
     "AnimData": {
-      "doc": "<p>{@link AnimData}  -------------------------------<mdash/><mdash/>  Animation data for some {@link ID}  block (adt)</p><p> This block of data is used to provide all of the necessary animation data for a datablock. Currently, this data will not be reusable, as there shouldn't be any need to do so.</p><p> This information should be made available for most if not all ID-blocks, which should enable all of its settings to be animatable locally. Animation from 'higher-up' ID-AnimData blocks may override local settings.</p><p> This datablock should be placed immediately after the {@link ID}  block where it is used, so that the code which retrieves this data can do so in an easier manner. See blenkernel/intern/anim_sys.c for details. </p>", 
+      "doc": "<p>{@link AnimData}  -----------------------------------  Animation data for some {@link ID}  block (adt)</p><p> This block of data is used to provide all of the necessary animation data for a datablock. Currently, this data will not be reusable, as there shouldn't be any need to do so.</p><p> This information should be made available for most if not all ID-blocks, which should enable all of its settings to be animatable locally. Animation from 'higher-up' ID-AnimData blocks may override local settings.</p><p> This datablock should be placed immediately after the {@link ID}  block where it is used, so that the code which retrieves this data can do so in an easier manner. See blenkernel/intern/anim_sys.c for details. </p>", 
       "fields": {
         "act_blendmode": "<p> settings for active action evaluation (based on NLA strip settings) accumulation mode for active action </p>", 
         "act_extendmode": "<p> extrapolation mode for active action </p>", 
@@ -21,7 +21,7 @@
       }
     }, 
     "AnimMapPair": {
-      "doc": "<p><hr/> \n 'Action' Datatypes NOTE: Although these are part of the Animation System, they are not stored here... see {@link DNA_action_types.h}  instead************************************************ Animation Reuse - i.e. users of Actions Retargetting -----------------------------<mdash/><mdash/>  Retargetting Pair</p><p> Defines what parts of the paths should be remapped from 'abc' to 'xyz'. TODO:<ul><li><p> Regrex (possibly provided through PY, though having our own module might be faster) would be important to have at some point. Current replacements are just simple string matches... </p></li></ul> \nRegrex (possibly provided through PY, though having our own module might be faster) would be important to have at some point. Current replacements are just simple string matches... \n</p>", 
+      "doc": "<p><hr/> \n 'Action' Datatypes NOTE: Although these are part of the Animation System, they are not stored here... see {@link DNA_action_types.h}  instead************************************************ Animation Reuse - i.e. users of Actions Retargetting ---------------------------------  Retargetting Pair</p><p> Defines what parts of the paths should be remapped from 'abc' to 'xyz'. TODO:<ul><li><p> Regrex (possibly provided through PY, though having our own module might be faster) would be important to have at some point. Current replacements are just simple string matches... </p></li></ul> \nRegrex (possibly provided through PY, though having our own module might be faster) would be important to have at some point. Current replacements are just simple string matches... \n</p>", 
       "fields": {
         "from": "<p> part of path to bed replaced </p>", 
         "to": "<p> part of path to replace with </p>"
@@ -35,7 +35,7 @@
       }
     }, 
     "AnimOverride": {
-      "doc": "<p><hr/> \n Animation Data {@link AnimOverride}  -------------------------------<mdash/><mdash/>  Animation Override (aor)</p><p> This is used to as temporary storage of values which have been changed by the user, but not yet keyframed (thus, would get overwritten by the animation system before the user had a chance to see the changes that were made).</p><p> It is probably not needed for overriding keyframed values in most cases, as those will only get evaluated on frame-change now. That situation may change in future. </p>", 
+      "doc": "<p><hr/> \n Animation Data {@link AnimOverride}  -----------------------------------  Animation Override (aor)</p><p> This is used to as temporary storage of values which have been changed by the user, but not yet keyframed (thus, would get overwritten by the animation system before the user had a chance to see the changes that were made).</p><p> It is probably not needed for overriding keyframed values in most cases, as those will only get evaluated on frame-change now. That situation may change in future. </p>", 
       "fields": {
         "array_index": "<p> if applicable, the index of the RNA-array item to get </p>", 
         "rna_path": "<p> RNA-path to use to resolve data-access </p>", 
@@ -117,7 +117,7 @@
       }
     }, 
     "bAction": {
-      "doc": "<p> Actions --------------------------------<mdash/><mdash/>  Action - reusable F-Curve 'bag' (act)</p><p> This contains F-Curves that may affect settings from more than one {@link ID}  blocktype and/or datablock (i.e. sub-data linked/used directly to the {@link ID}  block that the animation data is linked to), but with the restriction that the other unrelated data (i.e. data that is not directly used or linked to by the source {@link ID}  block).</p><p> It serves as a 'unit' of reusable animation information (i.e. keyframes/motion data), that affects a group of related settings (as defined by the user). </p>", 
+      "doc": "<p> Actions ------------------------------------  Action - reusable F-Curve 'bag' (act)</p><p> This contains F-Curves that may affect settings from more than one {@link ID}  blocktype and/or datablock (i.e. sub-data linked/used directly to the {@link ID}  block that the animation data is linked to), but with the restriction that the other unrelated data (i.e. data that is not directly used or linked to by the source {@link ID}  block).</p><p> It serves as a 'unit' of reusable animation information (i.e. keyframes/motion data), that affects a group of related settings (as defined by the user). </p>", 
       "fields": {
         "active_marker": "<p> index of the active marker </p>", 
         "chanbase": "<p><p> legacy data - Action Channels ({@link bActionChannel} ) in pre-2.5 animation system </p>\n@deprecated\n Deprecatedlegacy data - Action Channels (bActionChannel) in pre-2.5 animation system </p>", 
@@ -167,7 +167,7 @@
       }
     }, 
     "bActionGroup": {
-      "doc": "<p><hr/> \n Action Groups --------------------------------<mdash/><mdash/>  Action-Channel {@link Group}  (agrp)</p><p> These are stored as a list per-Action, and are only used to group that Action's channels in an Animation Editor.</p><p> Even though all FCurves live in a big list per Action, each group they are in also holds references to the achans within that list which belong to it. Care must be taken to ensure that action-groups never end up being the sole 'owner' of a channel.</p><p> This is also exploited for bone-groups. Bone-Groups are stored per {@link bPose} , and are used primarily to color bones in the 3d-view. There are other benefits too, but those are mostly related to Action-Groups.</p><p> Note that these two uses each have their own RNA 'ActionGroup' and 'BoneGroup'. </p>", 
+      "doc": "<p><hr/> \n Action Groups ------------------------------------  Action-Channel {@link Group}  (agrp)</p><p> These are stored as a list per-Action, and are only used to group that Action's channels in an Animation Editor.</p><p> Even though all FCurves live in a big list per Action, each group they are in also holds references to the achans within that list which belong to it. Care must be taken to ensure that action-groups never end up being the sole 'owner' of a channel.</p><p> This is also exploited for bone-groups. Bone-Groups are stored per {@link bPose} , and are used primarily to color bones in the 3d-view. There are other benefits too, but those are mostly related to Action-Groups.</p><p> Note that these two uses each have their own RNA 'ActionGroup' and 'BoneGroup'. </p>", 
       "fields": {
         "channels": "<p> Note: this must not be touched by standard listbase functions which would clear links to other channels </p>", 
         "cs": "<p> color set to use when customCol == -1 </p>", 
@@ -232,21 +232,21 @@
       }
     }, 
     "bAnimVizSettings": {
-      "doc": "<p> Visualization General ------------------<mdash/><mdash/><mdash/>  for Objects or Poses (but NOT PoseChannels) Animation Visualization Settings (avs) </p>", 
+      "doc": "<p> Visualization General ------------------------  for Objects or Poses (but NOT PoseChannels) Animation Visualization Settings (avs) </p>", 
       "fields": {
         "ghost_ac": "<p> number of frames before/after current frame to show </p>", 
         "ghost_ef": "<p> start and end frames of ghost-drawing range (only used for GHOST_TYPE_RANGE) </p>", 
         "ghost_flag": "<p> eOnionSkin_Flag </p>", 
-        "ghost_sf": "<p> Onion-Skinning Settings --------------<mdash/>  </p>", 
+        "ghost_sf": "<p> Onion-Skinning Settings ----------------  </p>", 
         "ghost_step": "<p> number of frames between each ghost shown (not for GHOST_TYPE_KEYS) </p>", 
         "ghost_type": "<p> eOnionSkin_Types </p>", 
         "path_ac": "<p> number of frames before/after current frame to show </p>", 
         "path_bakeflag": "<p> eMotionPaths_BakeFlag </p>", 
         "path_ef": "<p> start and end frames of path-calculation range </p>", 
         "path_step": "<p> number of frames between points indicated on the paths </p>", 
-        "path_type": "<p> Motion {@link Path}  Settings -------------<mdash/><mdash/>  eMotionPath_Types </p>", 
+        "path_type": "<p> Motion {@link Path}  Settings -----------------  eMotionPath_Types </p>", 
         "path_viewflag": "<p> eMotionPaths_ViewFlag </p>", 
-        "recalc": "<p> General Settings ------------------<mdash/><mdash/>  eAnimViz_RecalcFlags </p>"
+        "recalc": "<p> General Settings ----------------------  eAnimViz_RecalcFlags </p>"
       }
     }, 
     "bArmature": {
@@ -256,7 +256,7 @@
         "edbo": "<p> editbone listbase, we use pointer so we can check state </p>", 
         "gevertdeformer": "<p> how vertex deformation is handled in the ge </p>", 
         "ghostef": "<p> start and end frames of ghost-drawing range </p>", 
-        "ghostep": "<p> XXX deprecated... old animaton system (armature only viz) <mdash/> . </p>", 
+        "ghostep": "<p> XXX deprecated... old animaton system (armature only viz) -- . </p>", 
         "ghostsize": "<p> number of frames to ghosts to show, and step between them </p>", 
         "layer_protected": "<p> for buttons to work, both variables in this order together </p>", 
         "layer_used": "<p> for UI, to show which layers are there </p>", 
@@ -335,7 +335,7 @@
       "doc": "<p> XXX deprecated... old AnimSys. </p><p> channels reside in {@link Object}  or Action ({@link ListBase} ) constraintChannels </p>"
     }, 
     "bConstraintTarget": {
-      "doc": "<p> Multiple-target constraints ---------------<mdash/><mdash/>  This struct defines a constraint target. It is used during constraint solving regardless of how many targets the constraint has. </p>", 
+      "doc": "<p> Multiple-target constraints -------------------  This struct defines a constraint target. It is used during constraint solving regardless of how many targets the constraint has. </p>", 
       "fields": {
         "flag": "<p> runtime settings (for editor, etc.) </p>", 
         "matrix": "<p> matrix used during constraint solving - should be cleared before each use </p>", 
@@ -630,7 +630,7 @@
       }
     }, 
     "bLocLimitConstraint": {
-      "doc": "<p> transform limiting constraints - zero target ----------------------<mdash/><mdash/>  Limit Location Constraint </p>"
+      "doc": "<p> transform limiting constraints - zero target --------------------------  Limit Location Constraint </p>"
     }, 
     "bMessageActuator": {
       "fields": {
@@ -668,7 +668,7 @@
       }
     }, 
     "bMotionPathVert": {
-      "doc": "<p><hr/> \n Visualization Motion Paths ---------------------------<mdash/><mdash/><mdash/>  (used for Pose Channels and Objects) Data point for motion path (mpv) </p>", 
+      "doc": "<p><hr/> \n Visualization Motion Paths ---------------------------------  (used for Pose Channels and Objects) Data point for motion path (mpv) </p>", 
       "fields": {
         "co": "<p> coordinates of point in 3D-space </p>", 
         "flag": "<p> quick settings </p>"
@@ -883,7 +883,7 @@
       }
     }, 
     "BoundBox": {
-      "doc": "<p> The following illustrates the orientation of the bounding box in local space</p><p><pre></pre></p><p><pre> Z  Y\n| /\n|/\n.--<mdash/></pre></p><p><pre><pre>2----------6\n</pre> 2----------6\n\n   /|         /|\n  / |        / |\n 1-------<mdash/> 5  |\n |  |       |  |\n |  3----<mdash/> |<ndash/> 7\n | /        | /\n |/         |/\n 0-------<mdash/></pre>  </p>"
+      "doc": "<p> The following illustrates the orientation of the bounding box in local space</p><p><pre></pre></p><p><pre> Z  Y\n| /\n|/\n.----</pre></p><p><pre><pre>2----------6\n</pre> 2----------6\n\n   /|         /|\n  / |        / |\n 1--------- 5  |\n |  |       |  |\n |  3------ |<ndash/> 7\n | /        | /\n |/         |/\n 0---------</pre>  </p>"
     }, 
     "bPathCompare": {
       "fields": {
@@ -909,7 +909,7 @@
       }
     }, 
     "bPose": {
-      "doc": "<p> Pose ------------------------------<mdash/><mdash/>  Pose-Object.</p><p> It is only found under ob->pose. It is not library data, even though there is a define for it (hack for the outliner). </p>", 
+      "doc": "<p> Pose ----------------------------------  Pose-Object.</p><p> It is only found under ob->pose. It is not library data, even though there is a define for it (hack for the outliner). </p>", 
       "fields": {
         "active_group": "<p> index of active group (starts from 1) </p>", 
         "agroups": "<p> list of bActionGroups </p>", 
@@ -927,7 +927,7 @@
       }
     }, 
     "bPoseChannel": {
-      "doc": "<p><hr/> \n Poses PoseChannel ------------------------------<mdash/><mdash/>  PoseChannel</p><p> A PoseChannel stores the results of Actions and transform information with respect to the restposition of Armature bones </p>", 
+      "doc": "<p><hr/> \n Poses PoseChannel ----------------------------------  PoseChannel</p><p> A PoseChannel stores the results of Actions and transform information with respect to the restposition of Armature bones </p>", 
       "fields": {
         "agrp_index": "<p> index of action-group this bone belongs to (0 = default/no group) </p>", 
         "bbone_prev": "<p> next/prev bones to use as handle references when calculating bbones (optional) </p>", 
@@ -1161,7 +1161,7 @@
       }
     }, 
     "bStats": {
-      "doc": "<p><hr/> \n Assorted {@link Scene}  Data -------------------------------------<mdash/><mdash/>  Stats (show in Info header) </p>", 
+      "doc": "<p><hr/> \n Assorted {@link Scene}  Data -----------------------------------------  Stats (show in Info header) </p>", 
       "fields": {
         "totobj": "<p> scene totals for visible layers </p>"
       }
@@ -1192,7 +1192,7 @@
       }
     }, 
     "bTrackToConstraint": {
-      "doc": "<p> Single-target subobject constraints ---------------<mdash/><mdash/>  Track To Constraint </p>", 
+      "doc": "<p> Single-target subobject constraints -------------------  Track To Constraint </p>", 
       "fields": {
         "reserved1": "<p> I'll be using reserved1 and reserved2 as Track and Up flags, not sure if that's what they were intended for anyway. Not sure either if it would create backward incompatibility if I were to rename them.<ul><li><p> theeth </p></li></ul> \ntheeth \n</p>", 
         "subtarget": "<p> MAX_ID_NAME-2 </p>"
@@ -1574,7 +1574,7 @@
       }
     }, 
     "DriverTarget": {
-      "doc": "<p> Drivers --------------------------------<mdash/><mdash/>  Driver Target (dtar)</p><p> Defines how to access a dependency needed for a driver variable. </p>", 
+      "doc": "<p> Drivers ------------------------------------  Driver Target (dtar)</p><p> Defines how to access a dependency needed for a driver variable. </p>", 
       "fields": {
         "flag": "<p> flags for the validity of the target (NOTE: these get reset every time the types change) </p>", 
         "id": "<p> ID-block which owns the target, no user count </p>", 
@@ -1753,7 +1753,7 @@
         "active_file": "<p> active file used for keyboard navigation </p>", 
         "dir": "<p> directory, FILE_MAX_LIBEXTRA, 1024 + 66, this is for extreme case when 1023 length path needs to be linked in, where foo.blend/Armature need adding </p>", 
         "display": "<p> display mode flag </p>", 
-        "f_fp": "<p> XXX <mdash/>  still unused <ndash/>  show font preview </p>", 
+        "f_fp": "<p> XXX --  still unused <ndash/>  show font preview </p>", 
         "file": "<p> file </p>", 
         "filter": "<p> filter when (flags & FILE_FILTER) is true </p>", 
         "filter_glob": "<p> list of filetypes to filter </p>", 
@@ -1876,7 +1876,7 @@
       }
     }, 
     "FModifier": {
-      "doc": "<p><hr/> \n F-Curve DataTypes Modifiers --------------------------------<mdash/><mdash/>  F-Curve Modifiers (fcm)</p><p> These alter the way F-Curves behave, by altering the value that is returned when evaluating the curve's data at some time (t). </p>", 
+      "doc": "<p><hr/> \n F-Curve DataTypes Modifiers ------------------------------------  F-Curve Modifiers (fcm)</p><p> These alter the way F-Curves behave, by altering the value that is returned when evaluating the curve's data at some time (t). </p>", 
       "fields": {
         "blendin": "<p> number of frames from sfra before modifier takes full influence </p>", 
         "blendout": "<p> number of frames from efra before modifier fades out </p>", 
@@ -1890,7 +1890,7 @@
       }
     }, 
     "FPoint": {
-      "doc": "<p> F-Curves --------------------------------<mdash/><mdash/>  {@link FPoint}  (fpt)</p><p> This is the bare-minimum data required storing motion samples. Should be more efficient than using BPoints, which contain a lot of other unnecessary data... </p>", 
+      "doc": "<p> F-Curves ------------------------------------  {@link FPoint}  (fpt)</p><p> This is the bare-minimum data required storing motion samples. Should be more efficient than using BPoints, which contain a lot of other unnecessary data... </p>", 
       "fields": {
         "flag": "<p> selection info </p>", 
         "vec": "<p> time + value </p>"
@@ -2054,7 +2054,7 @@
       }
     }, 
     "IdAdtTemplate": {
-      "doc": "<p>{@link Base}  Struct for Anim -------------------------------<mdash/><mdash/>  Used for BKE_animdata_from_id() All ID-datablocks which have their own 'local' {@link AnimData}  should have the same arrangement in their structs. </p>"
+      "doc": "<p>{@link Base}  Struct for Anim -----------------------------------  Used for BKE_animdata_from_id() All ID-datablocks which have their own 'local' {@link AnimData}  should have the same arrangement in their structs. </p>"
     }, 
     "IDProperty": {
       "fields": {
@@ -2096,7 +2096,7 @@
         "cineon_flag": "<p> Cineon </p>", 
         "compress": "<p> (0 - 100), eg: png compression </p>", 
         "depth": "<p> note, video types should only ever be set from this structure when used from {@link RenderData}  bits per channel, R_IMF_CHAN_DEPTH_8 -> 32, not a flag, only set 1 at a time </p>", 
-        "exr_codec": "<p><mdash/>  format specific <mdash/>  OpenEXR </p>", 
+        "exr_codec": "<p>--  format specific --  OpenEXR </p>", 
         "flag": "<p> generic options for all image types, alpha zbuffer </p>", 
         "imtype": "<p> R_IMF_IMTYPE_PNG, R_... </p>", 
         "jp2_flag": "<p> Jpeg2000 </p>", 
@@ -2144,7 +2144,7 @@
       }
     }, 
     "Ipo": {
-      "doc": "<p><mdash/>  ID-Datablock <mdash/>  IPO Data-Block </p>", 
+      "doc": "<p>--  ID-Datablock --  IPO Data-Block </p>", 
       "fields": {
         "cur": "<p> Rect defining extents of keyframes? </p>", 
         "curve": "<p> A list of {@link IpoCurve}  structs in a linked list. </p>", 
@@ -2153,7 +2153,7 @@
       }
     }, 
     "IpoCurve": {
-      "doc": "<p><mdash/>  IPO {@link Curve}  <mdash/>  IPO {@link Curve}  </p>", 
+      "doc": "<p>--  IPO {@link Curve}  --  IPO {@link Curve}  </p>", 
       "fields": {
         "bezt": "<p> array of BezTriples (sizeof(BezTriple) * totvert) - i.e. user-editable keyframes </p>", 
         "bitmask": "<p> ??? </p>", 
@@ -2170,7 +2170,7 @@
       }
     }, 
     "IpoDriver": {
-      "doc": "<p> -----------------<mdash/><mdash/><mdash/>  Type Defines ------------------<mdash/><mdash/><mdash/>  <mdash/>  IPO {@link Curve}  Driver <mdash/>  IPO {@link Curve}  Driver </p>", 
+      "doc": "<p> -----------------------  Type Defines ------------------------  --  IPO {@link Curve}  Driver --  IPO {@link Curve}  Driver </p>", 
       "fields": {
         "adrcode": "<p> sub-channel to use </p>", 
         "flag": "<p> driver settings </p>", 
@@ -2334,7 +2334,7 @@
       "doc": "<p> generic - all structs which are put into linked lists begin with this </p>"
     }, 
     "LinkData": {
-      "doc": "<p> simple subclass of {@link Link} <ndash/> use this when it is not worth defining a custom one... </p>"
+      "doc": "<p> simple subclass of {@link Link} &ndash; use this when it is not worth defining a custom one... </p>"
     }, 
     "ListBase": {
       "doc": "<p> never change the size of this! genfile.c detects pointerlen with it </p>"
@@ -2872,7 +2872,7 @@
       }
     }, 
     "NlaStrip": {
-      "doc": "<p><hr/> \n NLA - Non-Linear Animation NLA Strips -------------------------------<mdash/><mdash/>  NLA {@link Strip}  (strip)</p><p> A NLA {@link Strip}  is a container for the reuse of Action data, defining parameters to control the remapping of the Action data to some destination. </p>", 
+      "doc": "<p><hr/> \n NLA - Non-Linear Animation NLA Strips -----------------------------------  NLA {@link Strip}  (strip)</p><p> A NLA {@link Strip}  is a container for the reuse of Action data, defining parameters to control the remapping of the Action data to some destination. </p>", 
       "fields": {
         "act": "<p> Action that is referenced by this strip (strip is 'user' of the action) </p>", 
         "actend": "<p> range of the action to use </p>", 
@@ -2895,7 +2895,7 @@
       }
     }, 
     "NlaTrack": {
-      "doc": "<p> NLA Tracks -------------------------------<mdash/><mdash/>  NLA Track (nlt)</p><p> A track groups a bunch of 'strips', which should form a continuous set of motion, on top of which other such groups can be layered. This should allow for animators to work in a non-destructive manner, layering tweaks, etc. over 'rough' blocks of their work. </p>", 
+      "doc": "<p> NLA Tracks -----------------------------------  NLA Track (nlt)</p><p> A track groups a bunch of 'strips', which should form a continuous set of motion, on top of which other such groups can be layered. This should allow for animators to work in a non-destructive manner, layering tweaks, etc. over 'rough' blocks of their work. </p>", 
       "fields": {
         "flag": "<p> settings for this track </p>", 
         "index": "<p> index of the track in the stack (NOTE: not really useful, but we need a pad var anyways!) </p>", 
@@ -3584,14 +3584,14 @@
       "doc": "<p><hr/> \n RigidBody {@link World}  {@link RigidBodyWorld}  (rbw)</p><p> Represents a \"simulation scene\" existing within the parent scene. </p>", 
       "fields": {
         "constraints": "<p>{@link Group}  containing objects to use for Rigid Body Constraints </p>", 
-        "effector_weights": "<p> Sim {@link World}  Settings -------------------------------------------------------<mdash/><mdash/>  effectors info </p>", 
+        "effector_weights": "<p> Sim {@link World}  Settings -----------------------------------------------------------  effectors info </p>", 
         "flag": "<p> (eRigidBodyWorld_Flag) settings for this {@link RigidBodyWorld}  </p>", 
         "group": "<p>{@link Group}  containing objects to use for Rigid Bodies </p>", 
         "ltime": "<p> last frame world was evaluated for (internal) </p>", 
         "num_solver_iterations": "<p> number of constraint solver iterations made per simulation step </p>", 
         "numbodies": "<p> number of objects in rigid body group </p>", 
         "objects": "<p> Array to access group objects by index, only used at runtime </p>", 
-        "physics_world": "<p> References to Physics Sim objects. Exist at runtime only ----------------<mdash/><mdash/>  Physics sim world (i.e. btDiscreteDynamicsWorld) </p>", 
+        "physics_world": "<p> References to Physics Sim objects. Exist at runtime only --------------------  Physics sim world (i.e. btDiscreteDynamicsWorld) </p>", 
         "pointcache": "<p> cache </p>", 
         "steps_per_second": "<p> number of simulation steps thaken per second </p>", 
         "time_scale": "<p> used to speed up or slow down the simulation </p>"
