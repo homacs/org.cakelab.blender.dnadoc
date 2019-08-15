@@ -13,33 +13,47 @@
 # -homac
 #
 
-# Some default variables (maybe overridden by the user in config section below)
-# using standard installation.
-BLENDER_BASE=/home/homac/opt/blender-2.79-linux-glibc219-x86_64
 
-
-BLENDER=${BLENDER_BASE}/blender
-
-BLENDER_SYSTEM_SCRIPTS="/usr/share/blender/scripts"
 
 
 
 
 ################# CONFIGURATION SECTION ################
 
+
+# BLENDER_BASE
+# Base directory of the blender installation.
+# This may be overriden when using a custom build environment
+# to be configured further below.
+BLENDER_BASE=/home/homac/opt/blender-2.80-linux-glibc217-x86_64
+
+
+# BLENDER
+# Path to blender executable. Used to determine blender 
+# version by executing: 
+# > blender -v
+# This variable may be overridden, when using a custom build
+# environment, as to be configured below.
+BLENDER=${BLENDER_BASE}/blender
+
+
+
+
 # BLENDER_SYSTEM_SCRIPTS
 #
 # Directory which contains blender system scripts.
 # Default is "/usr/share/blender/scripts" .
+# > BLENDER_SYSTEM_SCRIPTS="/usr/share/blender/scripts"
 # When downloading and extracting blender manually it is instead
-# $BLENDER_BASE/$VERSION/scripts
+# > BLENDER_SYSTEM_SCRIPTS="${BLENDER_BASE}/$VERSION/scripts"
+# Since we do not know the version yet, we use a wildcard path instead:
 BLENDER_SYSTEM_SCRIPTS="${BLENDER_BASE}/*/scripts"
 
 # BLENDER_BUILD_ENV
 #
 # This variable controls whether the script uses the standard
 # installation or a custom built installation in a different
-# directory.
+# directory. Valid values: true/false
 BLENDER_BUILD_ENV=false
 
 # BLENDER_SOURCE
@@ -142,7 +156,7 @@ if [ -z "$VERSION" ] ; then
 fi
 
 if [ -z "$VERSION" ] ; then
-	echo_exit "cannot determine blender version"
+	echo_exit "cannot determine blender version."
 fi
 
 if ! [ -e $SCRIPT ] ; then
