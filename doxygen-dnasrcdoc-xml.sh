@@ -15,7 +15,7 @@
 # BLENDER_VERSION
 #
 # Major and minor part of blender version string
-BLENDER_VERSION=2.80
+BLENDER_VERSION=2.81
 
 # ENV_PATH_BASE
 #
@@ -42,17 +42,17 @@ ALL_COMMENTS=true
 # JDOXML_CLASSPATH
 #
 # Classpath to the JDOX Parser implementation.
-JDOXML_CLASSPATH="/home/homac/repos/svn/cakelab.org/playground/org.cakelab.jdoxml/bin"
+JDOXML_CLASSPATH="/home/homac/repos/git/cakelab.org/playground/org.cakelab.jdoxml/bin"
 
 # JSON_CLASSPATH
 #
 # Classpath to the JSON Codec implementation.
-JSON_CLASSPATH="/home/homac/repos/svn/cakelab.org/playground/org.cakelab.json/bin"
+JSON_CLASSPATH="/home/homac/repos/git/cakelab.org/playground/org.cakelab.json/bin"
 
 # DNADOC_CLASSPATH
 #
 # Classpath to the Java .Blend Documentation generator.
-JAVA_BLEND_CLASSPATH="/home/homac/repos/svn/cakelab.org/playground/org.cakelab.blender.io/bin"
+JAVA_BLEND_CLASSPATH="/home/homac/repos/git/cakelab.org/playground/org.cakelab.blender.io/bin"
 
 
 ################## CONFIG SECTION END ###############

@@ -25,8 +25,7 @@
 # Base directory of the blender installation.
 # This may be overriden when using a custom build environment
 # to be configured further below.
-BLENDER_BASE=/home/homac/opt/blender-2.80-linux-glibc217-x86_64
-
+BLENDER_BASE=/home/homac/opt/blender-2.81-95f020c853d6-linux-glibc217-x86_64
 
 # BLENDER
 # Path to blender executable. Used to determine blender 
@@ -75,12 +74,12 @@ BLENDER_BUILD="$BLENDER_SOURCE/build"
 # JSON_CLASSPATH
 # 
 # classpath for dependency org.cakelab.json
-JSON_CLASSPATH="/home/homac/repos/svn/cakelab.org/playground/org.cakelab.json/bin"
+JSON_CLASSPATH="/home/homac/repos/git/cakelab.org/playground/org.cakelab.json/bin"
 
 # JAVA_BLEND_CLASSPATH
 # 
 # Java .Blend SDK class path
-JAVA_BLEND_CLASSPATH="/home/homac/repos/svn/cakelab.org/playground/org.cakelab.blender.io/bin"
+JAVA_BLEND_CLASSPATH="/home/homac/repos/git/cakelab.org/playground/org.cakelab.blender.io/bin"
 
 #
 # SCRIPT
@@ -215,8 +214,16 @@ CLASSPATH="$JSON_CLASSPATH:$JAVA_BLEND_CLASSPATH"
 echo "CLASSPATH=$CLASSPATH"
 java -cp ${CLASSPATH} org.cakelab.blender.doc.extract.rnadocs.ExtractPyAPIDoc -v ${VERSION} -in $CONVERTER_INPUT -out ${OUTPUT}
 
+EXTRACT_RESULT="$?"
 
 rm -f $SCRIPT_OUTPUT
 rm -f $CONVERTER_INPUT
-echo "successfully added documentation in \"${OUTPUT}\""
-echo "done."
+
+if [ $EXTRACT_RESULT -eq 0 ]
+then
+	echo "successfully added documentation in \"${OUTPUT}\""
+	echo "done."
+else
+	echo " "
+	echo "extract resulted in ERRORS (see above)."
+fi
