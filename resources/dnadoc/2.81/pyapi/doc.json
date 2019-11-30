@@ -344,6 +344,15 @@
         "width": "Horizontal dimension of the baking map"
       }
     }, 
+    "BatchRenameAction": {
+      "fields": {
+        "use_replace_regex_dst": "Use regular expression for the replacement text (supporting groups)", 
+        "use_replace_regex_src": "Use regular expressions to match text in the 'Find' field"
+      }, 
+      "inherits": [
+        "PropertyGroup"
+      ]
+    }, 
     "BevelModifier": {
       "fields": {
         "angle_limit": "Angle above which to bevel edges", 
@@ -660,7 +669,6 @@
         "falloff_angle": "Paint most on faces pointing towards the view according to this angle", 
         "fill_threshold": "Threshold above which filling is not propagated", 
         "gpencil_settings": "(read-only)", 
-        "gpencil_tool": "Category of the brush", 
         "grad_spacing": "Spacing before brush gradient goes full circle", 
         "gradient": "(read-only)", 
         "height": "Affectable height of brush (layer height for layer tool, i.e.)", 
@@ -712,6 +720,7 @@
         "use_offset_pressure": "Enable tablet pressure sensitivity for offset", 
         "use_original_normal": "When locked keep using normal of surface where stroke was initiated", 
         "use_original_plane": "When locked keep using the plane origin of surface where stroke was initiated", 
+        "use_paint_antialiasing": "Smooths the edges of the strokes", 
         "use_paint_grease_pencil": "Use this brush in grease pencil drawing mode", 
         "use_paint_image": "Use this brush in texture paint mode", 
         "use_paint_sculpt": "Use this brush in sculpt mode", 
@@ -2290,7 +2299,10 @@
         "longitude_max": "Maximum longitude (horizontal angle) for the equirectangular lens", 
         "longitude_min": "Minimum longitude (horizontal angle) for the equirectangular lens", 
         "panorama_type": "Distortion to use for the calculation"
-      }
+      }, 
+      "inherits": [
+        "PropertyGroup"
+      ]
     }, 
     "CyclesCurveRenderSettings": {
       "fields": {
@@ -2300,7 +2312,10 @@
         "shape": "Form of hair", 
         "subdivisions": "Number of subdivisions used in Cardinal curve intersection (power of 2)", 
         "use_curves": "Activate Cycles hair rendering for particle system"
-      }
+      }, 
+      "inherits": [
+        "PropertyGroup"
+      ]
     }, 
     "CyclesLightSettings": {
       "fields": {
@@ -2309,7 +2324,10 @@
         "max_bounces": "Maximum number of bounces the light will contribute to the render", 
         "samples": "Number of light samples to render for each AA sample", 
         "use_multiple_importance_sampling": "Use multiple importance sampling for the light, reduces noise for area lights and sharp glossy materials"
-      }
+      }, 
+      "inherits": [
+        "PropertyGroup"
+      ]
     }, 
     "CyclesMaterialSettings": {
       "fields": {
@@ -2319,7 +2337,10 @@
         "use_transparent_shadow": "Use transparent shadows for this material if it contains a Transparent BSDF, disabling will render faster but not give accurate shadows", 
         "volume_interpolation": "Interpolation method to use for smoke/fire volumes", 
         "volume_sampling": "Sampling method to use for volumes"
-      }
+      }, 
+      "inherits": [
+        "PropertyGroup"
+      ]
     }, 
     "CyclesObjectSettings": {
       "fields": {
@@ -2332,7 +2353,19 @@
         "use_deform_motion": "Use deformation motion blur for this object", 
         "use_distance_cull": "Allow this object and its duplicators to be culled by distance from camera", 
         "use_motion_blur": "Use motion blur for this object"
-      }
+      }, 
+      "inherits": [
+        "PropertyGroup"
+      ]
+    }, 
+    "CyclesPreferences": {
+      "fields": {
+        "compute_device_type": "Device to use for computation (rendering with Cycles)", 
+        "devices": "(read-only)"
+      }, 
+      "inherits": [
+        "AddonPreferences"
+      ]
     }, 
     "CyclesRenderLayerSettings": {
       "fields": {
@@ -2363,7 +2396,10 @@
         "use_pass_crypto_object": "Render cryptomatte object pass, for isolating objects in compositing", 
         "use_pass_volume_direct": "Deliver direct volumetric scattering pass", 
         "use_pass_volume_indirect": "Deliver indirect volumetric scattering pass"
-      }
+      }, 
+      "inherits": [
+        "PropertyGroup"
+      ]
     }, 
     "CyclesRenderSettings": {
       "fields": {
@@ -2438,12 +2474,18 @@
         "volume_max_steps": "Maximum number of steps through the volume before giving up, to avoid extremely long render times with big objects or small step sizes", 
         "volume_samples": "Number of volume scattering samples to render for each AA sample", 
         "volume_step_size": "Distance between volume shader samples when rendering the volume (lower values give more accurate and detailed results, but also increased render time)"
-      }
+      }, 
+      "inherits": [
+        "PropertyGroup"
+      ]
     }, 
     "CyclesView3DShadingSettings": {
       "fields": {
         "render_pass": "Render pass to show in the 3D Viewport"
-      }
+      }, 
+      "inherits": [
+        "PropertyGroup"
+      ]
     }, 
     "CyclesVisibilitySettings": {
       "fields": {
@@ -2453,7 +2495,10 @@
         "scatter": "Object visibility for volume scatter rays", 
         "shadow": "Object visibility for shadow rays", 
         "transmission": "Object visibility for transmission rays"
-      }
+      }, 
+      "inherits": [
+        "PropertyGroup"
+      ]
     }, 
     "CyclesWorldSettings": {
       "fields": {
@@ -2464,7 +2509,10 @@
         "sampling_method": "How to sample the background light", 
         "volume_interpolation": "Interpolation method to use for volumes", 
         "volume_sampling": "Sampling method to use for volumes"
-      }
+      }, 
+      "inherits": [
+        "PropertyGroup"
+      ]
     }, 
     "DampedTrackConstraint": {
       "fields": {
@@ -3667,21 +3715,6 @@
       "fields": {
         "group": "(read-only)", 
         "weight": "Vertex Weight"
-      }
-    }, 
-    "GPUFXSettings": {
-      "fields": {
-        "ssao": "(read-only)", 
-        "use_ssao": "Use screen space ambient occlusion of field on viewport"
-      }
-    }, 
-    "GPUSSAOSettings": {
-      "fields": {
-        "attenuation": "Attenuation constant", 
-        "color": "Color for screen space ambient occlusion effect", 
-        "distance_max": "Distance of object that contribute to the SSAO effect", 
-        "factor": "Strength of the SSAO effect", 
-        "samples": "Number of samples"
       }
     }, 
     "GreasePencil": {
@@ -5430,10 +5463,6 @@
         "polygon_layers_int": "(read-only)", 
         "polygon_layers_string": "(read-only)", 
         "polygons": "(read-only)    Polygons of the mesh", 
-        "remesh_fix_poles": "Produces less poles and a better topology flow", 
-        "remesh_preserve_paint_mask": "Keep the current mask on the new mesh", 
-        "remesh_preserve_volume": "Projects the mesh to preserve the volume and details of the original mesh", 
-        "remesh_smooth_normals": "Smooth the normals of the remesher result", 
         "remesh_voxel_adaptivity": "Reduces the final face count by simplifying geometry where detail is not needed, generating triangles. A value greater than 0 disables Fix Poles", 
         "remesh_voxel_size": "Size of the voxel in object space used for volume evaluation. Lower values preserve finer details", 
         "shape_keys": "(read-only)", 
@@ -5453,6 +5482,10 @@
         "use_mirror_z": "Z Axis mirror editing", 
         "use_paint_mask": "Face selection masking for painting", 
         "use_paint_mask_vertex": "Vertex selection masking for painting", 
+        "use_remesh_fix_poles": "Produces less poles and a better topology flow", 
+        "use_remesh_preserve_paint_mask": "Keep the current mask on the new mesh", 
+        "use_remesh_preserve_volume": "Projects the mesh to preserve the volume and details of the original mesh", 
+        "use_remesh_smooth_normals": "Smooth the normals of the remesher result", 
         "uv_layer_clone": "UV loop layer to be used as cloning source", 
         "uv_layer_clone_index": "Clone UV loop layer index", 
         "uv_layer_stencil": "UV loop layer to mask the painted area", 
@@ -6291,6 +6324,14 @@
       "fields": {
         "active": "Active node in this tree"
       }
+    }, 
+    "NodeSetting": {
+      "fields": {
+        "value": "Python expression to be evaluated as the initial node setting"
+      }, 
+      "inherits": [
+        "PropertyGroup"
+      ]
     }, 
     "NodeSocket": {
       "fields": {
@@ -7717,7 +7758,6 @@
         "use_duplicate_action": "Causes actions to be duplicated with the object", 
         "use_duplicate_armature": "Causes armature data to be duplicated with the object", 
         "use_duplicate_curve": "Causes curve data to be duplicated with the object", 
-        "use_duplicate_fcurve": "Causes F-curve data to be duplicated with the object", 
         "use_duplicate_grease_pencil": "Causes grease pencil data to be duplicated with the object", 
         "use_duplicate_light": "Causes light data to be duplicated with the object", 
         "use_duplicate_lightprobe": "Causes light probe data to be duplicated with the object", 
@@ -7727,7 +7767,6 @@
         "use_duplicate_particle": "Causes particle systems to be duplicated with the object", 
         "use_duplicate_surface": "Causes surface data to be duplicated with the object", 
         "use_duplicate_text": "Causes text data to be duplicated with the object", 
-        "use_duplicate_texture": "Causes texture data to be duplicated with the object", 
         "use_enter_edit_mode": "Enter Edit Mode automatically after adding a new object", 
         "use_global_undo": "Global undo works by keeping a full copy of the file itself in memory, so takes extra memory", 
         "use_insertkey_xyz_to_rgb": "Color for newly added transformation F-Curves (Location, Rotation, Scale) and also Color is based on the transform axis", 
@@ -9972,7 +10011,6 @@
         "camera": "Active camera used in this view (when unlocked from the scene's active camera)", 
         "clip_end": "3D View far clipping distance", 
         "clip_start": "3D View near clipping distance (perspective view only)", 
-        "fx_settings": "(read-only)    Options used for real time compositing", 
         "icon_from_show_object_viewport": "(read-only)", 
         "lens": "Viewport lens angle", 
         "local_view": "(read-only)    Display an isolated sub-set of objects, apart from the scene visibility", 
@@ -10402,8 +10440,8 @@
     }, 
     "TextSequence": {
       "fields": {
-        "align_x": "Align the text along the X axis, relative to the text midpoint", 
-        "align_y": "Align the image along the Y axis, relative to the text midpoint", 
+        "align_x": "Align the text along the X axis, relative to the text bounds", 
+        "align_y": "Align the text along the Y axis, relative to the text bounds", 
         "color": "Text color", 
         "font": "Font of the text. Falls back to the UI font by default", 
         "font_size": "Size of the text", 

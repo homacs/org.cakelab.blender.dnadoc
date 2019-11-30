@@ -25,7 +25,7 @@
 # Base directory of the blender installation.
 # This may be overriden when using a custom build environment
 # to be configured further below.
-BLENDER_BASE=/home/homac/opt/blender-2.81-95f020c853d6-linux-glibc217-x86_64
+BLENDER_BASE=/home/homac/opt/blender-2.81-linux-glibc217-x86_64
 
 # BLENDER
 # Path to blender executable. Used to determine blender 

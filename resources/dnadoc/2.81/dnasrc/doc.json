@@ -229,9 +229,9 @@
         "act_edbone": "<p> Active editbone (in editmode). </p>", 
         "bonehash": "<p> Ghash for quicker lookups of bones by name. </p>", 
         "edbo": "<p> Editbone listbase, we use pointer so we can check state. </p>", 
-        "gevertdeformer": "<p> How vertex deformation is handled in the ge. </p>", 
         "layer": "<p> For buttons to work, both variables in this order together. </p>", 
-        "layer_used": "<p> For UI, to show which layers are there. </p>"
+        "layer_used": "<p> For UI, to show which layers are there. </p>", 
+        "needs_flush_to_id": "<p>{@link ID}  data is older than edit-mode data (TODO: move to edit-mode struct). </p>"
       }
     }, 
     "bArmatureConstraint": {
@@ -432,9 +432,9 @@
         "cp_points": "<p> Array of control-points for stroke. </p>", 
         "mode": "<p> Settings for color. </p>", 
         "sbuffer": "<p> Stroke buffer. </p>", 
-        "sbuffer_sflag": "<p> Flags for stroke that cache represents. </p>", 
+        "sbuffer_sflag": "<p> Stroke Buffer data (only used during paint-session)<ul><li><p> buffer must be initialized before use, but freed after whole paint operation is overFlags for stroke that cache represents. </p></li></ul> \nbuffer must be initialized before use, but freed after whole paint operation is overFlags for stroke that cache represents. \n</p>", 
         "sbuffer_size": "<p> Number of total elements available in cache. </p>", 
-        "sbuffer_used": "<p> Stroke Buffer data (only used during paint-session)<ul><li><p> buffer must be initialized before use, but freed after whole paint operation is overNumber of elements currently used in cache. </p></li></ul> \nbuffer must be initialized before use, but freed after whole paint operation is overNumber of elements currently used in cache. \n</p>", 
+        "sbuffer_used": "<p> Number of elements currently used in cache. </p>", 
         "scolor": "<p> GP {@link Object}  drawing Buffer stroke color. </p>", 
         "sfill": "<p> Buffer fill color. </p>", 
         "tot_cp_points": "<p> Number of control-points for stroke. </p>"
@@ -974,7 +974,7 @@
         "curve": "<p> Falloff curve. </p>", 
         "falloff_shape": "<p> Projection shape (sphere, circle). </p>", 
         "fill_threshold": "<p> fill tool </p>", 
-        "flag": "<p> General purpose flag. </p>", 
+        "flag": "<p> General purpose flags. </p>", 
         "gpencil_tool": "<p> Active grease pencil tool. </p>", 
         "gradient": "<p> Color gradient. </p>", 
         "gradient_fill_mode": "<p> Source for fill tool color gradient application. </p>", 
@@ -1671,6 +1671,11 @@
         "seqbasep": "<p> Pointer to the current list of seq's being edited (can be within a meta strip). </p>"
       }
     }, 
+    "EditLatt": {
+      "fields": {
+        "needs_flush_to_id": "<p>{@link ID}  data is older than edit-mode data. Set #Main.is_memfile_undo_flush_needed when enabling. </p>"
+      }
+    }, 
     "EditMeshData": {
       "fields": {
         "polyCos": "<p><em></em>  </p>", 
@@ -1679,8 +1684,10 @@
       }
     }, 
     "EditNurb": {
+      "doc": "<p> These two Lines with # tell makesdna this struct can be excluded. </p>", 
       "fields": {
         "keyindex": "<p> index data for shape keys </p>", 
+        "needs_flush_to_id": "<p>{@link ID}  data is older than edit-mode data. Set #Main.is_memfile_undo_flush_needed when enabling. </p>", 
         "nurbs": "<p> base of nurbs' list (old Curve->editnurb) </p>", 
         "shapenr": "<p> shape key being edited </p>"
       }
@@ -2005,20 +2012,9 @@
       "doc": "<p> grease pencil drawing brushes </p>"
     }, 
     "GPUDOFSettings": {
-      "doc": "<p> Properties for dof effect. </p>", 
+      "doc": "<p> Keep for '{@link Camera} ' versioning. Properties for dof effect. </p>", 
       "fields": {
         "focus_distance": "<p> Focal distance for depth of field. </p>"
-      }
-    }, 
-    "GPUFXSettings": {
-      "fields": {
-        "fx_flag": "<p>{@link eGPUFXFlags} . </p>"
-      }
-    }, 
-    "GPUSSAOSettings": {
-      "doc": "<p> Properties for SSAO effect. </p>", 
-      "fields": {
-        "samples": "<p> Ray samples, we use presets here for easy control instead of. </p>"
       }
     }, 
     "GridPaintMask": {
@@ -2686,6 +2682,7 @@
         "lastelem": "<p> used in editmode {@link ListBase}  edit_elems; </p>", 
         "loc": "<p> texture space, copied as one block in editobject.c </p>", 
         "mat": "<p> material of the mother ball will define the material used of all others </p>", 
+        "needs_flush_to_id": "<p>{@link ID}  data is older than edit-mode data (TODO: move to edit-mode struct). Set #Main.is_memfile_undo_flush_needed when enabling. </p>", 
         "texflag": "<p> Used to store MB_AUTOSPACE. </p>", 
         "thresh": "<p> bias elements to have an offset volume. mother ball changes will effect other objects thresholds, but these may also have their own thresh as an offset </p>", 
         "wiresize": "<p> Display and render res. </p>"
@@ -4946,7 +4943,6 @@
         "bundle_size": "<p> Size of bundles in reconstructed data. </p>", 
         "dist": "<p>\n@deprecated\n Deprecated</p>", 
         "drawtype": "<p>\n@deprecated\n Deprecated</p>", 
-        "fx_settings": "<p><em></em>  allocated, instead set (temporarily) from camera </p>", 
         "gizmo_flag": "<p> Transform gizmo info. #V3D_GIZMO_SHOW_* </p>", 
         "gpd": "<p> XXX deprecated? Grease-Pencil Data (annotation layers). \n@deprecated\n Deprecated</p>", 
         "gridsubdiv": "<p> Number of subdivisions in the grid between each highlighted grid line. </p>", 
