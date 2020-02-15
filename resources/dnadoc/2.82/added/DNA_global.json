@@ -1,0 +1,55 @@
+{
+	"system" : "Blender",
+	"module" : "DNA",
+	"version" : "2.78",
+	"authors" : [
+		"Holger Machens"
+	],
+	"includes" : [ "DNA_listBase.json"],
+	"structs" : {
+		"FileGlobal" : {
+			"doc" : "FileGlobal stores a part of the current user-interface settings at the moment of saving, and the file-specific settings.",
+			"fields" : {
+				"newid" : "Flags saved to the blend file, now only used for runtime options.<h3>Values</h3>
+				           <ul>
+				           <li>G_RENDER_OGL (1 <<  0)</li>
+				           <li>G_SWAP_EXCHANGE (1 <<  1)</li>
+				           <li>G_BACKBUFSEL    (1 <<  4)</li>
+				           <li>G_PICKSEL       (1 <<  5)</li>
+				           <li>G_SCRIPT_AUTOEXEC (1 << 13)</li>
+				           <li>G_SCRIPT_OVERRIDE_PREF (1 << 14)</li>
+				           <li>G_SCRIPT_AUTOEXEC_FAIL (1 << 15)</li>
+				           <li>G_SCRIPT_AUTOEXEC_FAIL_QUIET (1 << 16)</li>
+				           </ul>",
+				"build_hash" : "unique identifier from build info",
+				"build_commit_timestamp" : "time when code of the blender binary was commit. Provides more detail to version info.",
+				"fileflags" : "<h3>Values</h3><ul>
+				           <li> G_AUTOPACK               (1 << 0)</li>
+				           <li> G_FILE_COMPRESS          (1 << 1)</li>
+				           <li> G_FILE_AUTOPLAY          (1 << 2)</li>
+				           <li> G_FILE_ENABLE_ALL_FRAMES (1 << 3): deprecated</li>
+				           <li> G_FILE_SHOW_DEBUG_PROPS  (1 << 4): deprecated</li>
+				           <li> G_FILE_SHOW_FRAMERATE    (1 << 5): deprecated</li>
+				           <li> G_FILE_USERPREFS         (1 << 9)</li>
+				           <li> G_FILE_NO_UI             (1 << 10)</li>
+				           <li> G_FILE_GAME_MAT          (1 << 12): deprecated</li>
+				           <li> G_FILE_SHOW_PHYSICS      (1 << 14): deprecated</li>
+				           <li> G_FILE_GAME_MAT_GLSL     (1 << 15): deprecated</li>
+				           <li> G_FILE_GLSL_NO_SHADERS   (1 << 17): deprecated</li>
+				           <li> G_FILE_GLSL_NO_SHADOWS   (1 << 18): deprecated</li>
+				           <li> G_FILE_GLSL_NO_RAMPS     (1 << 19): deprecated</li>
+				           <li> G_FILE_GLSL_NO_NODES     (1 << 20): deprecated</li>
+				           <li> G_FILE_GLSL_NO_EXTRA_TEX (1 << 21): deprecated</li>
+				           <li> G_FILE_IGNORE_DEPRECATION_WARNINGS  (1 << 22): deprecated</li>
+				           <li> G_FILE_RECOVER           (1 << 23)</li>
+				           <li> G_FILE_RELATIVE_REMAP    (1 << 24)</li>
+				           <li> G_FILE_HISTORY           (1 << 25)</li>
+				           <li> G_FILE_MESH_COMPAT       (1 << 26)</li>
+				           <li> G_FILE_SAVE_COPY         (1 << 27)</li>
+				           <li> G_FILE_GLSL_NO_ENV_LIGHTING (1 << 28)</li>
+				</ul>"
+			}
+		}
+	}
+		
+}
