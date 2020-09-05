@@ -31,7 +31,7 @@ REL_SRC_PATH="source/blender/makesdna"
 # 
 # This is the root path of the target Java.Blend documentation.
 # The script will create a subdirectory $BLENDER_VERSION/dnasrc.
-OUTPUT_PATH="/home/homac/repos/git/github/homacs/JavaBlendDocs/resources/dnadoc"
+OUTPUT_PATH="/home/homac/repos/git/cakelab.org/playground/org.cakelab.blender.dnadoc/resources/dnadoc"
 
 # ALL_COMMENTS
 #

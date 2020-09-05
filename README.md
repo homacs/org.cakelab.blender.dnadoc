@@ -1,20 +1,10 @@
-# Java .Blend -- Externally Maintained Documentation
-This is the externally maintained source code documentation
-to generated Java classes of the Java .Blend data model.
+# Java .Blend -- DNA Documentation
+This is the source code documentation to generated Java 
+classes of the Java .Blend data model.
 Java .Blend [1] is a generic Blender file import/export 
 toolkit for Java. Refer to the Java .Blend documentation [2] 
 to get more information. Blender [5] is an open source 
 3D graphics design and rendering environment.
-
-
-# Contributors License Agreement
-By sending a pull request, contributors agree to publish 
-their contribution under the terms of conditions of 
-the GPL v3.0 [4]. Refer to Section 'Licensing' for reasons.
-
-
-# Contributors
-1. Holger Machens
 
 
 # Licensing
