@@ -1,0 +1,49 @@
+{
+	"system" : "Blender",
+	"module" : "DNA",
+	"version" : "2.78",
+	"authors" : [
+		"Holger Machens"
+	],
+	"includes" : [],
+	"structs" : {
+		"Base" : {
+			"doc" : "Wrapper for referencing Objects in a Scene",
+			"fields" : {
+				"pad" : null,
+				"next" : "next object",
+				"prev" : "previous object",
+				"lay" : "Layer",
+				"selcol" : null,
+				"flag" : "<h3>Values:</h3>
+				<pre>
+	BA_WAS_SEL          (1 << 1)
+	BA_HAS_RECALC_OB    (1 << 2)
+	BA_HAS_RECALC_DATA  (1 << 3)
+	// NOTE: this was used as a proper setting in past, so nullify before using 
+	BA_TEMP_TAG         (1 << 5)
+
+    // BA_FROMSET          (1 << 7)  //UNUSED
+
+	BA_TRANSFORM_CHILD  (1 << 8)  // child of a transformed object 
+	BA_TRANSFORM_PARENT (1 << 13)  // parent of a transformed object
+
+
+	// an initial attempt as making selection more specific!
+	BA_DESELECT     0
+	BA_SELECT       1
+
+
+	OB_FROMDUPLI        (1 << 9)
+	OB_DONE             (1 << 10)  // unknown state, clear before use
+	// OB_RADIO            (1 << 11) // deprecated
+	OB_FROMGROUP        (1 << 12)
+				</pre>",
+				"sx" : null,
+				"sy" : null,
+				"object" : "this object"
+			}
+		}
+	}
+		
+}

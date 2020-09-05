@@ -23,7 +23,7 @@
 
 # BLENDER_BASE
 # Base directory of the blender installation.
-# This may be overriden when using a custom build environment
+# This may be overridden when using a custom build environment
 # to be configured further below.
 BLENDER_BASE=/home/homac/opt/blender/blender-latest
 
@@ -32,7 +32,7 @@ BLENDER_BASE=/home/homac/opt/blender/blender-latest
 # version by executing: 
 # > blender -v
 # This variable may be overridden, when using a custom build
-# environment, as to be configured below.
+# environment, as to be configured further below.
 BLENDER=${BLENDER_BASE}/blender
 
 
