@@ -1,7 +1,7 @@
 {
 	"system" : "Blender",
 	"module" : "DNA",
-	"version" : "2.78",
+	"version" : "2.90.1",
 	"source" : "Java .Blend",
 	"authors" : [
 		"Holger Machens"
