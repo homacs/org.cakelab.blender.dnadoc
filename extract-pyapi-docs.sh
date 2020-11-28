@@ -89,7 +89,7 @@ JAVA_BLEND_CLASSPATH="/home/homac/repos/git/cakelab.org/playground/org.cakelab.b
 # there then use the following command to locate it:
 # > updatedb && locate rna_info.py
 #
-SCRIPT="$BLENDER_SYSTEM_SCRIPTS/modules/rna_info.py"
+SCRIPT=$(echo ${BLENDER_SYSTEM_SCRIPTS}"/modules/rna_info.py")
 
 #
 # OUTPUT
@@ -130,8 +130,51 @@ function error_exit () {
 	exit -1
 }
 
+function abort ()
+{
+	error_exit "aborted."
+}
+
+function proceed ()
+{
+ 	while [ -z "$answer" ] 
+ 	do  
+ 		read -p "proceed (y/n)? " answer
+ 	done
+ 	
+ 	if [ "$answer" == "y" ]
+ 	then
+ 		return 0
+ 	else
+ 		return -1
+ 	fi
+}
+
+
 function length () {
 	wc -l $1 | awk '{ print $1 }' 
+}
+
+
+function blender-version () {
+	# parse output of 
+	#    blender -v
+	# and extract the major and minor version (only!)
+	#    -> X.XX
+	
+	# supports older version of blender too
+	$BLENDER -v | awk ' /^Blender [0-9]+\.[0-9]+\.[0-9]$/ \
+						{                                 \
+							gsub(/\.[0-9]+$/,"",$2);      \
+							print $2 ;                    \
+							exit 0;                       \
+						}                                 \
+						/^Blender [0-9]+\.[0-9]+$/        \
+						{                                 \
+							print $2 ;                    \
+							exit 0;                       \
+						}                                 \
+					  '
 }
 
 
@@ -149,9 +192,13 @@ if $BLENDER_BUILD_ENV ; then
 fi
 
 
+#
+# check inputs
+#
+
 if [ -z "$VERSION" ] ; then
 	echo "retrieving blender version string"
-	VERSION=`$BLENDER -v | grep "Blender" | head -n 1 | awk '{print $2}'`
+	VERSION=$(blender-version)
 fi
 
 if [ -z "$VERSION" ] ; then
@@ -163,13 +210,29 @@ if ! [ -e $SCRIPT ] ; then
 fi
 
 
+#
+# give feedback
+#
 
-echo "extracting blenders python api documentation."
-echo "blender executable: ${BLENDER}"
-echo "blender version: ${VERSION}"
-echo "running python script: ${SCRIPT}"
+cat <<EOF
+===============================================================================
+Extracting blenders python api documentation using the following configuration:
 
 
+blender executable:   "${BLENDER}"
+blender version:      "${VERSION}"
+python script:        "${SCRIPT}"
+
+
+
+EOF
+
+proceed || abort
+
+
+#
+# start work
+#
 
 SCRIPT_OUTPUT=$TMP/pyapi-${VERSION}.txt
 CONVERTER_INPUT=$TMP/pyapi-${VERSION}-clean.txt
@@ -208,9 +271,7 @@ echo "stripped output contains $len lines"
 echo "calling converter class: org.cakelab.blender.doc.extract.ExtractPyAPIDoc"
 
 CLASSPATH="$JSON_CLASSPATH:$JAVA_BLEND_CLASSPATH"
-#CLASSPATH=${CLASSPATH}`find lib -name "*.jar" | while read jar ; do 
-	#	echo -n ":$jar"
-#done`
+
 echo "CLASSPATH=$CLASSPATH"
 java -cp ${CLASSPATH} org.cakelab.blender.doc.extract.rnadocs.ExtractPyAPIDoc -v ${VERSION} -in $CONVERTER_INPUT -out ${OUTPUT}
 

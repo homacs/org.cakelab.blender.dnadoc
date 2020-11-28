@@ -15,7 +15,7 @@
 # BLENDER_VERSION
 #
 # Major and minor part of blender version string
-BLENDER_VERSION=2.90
+BLENDER_VERSION=2.91
 
 # ENV_PATH_BASE
 #
