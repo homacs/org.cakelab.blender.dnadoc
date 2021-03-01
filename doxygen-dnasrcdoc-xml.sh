@@ -15,7 +15,7 @@
 # BLENDER_VERSION
 #
 # Major and minor part of blender version string
-BLENDER_VERSION=2.91
+BLENDER_VERSION=2.92
 
 # ENV_PATH_BASE
 #
@@ -89,12 +89,14 @@ function preprocess () {
 	done
 }	
 
-if ! [ -d "$ENV_INPUT" ] ; then
+if ! [ -d "$ENV_INPUT" ]
+then
 	error_exit "can't find '$ENV_INPUT'"
 fi
 
 
-if $ALL_COMMENTS ; then
+if $ALL_COMMENTS
+then
 	# preprocess the source files and change every non-doxygen comment into a
 	# doxygen conform comment (even // ).
 
@@ -108,9 +110,9 @@ if $ALL_COMMENTS ; then
 	preprocess $tmp || error_exit "preprocessing failed"
 	
 	# update environment variables
-	export ENV_PATH_BASE="$tmp"
-	export ENV_INPUT="$ENV_PATH_BASE/$REL_SRC_PATH"
-	export ENV_OUTPUT_DIR="/tmp/blender-$BLENDER_VERSION-xmldoc"
+	ENV_PATH_BASE="$tmp"
+	ENV_INPUT="$ENV_PATH_BASE/$REL_SRC_PATH"
+	ENV_OUTPUT_DIR="/tmp/blender-$BLENDER_VERSION-xmldoc"
 fi
 
 
