@@ -79,11 +79,6 @@
         "EffectSequence"
       ]
     }, 
-    "AlembicObjectPath": {
-      "fields": {
-        "path": "Object path"
-      }
-    }, 
     "AlphaOverSequence": {
       "fields": {
         "input_1": "First input for the effect strip", 
@@ -314,11 +309,23 @@
         "Modifier"
       ]
     }, 
+    "AssetHandle": {
+      "fields": {
+        "file_data": "TEMPORARY, DO NOT USE - File data used to refer to the asset", 
+        "local_id": "(read-only)    The local data-block this asset represents; only valid if that is a data-block in this file"
+      }, 
+      "inherits": [
+        "PropertyGroup"
+      ]
+    }, 
     "AssetMetaData": {
       "fields": {
         "active_tag": "Index of the tag set for editing", 
+        "author": "Name of the creator of the asset", 
+        "catalog_id": "Identifier for the asset's catalog, used by Blender to look up the asset's catalog path. Must be a UUID according to RFC4122", 
+        "catalog_simple_name": "(read-only)    Simple name of the asset's catalog, for debugging and data recovery purposes", 
         "description": "A description of the asset to be displayed for the user", 
-        "tags": "Custom tags (name tokens) for the asset, used for filtering and general asset management"
+        "tags": "(read-only)    Custom tags (name tokens) for the asset, used for filtering and general asset management"
       }
     }, 
     "AssetTag": {
@@ -357,7 +364,6 @@
         "use_automatic_name": "Automatically name the output file with the pass type (external only)", 
         "use_cage": "Cast rays to active object from a cage", 
         "use_clear": "Clear Images before baking (internal only)", 
-        "use_pass_ambient_occlusion": "Add ambient occlusion contribution", 
         "use_pass_color": "Color the pass", 
         "use_pass_diffuse": "Add diffuse contribution", 
         "use_pass_direct": "Add direct lighting contribution", 
@@ -591,21 +597,23 @@
     "Bone": {
       "fields": {
         "bbone_curveinx": "X-axis handle offset for start of the B-Bone's curve, adjusts curvature", 
-        "bbone_curveiny": "Y-axis handle offset for start of the B-Bone's curve, adjusts curvature", 
+        "bbone_curveinz": "Z-axis handle offset for start of the B-Bone's curve, adjusts curvature", 
         "bbone_curveoutx": "X-axis handle offset for end of the B-Bone's curve, adjusts curvature", 
-        "bbone_curveouty": "Y-axis handle offset for end of the B-Bone's curve, adjusts curvature", 
+        "bbone_curveoutz": "Z-axis handle offset for end of the B-Bone's curve, adjusts curvature", 
         "bbone_custom_handle_end": "Bone that serves as the end handle for the B-Bone curve", 
         "bbone_custom_handle_start": "Bone that serves as the start handle for the B-Bone curve", 
         "bbone_easein": "Length of first Bezier Handle (for B-Bones only)", 
         "bbone_easeout": "Length of second Bezier Handle (for B-Bones only)", 
         "bbone_handle_type_end": "Selects how the end handle of the B-Bone is computed", 
         "bbone_handle_type_start": "Selects how the start handle of the B-Bone is computed", 
+        "bbone_handle_use_ease_end": "Multiply the B-Bone Ease Out channel by the local Y scale value of the end handle. This is done after the Scale Easing option and isn't affected by it", 
+        "bbone_handle_use_ease_start": "Multiply the B-Bone Ease In channel by the local Y scale value of the start handle. This is done after the Scale Easing option and isn't affected by it", 
+        "bbone_handle_use_scale_end": "Multiply B-Bone Scale Out channels by the local scale values of the end handle. This is done after the Scale Easing option and isn't affected by it", 
+        "bbone_handle_use_scale_start": "Multiply B-Bone Scale In channels by the local scale values of the start handle. This is done after the Scale Easing option and isn't affected by it", 
         "bbone_rollin": "Roll offset for the start of the B-Bone, adjusts twist", 
         "bbone_rollout": "Roll offset for the end of the B-Bone, adjusts twist", 
-        "bbone_scaleinx": "X-axis scale factor for start of the B-Bone, adjusts thickness (for tapering effects)", 
-        "bbone_scaleiny": "Y-axis scale factor for start of the B-Bone, adjusts thickness (for tapering effects)", 
-        "bbone_scaleoutx": "X-axis scale factor for end of the B-Bone, adjusts thickness (for tapering effects)", 
-        "bbone_scaleouty": "Y-axis scale factor for end of the B-Bone, adjusts thickness (for tapering effects)", 
+        "bbone_scalein": "Scale factors for the start of the B-Bone, adjusts thickness (for tapering effects)", 
+        "bbone_scaleout": "Scale factors for the end of the B-Bone, adjusts thickness (for tapering effects)", 
         "bbone_segments": "Number of subdivisions of bone (for B-Bones only)", 
         "bbone_x": "B-Bone X size", 
         "bbone_z": "B-Bone Z size", 
@@ -635,7 +643,8 @@
         "use_inherit_rotation": "Bone inherits rotation or scale from parent bone", 
         "use_inherit_scale": "DEPRECATED: Bone inherits scaling from parent bone", 
         "use_local_location": "Bone location is set in local space", 
-        "use_relative_parent": "Object children will use relative transform, like deform"
+        "use_relative_parent": "Object children will use relative transform, like deform", 
+        "use_scale_easing": "Multiply the final easing values by the Scale In/Out Y factors"
       }
     }, 
     "BoneGroup": {
@@ -914,6 +923,7 @@
         "angle": "Direction of the stroke at which brush gives maximal thickness (0\u00b0 for horizontal)", 
         "angle_factor": "Reduce brush thickness by this factor when stroke is perpendicular to 'Angle' direction", 
         "brush_draw_mode": "Preselected mode when using this brush", 
+        "caps_type": "The shape of the start and end of the stroke", 
         "curve_jitter": "(read-only)    Curve used for the jitter effect", 
         "curve_random_hue": "(read-only)    Curve used for modulating effect", 
         "curve_random_pressure": "(read-only)    Curve used for modulating effect", 
@@ -923,6 +933,7 @@
         "curve_random_value": "(read-only)    Curve used for modulating effect", 
         "curve_sensitivity": "(read-only)    Curve used for the sensitivity", 
         "curve_strength": "(read-only)    Curve used for the strength", 
+        "dilate": "Number of pixels to dilate fill area", 
         "eraser_mode": "Eraser Mode", 
         "eraser_strength_factor": "Amount of erasing for strength", 
         "eraser_thickness_factor": "Amount of erasing for thickness", 
@@ -980,7 +991,7 @@
         "use_stroke_random_uv": "Use randomness at stroke level", 
         "use_stroke_random_val": "Use randomness at stroke level", 
         "use_trim": "Trim intersecting stroke ends", 
-        "uv_random": "Random factor for autogenerated UV rotation", 
+        "uv_random": "Random factor for auto-generated UV rotation", 
         "vertex_color_factor": "Factor used to mix vertex color to get final color", 
         "vertex_mode": "Defines how vertex color affect to the strokes"
       }
@@ -1052,13 +1063,21 @@
         "is_sequence": "Whether the cache is separated in a series of files", 
         "object_paths": "(read-only)    Paths of the objects inside the Alembic archive", 
         "override_frame": "Whether to use a custom frame for looking up data in the cache file, instead of using the current scene frame", 
+        "prefetch_cache_size": "Memory usage limit in megabytes for the Cycles Procedural cache, if the data does not fit within the limit, rendering is aborted", 
         "scale": "Value by which to enlarge or shrink the object with respect to the world's origin (only applicable through a Transform Cache constraint)", 
+        "use_prefetch": "When enabled, the Cycles Procedural will preload animation data for faster updates", 
+        "use_render_procedural": "Display boxes in the viewport as placeholders for the objects, Cycles will use a procedural to load the objects during viewport rendering in experimental mode, other render engines will also receive a placeholder and should take care of loading the Alembic data themselves if possible", 
         "velocity_name": "Name of the Alembic attribute used for generating motion blur data", 
         "velocity_unit": "Define how the velocity vectors are interpreted with regard to time, 'frame' means the delta time is 1 frame, 'second' means the delta time is 1 / FPS"
       }, 
       "inherits": [
         "ID"
       ]
+    }, 
+    "CacheObjectPath": {
+      "fields": {
+        "path": "Object path"
+      }
     }, 
     "Camera": {
       "fields": {
@@ -1322,7 +1341,9 @@
         "hide_select": "Disable selection in viewport", 
         "hide_viewport": "Globally disable in viewports", 
         "instance_offset": "Offset from the origin to use when instancing", 
+        "lineart_intersection_mask": "Intersection generated by this collection will have this mask value", 
         "lineart_usage": "How to use this collection in line art", 
+        "lineart_use_intersection_mask": "Use custom intersection mask for faces in this collection", 
         "objects": "(read-only)    Objects that are directly in this collection"
       }, 
       "inherits": [
@@ -1765,6 +1786,7 @@
     }, 
     "CompositorNodeDenoise": {
       "fields": {
+        "prefilter": "Denoising prefilter", 
         "use_hdr": "Process HDR images"
       }, 
       "inherits": [
@@ -2171,6 +2193,7 @@
       "fields": {
         "chunk_size": "Max size of a tile (smaller values gives better distribution of multiple threads, but more overhead)", 
         "edit_quality": "Quality when editing", 
+        "execution_mode": "Set how compositing is executed", 
         "render_quality": "Quality when rendering", 
         "use_groupnode_buffer": "Enable buffering of group nodes", 
         "use_opencl": "Enable GPU calculations", 
@@ -2236,9 +2259,11 @@
     "Constraint": {
       "fields": {
         "active": "Constraint is the one being edited", 
+        "enabled": "Use the results of this constraint", 
         "error_location": "(read-only)    Amount of residual error in Blender space unit for constraints that work on position", 
         "error_rotation": "(read-only)    Amount of residual error in radians for constraints that work on orientation", 
         "influence": "Amount of influence constraint will have on the final solution", 
+        "is_override_data": "(read-only)    In a local override object, whether this constraint comes from the linked reference object, or is local to the override", 
         "is_proxy_local": "(read-only)    Constraint was added in this proxy instance (i.e. did not belong to source Armature)", 
         "is_valid": "(read-only)    Constraint has valid settings and can be evaluated", 
         "mute": "Enable/Disable Constraint", 
@@ -2267,6 +2292,7 @@
     "Context": {
       "fields": {
         "area": "(read-only)", 
+        "asset_file_handle": "(read-only)    The file of an active asset. Avoid using this, it will be replaced by a proper AssetHandle design", 
         "blend_data": "(read-only)", 
         "collection": "(read-only)", 
         "engine": "(read-only)", 
@@ -2342,6 +2368,7 @@
       "fields": {
         "head_tail": "Target along length of bone: Head is 0, Tail is 1", 
         "mix_mode": "Specify how the copied and existing transformations are combined", 
+        "remove_target_shear": "Remove shear from the target transformation before combining", 
         "subtarget": "Armature bone, mesh or lattice vertex group, ...", 
         "target": "Target object", 
         "use_bbone_shape": "Follow shape of B-Bone segments when calculating Head/Tail position"
@@ -2412,14 +2439,11 @@
         "splines": "(read-only)    Collection of splines in this curve data object", 
         "taper_object": "Curve object name that defines the taper (width)", 
         "taper_radius_mode": "Determine how the effective radius of the spline point is computed when a taper object is specified", 
-        "texspace_location": "Texture space location", 
-        "texspace_size": "Texture space size", 
         "twist_mode": "The type of tilt calculation for 3D Curves", 
         "twist_smooth": "Smoothing iteration for tangents", 
         "use_auto_texspace": "Adjust active object's texture space automatically when transforming object", 
         "use_deform_bounds": "Option for curve-deform: Use the mesh bounds to clamp the deformation", 
         "use_fill_caps": "Fill caps for beveled curves", 
-        "use_fill_deform": "Fill curve after applying shape keys and all modifiers", 
         "use_map_taper": "Map effect of the taper object to the beveled part of the curve", 
         "use_path": "Enable the curve to become a translation path", 
         "use_path_clamp": "Clamp the curve path children so they can't travel past the start/end point of the curve", 
@@ -2541,7 +2565,6 @@
         "cast_shadow": "Light casts shadows", 
         "is_portal": "Use this area light to guide sampling of the background, note that this will make the light invisible", 
         "max_bounces": "Maximum number of bounces the light will contribute to the render", 
-        "samples": "Number of light samples to render for each AA sample", 
         "use_multiple_importance_sampling": "Use multiple importance sampling for the light, reduces noise for area lights and sharp glossy materials"
       }, 
       "inherits": [
@@ -2564,10 +2587,10 @@
     }, 
     "CyclesObjectSettings": {
       "fields": {
+        "ao_distance": "AO distance used for approximate global illumination (0 means use world setting)", 
         "dicing_rate": "Multiplier for scene dicing rate (located in the Subdivision panel)", 
-        "is_holdout": "Render objects as a holdout or matte, creating a hole in the image with zero alpha, to fill out in compositing with real footage or another render", 
-        "is_shadow_catcher": "Only render shadows on this object, for compositing renders into real footage", 
         "motion_steps": "Control accuracy of motion blur, more steps gives more memory usage (actual number of steps is 2^(steps - 1))", 
+        "shadow_terminator_geometry_offset": "Offset rays from the surface to reduce shadow terminator artifact on low poly geometry. Only affects triangles at grazing angles to light", 
         "shadow_terminator_offset": "Push the shadow terminator towards the light to hide artifacts on low poly geometry", 
         "use_adaptive_subdivision": "Use adaptive render time subdivision", 
         "use_camera_cull": "Allow this object and its duplicators to be culled by camera space culling", 
@@ -2591,27 +2614,10 @@
     }, 
     "CyclesRenderLayerSettings": {
       "fields": {
-        "denoising_diffuse_direct": "Denoise the direct diffuse lighting", 
-        "denoising_diffuse_indirect": "Denoise the indirect diffuse lighting", 
-        "denoising_feature_strength": "Controls removal of noisy image feature passes (lower values preserve more detail, but aren't as smooth)", 
-        "denoising_glossy_direct": "Denoise the direct glossy lighting", 
-        "denoising_glossy_indirect": "Denoise the indirect glossy lighting", 
-        "denoising_neighbor_frames": "Number of neighboring frames to use for denoising animations (more frames produce smoother results at the cost of performance)", 
-        "denoising_openimagedenoise_input_passes": "Passes used by the denoiser to distinguish noise from shader and geometry detail", 
-        "denoising_optix_input_passes": "Passes used by the denoiser to distinguish noise from shader and geometry detail", 
-        "denoising_radius": "Size of the image area that's used to denoise a pixel (higher values are smoother, but might lose detail and are slower)", 
-        "denoising_relative_pca": "When removing pixels that don't carry information, use a relative threshold instead of an absolute one (can help to reduce artifacts, but might cause detail loss around edges)", 
         "denoising_store_passes": "Store the denoising feature passes and the noisy image. The passes adapt to the denoiser selected for rendering", 
-        "denoising_strength": "Controls neighbor pixel weighting for the denoising filter (lower values preserve more detail, but aren't as smooth)", 
-        "denoising_transmission_direct": "Denoise the direct transmission lighting", 
-        "denoising_transmission_indirect": "Denoise the indirect transmission lighting", 
-        "pass_debug_bvh_intersections": "Store Debug BVH Intersections", 
-        "pass_debug_bvh_traversed_instances": "Store Debug BVH Traversed Instances pass", 
-        "pass_debug_bvh_traversed_nodes": "Store Debug BVH Traversed Nodes pass", 
-        "pass_debug_ray_bounces": "Store Debug Ray Bounces pass", 
-        "pass_debug_render_time": "Render time in milliseconds per sample and pixel", 
         "pass_debug_sample_count": "Number of samples/camera rays per pixel", 
         "use_denoising": "Denoise the rendered image", 
+        "use_pass_shadow_catcher": "Pass containing shadows and light which is to be multiplied into backdrop", 
         "use_pass_volume_direct": "Deliver direct volumetric scattering pass", 
         "use_pass_volume_indirect": "Deliver indirect volumetric scattering pass"
       }, 
@@ -2621,12 +2627,11 @@
     }, 
     "CyclesRenderSettings": {
       "fields": {
-        "aa_samples": "Number of antialiasing samples to render for each pixel", 
-        "adaptive_min_samples": "Minimum AA samples for adaptive sampling, to discover noisy features before stopping sampling. Zero for automatic setting based on number of AA samples", 
-        "adaptive_threshold": "Noise level step to stop sampling at, lower values reduce noise the cost of render time. Zero for automatic setting based on number of AA samples", 
+        "adaptive_min_samples": "Minimum AA samples for adaptive sampling, to discover noisy features before stopping sampling. Zero for automatic setting based on noise threshold", 
+        "adaptive_threshold": "Noise level step to stop sampling at, lower values reduce noise at the cost of render time. Zero for automatic setting based on number of AA samples", 
         "ao_bounces": "After this number of light bounces, use approximate global illumination. 0 disables this feature", 
         "ao_bounces_render": "After this number of light bounces, use approximate global illumination. 0 disables this feature", 
-        "ao_samples": "Number of ambient occlusion samples to render for each AA sample", 
+        "auto_scrambling_distance": "Automatically reduce the randomization between pixels to improve GPU rendering performance, at the cost of possible rendering artifacts. Only works when not using adaptive sampling", 
         "bake_type": "Type of pass to bake", 
         "blur_glossy": "Adaptively blur glossy shaders after blurry bounces, to reduce noise at the cost of accuracy", 
         "camera_cull_margin": "Margin for the camera space culling", 
@@ -2634,16 +2639,18 @@
         "caustics_refractive": "Use refractive caustics, resulting in a brighter image (more noise but added realism)", 
         "debug_bvh_time_steps": "Split BVH primitives by this number of time steps to speed up render time in cost of memory", 
         "debug_bvh_type": "Choose between faster updates, or faster render", 
-        "debug_opencl_mem_limit": "Artificial limit on OpenCL memory usage in MB (0 to disable limit)", 
         "debug_use_hair_bvh": "Use special type BVH optimized for hair (uses more ram but renders faster)", 
+        "debug_use_optix_debug": "Load OptiX module in debug mode: lower logging verbosity level, enable validations, and lower optimization level", 
         "debug_use_spatial_splits": "Use BVH spatial splits: longer builder time, faster render", 
-        "denoiser": "Denoise the image with the selected denoiser. For denoising the image after rendering, denoising data render passes also adapt to the selected denoiser", 
+        "denoiser": "Denoise the image with the selected denoiser. For denoising the image after rendering", 
+        "denoising_input_passes": "Passes used by the denoiser to distinguish noise from shader and geometry detail", 
+        "denoising_prefilter": "Prefilter noisy guiding (albedo and normal) passes to improve denoising quality when using OpenImageDenoiser", 
         "device": "Device to use for rendering", 
         "dicing_camera": "Camera to use as reference point when subdividing geometry, useful to avoid crawling artifacts in animations when the scene camera is moving", 
         "dicing_rate": "Size of a micropolygon in pixels", 
         "diffuse_bounces": "Maximum number of diffuse reflection bounces, bounded by total maximum", 
-        "diffuse_samples": "Number of diffuse bounce samples to render for each AA sample", 
         "distance_cull_margin": "Cull objects which are further away from camera than this distance", 
+        "fast_gi_method": "Fast GI approximation method", 
         "feature_set": "Feature set to use for rendering", 
         "film_exposure": "Image brightness scale", 
         "film_transparent_glass": "Render transmissive surfaces as transparent, for compositing glass over another background", 
@@ -2651,56 +2658,51 @@
         "filter_type": "Pixel filter type", 
         "filter_width": "Pixel filter width", 
         "glossy_bounces": "Maximum number of glossy reflection bounces, bounded by total maximum", 
-        "glossy_samples": "Number of glossy bounce samples to render for each AA sample", 
         "light_sampling_threshold": "Probabilistically terminate light samples when the light contribution is below this threshold (more noise but faster rendering). Zero disables the test and never ignores lights", 
         "max_bounces": "Total maximum number of bounces", 
         "max_subdivisions": "Stop subdividing when this level is reached even if the dice rate would produce finer tessellation", 
-        "mesh_light_samples": "Number of mesh emission light samples to render for each AA sample", 
         "min_light_bounces": "Minimum number of light bounces. Setting this higher reduces noise in the first bounces, but can also be less efficient for more complex geometry like hair and volumes", 
         "min_transparent_bounces": "Minimum number of transparent bounces. Setting this higher reduces noise in the first bounces, but can also be less efficient for more complex geometry like hair and volumes", 
         "motion_blur_position": "Offset for the shutter's time interval, allows to change the motion blur trails", 
         "offscreen_dicing_scale": "Multiplier for dicing rate of geometry outside of the camera view. The dicing rate of objects is gradually increased the further they are outside the camera view. Lower values provide higher quality reflections and shadows for off screen objects, while higher values use less memory", 
         "pixel_filter_type": "Pixel filter type", 
-        "preview_aa_samples": "Number of antialiasing samples to render in the viewport, unlimited if 0", 
+        "preview_adaptive_min_samples": "Minimum AA samples for adaptive sampling, to discover noisy features before stopping sampling. Zero for automatic setting based on noise threshold, for viewport renders", 
+        "preview_adaptive_threshold": "Noise level step to stop sampling at, lower values reduce noise at the cost of render time. Zero for automatic setting based on number of AA samples, for viewport renders", 
         "preview_denoiser": "Denoise the image after each preview update with the selected denoiser", 
         "preview_denoising_input_passes": "Passes used by the denoiser to distinguish noise from shader and geometry detail", 
+        "preview_denoising_prefilter": "Prefilter noisy guiding (albedo and normal) passes to improve denoising quality when using OpenImageDenoiser", 
         "preview_denoising_start_sample": "Sample to start denoising the preview at", 
         "preview_dicing_rate": "Size of a micropolygon in pixels during preview render", 
         "preview_pause": "Pause all viewport preview renders", 
         "preview_samples": "Number of samples to render in the viewport, unlimited if 0", 
-        "preview_start_resolution": "Resolution to start rendering preview at, progressively increasing it to the full viewport size", 
-        "progressive": "Method to sample lights and materials", 
+        "preview_scrambling_distance": "Uses the Scrambling Distance value for the viewport. Faster but may flicker", 
         "rolling_shutter_duration": "Scanline \"exposure\" time for the rolling shutter effect", 
         "rolling_shutter_type": "Type of rolling shutter effect matching CMOS-based cameras", 
-        "sample_all_lights_direct": "Sample all lights (for direct samples), rather than randomly picking one", 
-        "sample_all_lights_indirect": "Sample all lights (for indirect samples), rather than randomly picking one", 
         "sample_clamp_direct": "If non-zero, the maximum value for a direct sample, higher values will be scaled down to avoid too much noise and slow convergence at the cost of accuracy", 
         "sample_clamp_indirect": "If non-zero, the maximum value for an indirect sample, higher values will be scaled down to avoid too much noise and slow convergence at the cost of accuracy", 
         "samples": "Number of samples to render for each pixel", 
-        "sampling_pattern": "Random sampling pattern used by the integrator", 
+        "sampling_pattern": "Random sampling pattern used by the integrator. When adaptive sampling is enabled, Progressive Multi-Jitter is always used instead of Sobol", 
+        "scrambling_distance": "Reduce randomization between pixels to improve GPU rendering performance, at the cost of possible rendering artifacts if set too low. Only works when not using adaptive sampling", 
         "seed": "Seed value for integrator to get different noise patterns", 
         "shading_system": "Use Open Shading Language (CPU rendering only)", 
-        "subsurface_samples": "Number of subsurface scattering samples to render for each AA sample", 
         "texture_limit": "Limit texture size used by viewport rendering", 
         "texture_limit_render": "Limit texture size used by final rendering", 
-        "tile_order": "Tile order for rendering", 
+        "time_limit": "Limit the render time (excluding synchronization time).Zero disables the limit", 
         "transmission_bounces": "Maximum number of transmission bounces, bounded by total maximum", 
-        "transmission_samples": "Number of transmission bounce samples to render for each AA sample", 
-        "transparent_max_bounces": "Maximum number of transparent bounces", 
+        "transparent_max_bounces": "Maximum number of transparent bounces. This is independent of maximum number of other bounces", 
         "use_adaptive_sampling": "Automatically reduce the number of samples per pixel based on estimated noise level", 
         "use_animated_seed": "Use different seed values (and hence noise patterns) at different frames", 
+        "use_auto_tile": "Render high resolution images in tiles to reduce memory usage, using the specified tile size. Tiles are cached to disk while rendering to save memory", 
         "use_camera_cull": "Allow objects to be culled based on the camera frustum", 
         "use_denoising": "Denoise the rendered image", 
         "use_distance_cull": "Allow objects to be culled based on the distance from camera", 
         "use_fast_gi": "Approximate diffuse indirect light with background tinted ambient occlusion. This provides fast alternative to full global illumination, for interactive viewport rendering or final renders with reduced quality", 
         "use_layer_samples": "How to use per view layer sample settings", 
+        "use_preview_adaptive_sampling": "Automatically reduce the number of samples per pixel based on estimated noise level, for viewport renders", 
         "use_preview_denoising": "Denoise the image in the 3D viewport", 
-        "use_progressive_refine": "Instead of rendering each tile until it is finished, refine the whole image progressively (this renders somewhat slower, but time can be saved by manually stopping the render when the noise is low enough)", 
-        "use_square_samples": "Square sampling values for easier artist control", 
         "volume_bounces": "Maximum number of volumetric scattering events", 
         "volume_max_steps": "Maximum number of steps through the volume before giving up, to avoid extremely long render times with big objects or small step sizes", 
         "volume_preview_step_rate": "Globally adjust detail for volume rendering, on top of automatically estimated step size. Higher values reduce render time, lower values render with more detail", 
-        "volume_samples": "Number of volume scattering samples to render for each AA sample", 
         "volume_step_rate": "Globally adjust detail for volume rendering, on top of automatically estimated step size. Higher values reduce render time, lower values render with more detail"
       }, 
       "inherits": [
@@ -2709,7 +2711,8 @@
     }, 
     "CyclesView3DShadingSettings": {
       "fields": {
-        "render_pass": "Render pass to show in the 3D Viewport"
+        "render_pass": "Render pass to show in the 3D Viewport", 
+        "show_active_pixels": "When using adaptive sampling highlight pixels which are being sampled"
       }, 
       "inherits": [
         "PropertyGroup"
@@ -2733,7 +2736,6 @@
         "homogeneous_volume": "When using volume rendering, assume volume has the same density everywhere(not using any textures), for faster rendering", 
         "max_bounces": "Maximum number of bounces the background light will contribute to the render", 
         "sample_map_resolution": "Importance map size is resolution x resolution/2; higher values potentially produce less noise, at the cost of memory and speed", 
-        "samples": "Number of light samples to render for each AA sample", 
         "sampling_method": "How to sample the background light", 
         "volume_interpolation": "Interpolation method to use for volumes", 
         "volume_sampling": "Sampling method to use for volumes", 
@@ -2754,6 +2756,34 @@
       "inherits": [
         "Constraint"
       ]
+    }, 
+    "DashGpencilModifierData": {
+      "fields": {
+        "dash_offset": "Offset into each stroke before the beginning of  the dashed segment generation", 
+        "invert_layer_pass": "Inverse filter", 
+        "invert_layers": "Inverse filter", 
+        "invert_material_pass": "Inverse filter", 
+        "invert_materials": "Inverse filter", 
+        "layer": "Layer name", 
+        "layer_pass": "Layer pass index", 
+        "material": "Material used for filtering effect", 
+        "pass_index": "Pass index", 
+        "segment_active_index": "Active index in the segment list", 
+        "segments": "(read-only)"
+      }, 
+      "inherits": [
+        "GpencilModifier"
+      ]
+    }, 
+    "DashGpencilModifierSegment": {
+      "fields": {
+        "dash": "The number of consecutive points from the original stroke to include in this segment", 
+        "gap": "The number of points skipped after this segment", 
+        "material_index": "Use this index on generated segment. -1 means using the existing material", 
+        "name": "Name of the dash segment", 
+        "opacity": "The factor to apply to the original point's opacity for the new points", 
+        "radius": "The factor to apply to the original point's radius for the new points"
+      }
     }, 
     "DataTransferModifier": {
       "fields": {
@@ -3065,21 +3095,23 @@
     "EditBone": {
       "fields": {
         "bbone_curveinx": "X-axis handle offset for start of the B-Bone's curve, adjusts curvature", 
-        "bbone_curveiny": "Y-axis handle offset for start of the B-Bone's curve, adjusts curvature", 
+        "bbone_curveinz": "Z-axis handle offset for start of the B-Bone's curve, adjusts curvature", 
         "bbone_curveoutx": "X-axis handle offset for end of the B-Bone's curve, adjusts curvature", 
-        "bbone_curveouty": "Y-axis handle offset for end of the B-Bone's curve, adjusts curvature", 
+        "bbone_curveoutz": "Z-axis handle offset for end of the B-Bone's curve, adjusts curvature", 
         "bbone_custom_handle_end": "Bone that serves as the end handle for the B-Bone curve", 
         "bbone_custom_handle_start": "Bone that serves as the start handle for the B-Bone curve", 
         "bbone_easein": "Length of first Bezier Handle (for B-Bones only)", 
         "bbone_easeout": "Length of second Bezier Handle (for B-Bones only)", 
         "bbone_handle_type_end": "Selects how the end handle of the B-Bone is computed", 
         "bbone_handle_type_start": "Selects how the start handle of the B-Bone is computed", 
+        "bbone_handle_use_ease_end": "Multiply the B-Bone Ease Out channel by the local Y scale value of the end handle. This is done after the Scale Easing option and isn't affected by it", 
+        "bbone_handle_use_ease_start": "Multiply the B-Bone Ease In channel by the local Y scale value of the start handle. This is done after the Scale Easing option and isn't affected by it", 
+        "bbone_handle_use_scale_end": "Multiply B-Bone Scale Out channels by the local scale values of the end handle. This is done after the Scale Easing option and isn't affected by it", 
+        "bbone_handle_use_scale_start": "Multiply B-Bone Scale In channels by the local scale values of the start handle. This is done after the Scale Easing option and isn't affected by it", 
         "bbone_rollin": "Roll offset for the start of the B-Bone, adjusts twist", 
         "bbone_rollout": "Roll offset for the end of the B-Bone, adjusts twist", 
-        "bbone_scaleinx": "X-axis scale factor for start of the B-Bone, adjusts thickness (for tapering effects)", 
-        "bbone_scaleiny": "Y-axis scale factor for start of the B-Bone, adjusts thickness (for tapering effects)", 
-        "bbone_scaleoutx": "X-axis scale factor for end of the B-Bone, adjusts thickness (for tapering effects)", 
-        "bbone_scaleouty": "Y-axis scale factor for end of the B-Bone, adjusts thickness (for tapering effects)", 
+        "bbone_scalein": "Scale factors for the start of the B-Bone, adjusts thickness (for tapering effects)", 
+        "bbone_scaleout": "Scale factors for the end of the B-Bone, adjusts thickness (for tapering effects)", 
         "bbone_segments": "Number of subdivisions of bone (for B-Bones only)", 
         "bbone_x": "B-Bone X size", 
         "bbone_z": "B-Bone Z size", 
@@ -3107,7 +3139,8 @@
         "use_inherit_rotation": "Bone inherits rotation or scale from parent bone", 
         "use_inherit_scale": "DEPRECATED: Bone inherits scaling from parent bone", 
         "use_local_location": "Bone location is set in local space", 
-        "use_relative_parent": "Object children will use relative transform, like deform"
+        "use_relative_parent": "Object children will use relative transform, like deform", 
+        "use_scale_easing": "Multiply the final easing values by the Scale In/Out Y factors"
       }
     }, 
     "EffectorWeights": {
@@ -3190,7 +3223,8 @@
         "tilt": "(read-only)    The pressure of the tablet or zeroes if no tablet present", 
         "type": "(read-only)", 
         "unicode": "(read-only)    Single unicode character for this event", 
-        "value": "(read-only)    The type of event, only applies to some"
+        "value": "(read-only)    The type of event, only applies to some", 
+        "xr": "(read-only)    XR event data"
       }
     }, 
     "ExplodeModifier": {
@@ -3237,7 +3271,7 @@
         "keyframe_points": "(read-only)    User-editable keyframes", 
         "lock": "F-Curve's settings cannot be edited", 
         "modifiers": "(read-only)    Modifiers affecting the shape of the F-Curve", 
-        "mute": "Disable F-Curve Modifier evaluation", 
+        "mute": "Disable F-Curve evaluation", 
         "sampled_points": "(read-only)    Sampled animation data", 
         "select": "F-Curve is selected for editing"
       }
@@ -3330,9 +3364,50 @@
         "z_direction": "Effect in full or only positive/negative Z direction"
       }
     }, 
+    "FileAssetSelectIDFilter": {
+      "fields": {
+        "experimental_filter_armature": "Show Armature data-blocks", 
+        "experimental_filter_brush": "Show Brushes data-blocks", 
+        "experimental_filter_cachefile": "Show Cache File data-blocks", 
+        "experimental_filter_camera": "Show Camera data-blocks", 
+        "experimental_filter_curve": "Show Curve data-blocks", 
+        "experimental_filter_font": "Show Font data-blocks", 
+        "experimental_filter_grease_pencil": "Show Grease pencil data-blocks", 
+        "experimental_filter_group": "Show Collection data-blocks", 
+        "experimental_filter_hair": "Show/hide Hair data-blocks", 
+        "experimental_filter_image": "Show Image data-blocks", 
+        "experimental_filter_lattice": "Show Lattice data-blocks", 
+        "experimental_filter_light": "Show Light data-blocks", 
+        "experimental_filter_light_probe": "Show Light Probe data-blocks", 
+        "experimental_filter_linestyle": "Show Freestyle's Line Style data-blocks", 
+        "experimental_filter_mask": "Show Mask data-blocks", 
+        "experimental_filter_mesh": "Show Mesh data-blocks", 
+        "experimental_filter_metaball": "Show Metaball data-blocks", 
+        "experimental_filter_movie_clip": "Show Movie Clip data-blocks", 
+        "experimental_filter_node_tree": "Show Node Tree data-blocks", 
+        "experimental_filter_paint_curve": "Show Paint Curve data-blocks", 
+        "experimental_filter_palette": "Show Palette data-blocks", 
+        "experimental_filter_particle_settings": "Show Particle Settings data-blocks", 
+        "experimental_filter_pointcloud": "Show/hide Point Cloud data-blocks", 
+        "experimental_filter_scene": "Show Scene data-blocks", 
+        "experimental_filter_simulation": "Show Simulation data-blocks", 
+        "experimental_filter_sound": "Show Sound data-blocks", 
+        "experimental_filter_speaker": "Show Speaker data-blocks", 
+        "experimental_filter_text": "Show Text data-blocks", 
+        "experimental_filter_texture": "Show Texture data-blocks", 
+        "experimental_filter_volume": "Show/hide Volume data-blocks", 
+        "experimental_filter_work_space": "Show workspace data-blocks", 
+        "filter_action": "Show Action data-blocks", 
+        "filter_material": "Show Material data-blocks", 
+        "filter_object": "Show Object data-blocks", 
+        "filter_world": "Show World data-blocks"
+      }
+    }, 
     "FileAssetSelectParams": {
       "fields": {
-        "asset_category": "Determine which kind of assets to display"
+        "catalog_id": "(read-only)    The UUID of the catalog shown in the browser", 
+        "filter_asset_id": "(read-only)    Which asset types to show/hide, when browsing an asset library", 
+        "import_type": "Determine how the asset will be imported"
       }, 
       "inherits": [
         "FileSelectParams"
@@ -3347,8 +3422,11 @@
     "FileSelectEntry": {
       "fields": {
         "asset_data": "(read-only)    Asset data, valid if the file represents an asset", 
+        "id_type": "(read-only)    The type of the data-block, if the file represents one ('NONE' otherwise)", 
+        "local_id": "(read-only)    The local data-block this file represents; only valid if that is a data-block in this file", 
         "name": "(read-only)", 
-        "preview_icon_id": "(read-only)    Unique integer identifying the preview of this file as an icon (zero means invalid)"
+        "preview_icon_id": "(read-only)    Unique integer identifying the preview of this file as an icon (zero means invalid)", 
+        "relative_path": "(read-only)    Path relative to the directory currently displayed in the File Browser (includes the file name)"
       }
     }, 
     "FileSelectIDFilter": {
@@ -3572,12 +3650,10 @@
         "mesh_scale": "The mesh simulation is scaled up by this factor (compared to the base resolution of the domain). For best meshing, it is recommended to adjust the mesh particle radius alongside this value", 
         "mesh_smoothen_neg": "Negative mesh smoothening", 
         "mesh_smoothen_pos": "Positive mesh smoothening", 
-        "mesh_vertices": "(read-only)    Vertices of the fluid mesh generated by simulation", 
         "noise_pos_scale": "Scale of noise (higher value results in larger vortices)", 
         "noise_scale": "The noise simulation is scaled up by this factor (compared to the base resolution of the domain)", 
         "noise_strength": "Strength of noise", 
         "noise_time_anim": "Animation time of noise", 
-        "noise_type": "Noise method which is used during the high-res simulation", 
         "openvdb_cache_compress_type": "Compression method to be used", 
         "openvdb_data_depth": "Bit depth for fluid particles and grids (lower bit values reduce file size)", 
         "particle_band_width": "Particle (narrow) band width (higher value results in thicker band and more particles)", 
@@ -3650,11 +3726,6 @@
         "viscosity_exponent": "Negative exponent for the viscosity value (to simplify entering small values e.g. 5*10^-6)", 
         "viscosity_value": "Viscosity of liquid (higher values result in more viscous fluids, a value of 0 will still apply some viscosity)", 
         "vorticity": "Amount of turbulence and rotation in smoke"
-      }
-    }, 
-    "FluidDomainVertexVelocity": {
-      "fields": {
-        "velocity": "(read-only)"
       }
     }, 
     "FluidEffectorSettings": {
@@ -3964,7 +4035,6 @@
         "mode": "Select the Freestyle control mode", 
         "modules": "(read-only)    A list of style modules (to be applied from top to bottom)", 
         "sphere_radius": "Sphere radius for computing curvatures", 
-        "use_advanced_options": "Enable advanced edge detection options (sphere radius and Kr derivative epsilon)", 
         "use_culling": "If enabled, out-of-view edges are ignored", 
         "use_material_boundaries": "Enable material boundaries", 
         "use_ridges_and_valleys": "Enable ridges and valleys", 
@@ -3983,6 +4053,68 @@
         "use_self": "(read-only)    Function does not pass its self as an argument (becomes a static method in python)", 
         "use_self_type": "(read-only)    Function passes its self type as an argument (becomes a class method in python if use_self is false)"
       }
+    }, 
+    "FunctionNodeAlignEulerToVector": {
+      "fields": {
+        "axis": "Axis to align to the vector", 
+        "pivot_axis": "Axis to rotate around"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "FunctionNode"
+      ]
+    }, 
+    "FunctionNodeFloatToInt": {
+      "fields": {
+        "rounding_mode": "Method used to convert the float to an integer"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "FunctionNode"
+      ]
+    }, 
+    "FunctionNodeInputBool": {
+      "fields": {
+        "boolean": "Input value used for unconnected socket"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "FunctionNode"
+      ]
+    }, 
+    "FunctionNodeInputInt": {
+      "fields": {
+        "integer": "Input value used for unconnected socket"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "FunctionNode"
+      ]
+    }, 
+    "FunctionNodeRandomValue": {
+      "fields": {
+        "data_type": "Type of data stored in attribute"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "FunctionNode"
+      ]
+    }, 
+    "FunctionNodeRotateEuler": {
+      "fields": {
+        "space": "Base orientation for rotation", 
+        "type": "Method used to describe the rotation"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "FunctionNode"
+      ]
     }, 
     "GammaCrossSequence": {
       "fields": {
@@ -4007,10 +4139,10 @@
         "EffectSequence"
       ]
     }, 
-    "GeometryNodeAlignRotationToVector": {
+    "GeometryNodeAttributeStatistic": {
       "fields": {
-        "axis": "Axis to align to the vector", 
-        "pivot_axis": "Axis to rotate around"
+        "data_type": "The data type the attribute is converted to before calculating the results", 
+        "domain": "Which domain to read the data from"
       }, 
       "inherits": [
         "Node", 
@@ -4018,9 +4150,11 @@
         "GeometryNode"
       ]
     }, 
-    "GeometryNodeAttributeColorRamp": {
+    "GeometryNodeAttributeTransfer": {
       "fields": {
-        "color_ramp": "(read-only)"
+        "data_type": "The type for the source and result data", 
+        "domain": "The domain to use on the target geometry", 
+        "mapping": "Mapping between geometries"
       }, 
       "inherits": [
         "Node", 
@@ -4028,50 +4162,10 @@
         "GeometryNode"
       ]
     }, 
-    "GeometryNodeAttributeConvert": {
+    "GeometryNodeCaptureAttribute": {
       "fields": {
-        "data_type": "The data type to save the result attribute with", 
-        "domain": "The geometry domain to save the result attribute in"
-      }, 
-      "inherits": [
-        "Node", 
-        "NodeInternal", 
-        "GeometryNode"
-      ]
-    }, 
-    "GeometryNodeAttributeFill": {
-      "fields": {
-        "data_type": "Type of data stored in attribute"
-      }, 
-      "inherits": [
-        "Node", 
-        "NodeInternal", 
-        "GeometryNode"
-      ]
-    }, 
-    "GeometryNodeAttributeProximity": {
-      "fields": {
-        "target_geometry_element": "Element of the target geometry to calculate the distance from"
-      }, 
-      "inherits": [
-        "Node", 
-        "NodeInternal", 
-        "GeometryNode"
-      ]
-    }, 
-    "GeometryNodeAttributeRandomize": {
-      "fields": {
-        "data_type": "Type of data stored in attribute"
-      }, 
-      "inherits": [
-        "Node", 
-        "NodeInternal", 
-        "GeometryNode"
-      ]
-    }, 
-    "GeometryNodeAttributeSampleTexture": {
-      "fields": {
-        "texture": "Texture to sample values from"
+        "data_type": "Type of data stored in attribute", 
+        "domain": "Which domain to store the data in"
       }, 
       "inherits": [
         "Node", 
@@ -4089,9 +4183,100 @@
         "GeometryNode"
       ]
     }, 
+    "GeometryNodeCurveHandleTypeSelection": {
+      "fields": {
+        "mode": "Whether to check the type of left and right handles"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeCurvePrimitiveBezierSegment": {
+      "fields": {
+        "mode": "Method used to determine control handles"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeCurvePrimitiveCircle": {
+      "fields": {
+        "mode": "Method used to determine radius and placement"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeCurvePrimitiveLine": {
+      "fields": {
+        "mode": "Method used to determine radius and placement"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeCurveSetHandles": {
+      "fields": {
+        "mode": "Whether to update left and right handles"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeCurveToPoints": {
+      "fields": {
+        "mode": "How to generate points from the input curve"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
     "GeometryNodeCustomGroup": {
       "fields": {
         "interface": "(read-only)    Interface socket data"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeDeleteGeometry": {
+      "fields": {
+        "domain": "Which domain to delete in", 
+        "mode": "Which parts of the mesh component to delete"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeDistributePointsOnFaces": {
+      "fields": {
+        "distribute_method": "Method to use for scattering points"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeFilletCurve": {
+      "fields": {
+        "mode": "How to choose number of vertices on fillet"
       }, 
       "inherits": [
         "Node", 
@@ -4109,9 +4294,10 @@
         "GeometryNode"
       ]
     }, 
-    "GeometryNodeObjectInfo": {
+    "GeometryNodeImageTexture": {
       "fields": {
-        "transform_space": "The transformation of the vector and geometry outputs"
+        "extension": "How the image is extrapolated past its original bounds", 
+        "interpolation": "Method for smoothing values between pixels"
       }, 
       "inherits": [
         "Node", 
@@ -4119,7 +4305,131 @@
         "GeometryNode"
       ]
     }, 
-    "GeometryNodePointDistribute": {
+    "GeometryNodeLegacyAlignRotationToVector": {
+      "fields": {
+        "axis": "Axis to align to the vector", 
+        "pivot_axis": "Axis to rotate around"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeLegacyAttributeColorRamp": {
+      "fields": {
+        "color_ramp": "(read-only)"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeLegacyAttributeConvert": {
+      "fields": {
+        "data_type": "The data type to save the result attribute with", 
+        "domain": "The geometry domain to save the result attribute in"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeLegacyAttributeCurveMap": {
+      "fields": {
+        "curve_rgb": "(read-only)", 
+        "curve_vec": "(read-only)"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeLegacyAttributeFill": {
+      "fields": {
+        "data_type": "Type of data stored in attribute"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeLegacyAttributeProximity": {
+      "fields": {
+        "target_geometry_element": "Element of the target geometry to calculate the distance from"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeLegacyAttributeRandomize": {
+      "fields": {
+        "data_type": "Type of data stored in attribute"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeLegacyAttributeTransfer": {
+      "fields": {
+        "domain": "The geometry domain to save the result attribute in", 
+        "mapping": "Mapping between geometries"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeLegacyAttributeVectorRotate": {
+      "fields": {
+        "rotation_mode": "Type of rotation"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeLegacyCurveSelectHandles": {
+      "fields": {
+        "mode": "Whether to check the type of left and right handles"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeLegacyCurveSetHandles": {
+      "fields": {
+        "mode": "Whether to update left and right handles"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeLegacyCurveToPoints": {
+      "fields": {
+        "mode": "How to generate points from the input curve"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeLegacyPointDistribute": {
       "fields": {
         "distribute_method": "Method to use for scattering points"
       }, 
@@ -4129,9 +4439,71 @@
         "GeometryNode"
       ]
     }, 
-    "GeometryNodePointInstance": {
+    "GeometryNodeLegacyPointInstance": {
       "fields": {
         "use_whole_collection": "Instance entire collection on each point"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeLegacyPointsToVolume": {
+      "fields": {
+        "resolution_mode": "How the voxel size is specified"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeLegacyRaycast": {
+      "fields": {
+        "mapping": "Mapping from the target geometry to hit points"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeLegacyRotatePoints": {
+      "fields": {
+        "space": "Base orientation of the points", 
+        "type": "Method used to describe the rotation"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeLegacySubdivisionSurface": {
+      "fields": {
+        "boundary_smooth": "Controls how open boundaries are smoothed", 
+        "uv_smooth": "Controls how smoothing is applied to UVs"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeLegacyVolumeToMesh": {
+      "fields": {
+        "resolution_mode": "How the voxel size is specified"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeObjectInfo": {
+      "fields": {
+        "transform_space": "The transformation of the vector and geometry outputs"
       }, 
       "inherits": [
         "Node", 
@@ -4149,10 +4521,81 @@
         "GeometryNode"
       ]
     }, 
-    "GeometryNodeRotatePoints": {
+    "GeometryNodeProximity": {
       "fields": {
-        "space": "Base orientation of the points", 
-        "type": "Method used to describe the rotation"
+        "target_element": "Element of the target geometry to calculate the distance from"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeRaycast": {
+      "fields": {
+        "data_type": "Type of data stored in attribute", 
+        "mapping": "Mapping from the target geometry to hit points"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeResampleCurve": {
+      "fields": {
+        "mode": "How to specify the amount of samples"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeSampleCurve": {
+      "fields": {
+        "mode": "Method for sampling input"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeSeparateGeometry": {
+      "fields": {
+        "domain": "Which domain to separate on"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeSetCurveHandlePositions": {
+      "fields": {
+        "mode": "Whether to update left and right handles"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeStringToCurves": {
+      "fields": {
+        "font": "Font of the text. Falls back to the UI font by default"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeSubdivisionSurface": {
+      "fields": {
+        "boundary_smooth": "Controls how open boundaries are smoothed", 
+        "uv_smooth": "Controls how smoothing is applied to UVs"
       }, 
       "inherits": [
         "Node", 
@@ -4164,6 +4607,16 @@
       "fields": {
         "ngon_method": "Method for splitting the n-gons into triangles", 
         "quad_method": "Method for splitting the quads into triangles"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "GeometryNode"
+      ]
+    }, 
+    "GeometryNodeTrimCurve": {
+      "fields": {
+        "mode": "How to find endpoint positions for the trimmed spline"
       }, 
       "inherits": [
         "Node", 
@@ -4271,6 +4724,7 @@
         "annotation_onion_after_range": "Maximum number of frames to show after current frame", 
         "annotation_onion_before_color": "Base color for ghosts before the active frame", 
         "annotation_onion_before_range": "Maximum number of frames to show before current frame", 
+        "annotation_opacity": "Annotation Layer Opacity", 
         "blend_mode": "Blend mode", 
         "channel_color": "Custom color for animation channel in Dopesheet", 
         "color": "Color for all strokes in this layer", 
@@ -4306,6 +4760,7 @@
         "use_mask_layer": "The visibility of drawings on this layer is affected by the layers in its masks list", 
         "use_onion_skinning": "Display onion skins before and after the current frame", 
         "use_solo_mode": "In Paint mode display only layers with keyframe in current frame", 
+        "use_viewlayer_masks": "Include the mask layers when rendering the view-layer", 
         "vertex_paint_opacity": "Vertex Paint mix factor", 
         "viewlayer_render": "Only include Layer in this View Layer render output (leave blank to include always)"
       }
@@ -4319,6 +4774,7 @@
     }, 
     "GpencilModifier": {
       "fields": {
+        "is_override_data": "(read-only)    In a local override object, whether this modifier comes from the linked reference object, or is local to the override", 
         "name": "Modifier name", 
         "show_expanded": "Set modifier expanded in the user interface", 
         "show_in_editmode": "Display modifier in Edit mode", 
@@ -4362,7 +4818,7 @@
         "has_edit_curve": "(read-only)    Stroke has Curve data to edit shape", 
         "is_nofill_stroke": "Special stroke to use as boundary for filling areas", 
         "line_width": "Thickness of stroke (in pixels)", 
-        "material_index": "Index of material used in this stroke", 
+        "material_index": "Material slot index of this stroke", 
         "points": "(read-only)    Stroke data points", 
         "select": "Stroke is selected for viewport editing", 
         "select_index": "Index of selection used for interpolation", 
@@ -4433,7 +4889,7 @@
         "stroke_depth_order": "Defines how the strokes are ordered in 3D space (for objects not displayed 'In Front')", 
         "stroke_thickness_space": "Set stroke thickness in screen space or world space", 
         "use_adaptive_curve_resolution": "Set the resolution of each editcurve segment dynamically depending on the length of the segment. The resolution is the number of points generated per unit distance", 
-        "use_autolock_layers": "Lock automatically all layers except active one to avoid accidental changes", 
+        "use_autolock_layers": "Automatically lock all layers except the active one to avoid accidental changes", 
         "use_curve_edit": "Edit strokes using curve handles", 
         "use_ghost_custom_colors": "Use custom colors for ghost frames", 
         "use_ghosts_always": "Ghosts are shown in renders and animation playback. Useful for special effects (e.g. motion blur)", 
@@ -4539,11 +4995,12 @@
         "is_evaluated": "(read-only)    Whether this ID is runtime-only, evaluated data-block, or actual data from .blend file", 
         "is_library_indirect": "(read-only)    Is this ID block linked indirectly", 
         "library": "(read-only)    Library file the data-block is linked from", 
+        "library_weak_reference": "(read-only)    Weak reference to a data-block in another library .blend file (used to re-use already appended data instead of appending new copies)", 
         "name": "Unique data-block ID name", 
         "name_full": "(read-only)    Unique data-block ID name, including library one is any", 
         "original": "(read-only)    Actual data-block from .blend file (Main database) that generated that evaluated one", 
         "override_library": "(read-only)    Library override data", 
-        "preview": "(read-only)    Preview image and icon of this data-block (None if not supported for this type of data)", 
+        "preview": "(read-only)    Preview image and icon of this data-block (always None if not supported for this type of data)", 
         "tag": "Tools can use this to tag data for their own purposes (initial state is undefined)", 
         "use_fake_user": "Save this data-block even if it has no users", 
         "users": "(read-only)    Number of times this data-block is referenced"
@@ -4602,7 +5059,7 @@
         "pixels": "Image pixels in floating-point values", 
         "render_slots": "(read-only)    Render slots of the image", 
         "resolution": "X/Y pixels per meter", 
-        "size": "(read-only)    Width and height in pixels, zero when image data cant be loaded", 
+        "size": "(read-only)    Width and height in pixels, zero when image data can't be loaded", 
         "source": "Where the image comes from", 
         "stereo_3d_format": "(read-only)    Settings for stereo 3d", 
         "tiles": "(read-only)    Tiles of the image", 
@@ -4927,9 +5384,11 @@
     "KeyMapItem": {
       "fields": {
         "active": "Activate or deactivate item", 
-        "alt": "Alt key pressed", 
+        "alt": "Alt key pressed, -1 for any state", 
+        "alt_ui": "Alt key pressed", 
         "any": "Any modifier keys pressed", 
-        "ctrl": "Control key pressed", 
+        "ctrl": "Control key pressed, -1 for any state", 
+        "ctrl_ui": "Control key pressed", 
         "id": "(read-only)    ID of the item", 
         "idname": "Identifier of operator to call on input event", 
         "is_user_defined": "(read-only)    Is this keymap item user defined (doesn't just replace a builtin item)", 
@@ -4937,11 +5396,13 @@
         "key_modifier": "Regular key pressed as a modifier", 
         "map_type": "Type of event mapping", 
         "name": "(read-only)    Name of operator (translated) to call on input event", 
-        "oskey": "Operating system key pressed", 
+        "oskey": "Operating system key pressed, -1 for any state", 
+        "oskey_ui": "Operating system key pressed", 
         "properties": "(read-only)    Properties to set when the operator is called", 
         "propvalue": "The value this event translates to in a modal keymap", 
         "repeat": "Active on key-repeat events (when a key is held)", 
-        "shift": "Shift key pressed", 
+        "shift": "Shift key pressed, -1 for any state", 
+        "shift_ui": "Shift key pressed", 
         "show_expanded": "Show key map event and property details in the user interface", 
         "type": "Type of event"
       }
@@ -5072,6 +5533,32 @@
         "selected": "(read-only)    All the selected objects of this layer"
       }
     }, 
+    "LengthGpencilModifier": {
+      "fields": {
+        "end_factor": "Added length to the end of each stroke relative to its length", 
+        "end_length": "Absolute added length to the end of each stroke", 
+        "invert_curvature": "Invert the curvature of the stroke's extension", 
+        "invert_layer_pass": "Inverse filter", 
+        "invert_layers": "Inverse filter", 
+        "invert_material_pass": "Inverse filter", 
+        "invert_materials": "Inverse filter", 
+        "layer": "Layer name", 
+        "layer_pass": "Layer pass index", 
+        "material": "Material used for filtering effect", 
+        "max_angle": "Ignore points on the stroke that deviate from their neighbors by more than this angle when determining the extrapolation shape", 
+        "mode": "Mode to define length", 
+        "overshoot_factor": "Defines what portion of the stroke is used for the calculation of the extension", 
+        "pass_index": "Pass index", 
+        "point_density": "Multiplied by Start/End for the total added point count", 
+        "segment_influence": "Factor to determine how much the length of the individual segments should influence the final computed curvature. Higher factors makes small segments influence the overall curvature less", 
+        "start_factor": "Added length to the start of each stroke relative to its length", 
+        "start_length": "Absolute added length to the start of each stroke", 
+        "use_curvature": "Follow the curvature of the stroke"
+      }, 
+      "inherits": [
+        "GpencilModifier"
+      ]
+    }, 
     "Library": {
       "fields": {
         "filepath": "Path to the library .blend file", 
@@ -5082,6 +5569,12 @@
       "inherits": [
         "ID"
       ]
+    }, 
+    "LibraryWeakReference": {
+      "fields": {
+        "filepath": "(read-only)    Path to the library .blend file", 
+        "id_name": "(read-only)    Full ID name in the library .blend file (including the two leading 'id type' chars)"
+      }
     }, 
     "Light": {
       "fields": {
@@ -5168,6 +5661,7 @@
     }, 
     "LimitRotationConstraint": {
       "fields": {
+        "euler_order": "Explicitly specify the euler rotation order", 
         "max_x": "Highest X value to allow", 
         "max_y": "Highest Y value to allow", 
         "max_z": "Highest Z value to allow", 
@@ -5212,29 +5706,50 @@
         "level_end": "Maximum number of occlusions for the generated strokes", 
         "level_start": "Minimum number of occlusions for the generated strokes", 
         "opacity": "The strength value for the generate strokes", 
-        "source_collection": "Source collection that this modifier uses data from", 
-        "source_object": "Source object that this modifier uses data from", 
+        "overscan": "A margin to prevent strokes from ending abruptly at the edge of the image", 
+        "smooth_tolerance": "Strength of smoothing applied on jagged chains", 
+        "source_camera": "Use specified camera object for generating line art", 
+        "source_collection": "Generate strokes from the objects in this collection", 
+        "source_object": "Generate strokes from this object", 
         "source_type": "Line art stroke source type", 
         "source_vertex_group": "Match the beginning of vertex group names from mesh objects, match all when left empty", 
         "split_angle": "Angle in screen space below which a stroke is split in two", 
+        "stroke_depth_offset": "Move strokes slightly towards the camera to avoid clipping while preserve depth for the viewport", 
         "target_layer": "Grease Pencil layer assigned to the generated strokes", 
         "target_material": "Grease Pencil material assigned to the generated strokes", 
         "thickness": "The thickness for the generated strokes", 
+        "use_cache": "Use cached scene data from the first line art modifier in the stack. Certain settings will be unavailable", 
         "use_clip_plane_boundaries": "Allow lines generated by the near/far clipping plane to be shown", 
         "use_contour": "Generate strokes from contours lines", 
         "use_crease": "Generate strokes from creased edges", 
+        "use_crease_on_sharp": "Allow crease to show on sharp edges", 
+        "use_crease_on_smooth": "Allow crease edges to show inside smooth surfaces", 
+        "use_custom_camera": "Use custom camera instead of the active camera", 
         "use_edge_mark": "Generate strokes from freestyle marked edges", 
         "use_edge_overlap": "Allow edges in the same location (i.e. from edge split) to show properly. May run slower", 
+        "use_face_mark": "Filter feature lines using freestyle face marks", 
+        "use_face_mark_boundaries": "Filter feature lines based on face mark boundaries", 
+        "use_face_mark_invert": "Invert face mark filtering", 
         "use_fuzzy_all": "Treat all lines as the same line type so they can be chained together", 
         "use_fuzzy_intersections": "Treat intersection and contour lines as if they were the same type so they can be chained together", 
+        "use_geometry_space_chain": "Use geometry distance for chaining instead of image space", 
+        "use_image_boundary_trimming": "Trim all edges right at the boundary of image(including overscan region)", 
         "use_intersection": "Generate strokes from intersections", 
+        "use_intersection_mask": "Mask bits to match from Collection Line Art settings", 
+        "use_intersection_match": "Require matching all intersection masks instead of just one", 
+        "use_loose": "Generate strokes from loose edges", 
+        "use_loose_as_contour": "Loose edges will have contour type", 
+        "use_loose_edge_chain": "Allow loose edges to be chained together", 
         "use_material": "Generate strokes from borders between materials", 
+        "use_material_mask": "Use material masks to filter out occluded strokes", 
+        "use_material_mask_bits": "Mask bits to match from Material Line Art settings", 
+        "use_material_mask_match": "Require matching all material masks instead of just one", 
         "use_multiple_levels": "Generate strokes from a range of occlusion levels", 
         "use_object_instances": "Support particle objects and face/vertex instances to show in line art", 
+        "use_offset_towards_custom_camera": "Offset strokes towards selected camera instead of the active camera", 
         "use_output_vertex_group_match_by_name": "Match output vertex group based on name", 
+        "use_overlap_edge_type_support": "Allow an edge to have multiple overlapping types. This will create a separate stroke for each overlapping type", 
         "use_remove_doubles": "Remove doubles from the source geometry before generating stokes", 
-        "use_transparency": "Use transparency mask from this material in line art", 
-        "use_transparency_match": "Require matching all transparency masks instead of just one", 
         "vertex_group": "Vertex group name for selected strokes"
       }, 
       "inherits": [
@@ -5951,7 +6466,9 @@
     }, 
     "Macro": {
       "fields": {
+        "bl_cursor_pending": "Cursor to use when waiting for the user to select a location to activate the operator (when ``bl_options`` has ``DEPENDS_ON_CURSOR`` set)", 
         "bl_options": "Options for this operator type", 
+        "has_reports": "(read-only)    Operator has a set of reports (warnings and errors) from last execution", 
         "name": "(read-only)", 
         "properties": "(read-only)"
       }
@@ -6027,6 +6544,7 @@
         "armature": "Armature to use as source of bones to mask", 
         "invert_vertex_group": "Use vertices that are not part of region defined", 
         "threshold": "Weights over this threshold remain", 
+        "use_smooth": "Use vertex group weights to cut faces at the weight contour", 
         "vertex_group": "Vertex group name"
       }, 
       "inherits": [
@@ -6138,7 +6656,7 @@
     "MaterialGPencilStyle": {
       "fields": {
         "alignment_mode": "Defines how align Dots and Boxes with drawing path and object rotation", 
-        "alignment_rotation": "Additional rotation applied to dots and square strokes", 
+        "alignment_rotation": "Additional rotation applied to dots and square texture of strokes. Only applies in texture shading mode", 
         "fill_color": "Color for filling region bounded by each stroke", 
         "fill_style": "Select style used to fill strokes", 
         "flip": "Flip filling colors", 
@@ -6168,7 +6686,8 @@
     }, 
     "MaterialLineArt": {
       "fields": {
-        "use_transparency": "Use transparency mask from this material in line art"
+        "mat_occlusion": "Faces with this material will behave as if it has set number of layers in occlusion", 
+        "use_material_mask": "Use material masks to filter out occluded strokes"
       }
     }, 
     "MaterialSlot": {
@@ -6229,7 +6748,6 @@
         "use_remesh_preserve_sculpt_face_sets": "Keep the current Face Sets on the new mesh", 
         "use_remesh_preserve_vertex_colors": "Keep the current vertex colors on the new mesh", 
         "use_remesh_preserve_volume": "Projects the mesh to preserve the volume and details of the original mesh", 
-        "use_remesh_smooth_normals": "Smooth the normals of the remesher result", 
         "uv_layer_clone": "UV loop layer to be used as cloning source", 
         "uv_layer_clone_index": "Clone UV loop layer index", 
         "uv_layer_stencil": "UV loop layer to mask the painted area", 
@@ -6255,16 +6773,13 @@
         "filepath": "Path to external displacements file", 
         "frame_scale": "Evaluation time in seconds", 
         "frame_start": "Add this to the start frame", 
-        "time_mode": "Method to control playback time"
+        "invert_vertex_group": "Invert vertex group influence", 
+        "time_mode": "Method to control playback time", 
+        "vertex_group": "Name of the Vertex Group which determines the influence of the modifier per point"
       }, 
       "inherits": [
         "Modifier"
       ]
-    }, 
-    "MeshCacheVertexVelocity": {
-      "fields": {
-        "velocity": "(read-only)"
-      }
     }, 
     "MeshDeformModifier": {
       "fields": {
@@ -6326,7 +6841,7 @@
         "area": "(read-only)    Area of this triangle", 
         "index": "(read-only)    Index of this loop triangle", 
         "loops": "(read-only)    Indices of mesh loops that make up the triangle", 
-        "material_index": "(read-only)", 
+        "material_index": "(read-only)    Material slot index of this triangle", 
         "normal": "(read-only)    Local space unit length normal vector for this triangle", 
         "polygon_index": "(read-only)    Index of mesh polygon that the triangle is a part of", 
         "split_normals": "(read-only)    Local space unit length split normals vectors of the vertices of this triangle (must be computed beforehand using calc_normals_split or calc_tangents)", 
@@ -6346,6 +6861,7 @@
         "index": "(read-only)    Index of this polygon", 
         "loop_start": "Index of the first loop of this polygon", 
         "loop_total": "Number of loops used by this polygon", 
+        "material_index": "Material slot index of this polygon", 
         "normal": "(read-only)    Local space unit length normal vector for this polygon", 
         "use_freestyle_mark": "Face mark for Freestyle line rendering", 
         "vertices": "Vertex indices"
@@ -6373,13 +6889,10 @@
     }, 
     "MeshSequenceCacheModifier": {
       "fields": {
-        "has_velocity": "(read-only)", 
         "object_path": "Path to the object in the Alembic archive used to lookup geometric data", 
         "read_data": "Data to read from the cache", 
-        "read_velocity": "(read-only)", 
         "use_vertex_interpolation": "Allow interpolation of vertex positions", 
-        "velocity_scale": "Multiplier used to control the magnitude of the velocity vectors for time effects", 
-        "vertex_velocities": "(read-only)    Vertices of the fluid mesh generated by simulation"
+        "velocity_scale": "Multiplier used to control the magnitude of the velocity vectors for time effects"
       }, 
       "inherits": [
         "Modifier"
@@ -6574,6 +7087,7 @@
     "Modifier": {
       "fields": {
         "is_active": "The active modifier in the list", 
+        "is_override_data": "(read-only)    In a local override object, whether this modifier comes from the linked reference object, or is local to the override", 
         "name": "Modifier name", 
         "show_expanded": "Set modifier expanded in the user interface", 
         "show_in_editmode": "Display modifier in Edit mode", 
@@ -6615,7 +7129,7 @@
         "frame_start": "Global scene frame number at which this movie starts playing (affects all data associated with a clip)", 
         "grease_pencil": "Grease pencil data for this movie clip", 
         "proxy": "(read-only)", 
-        "size": "(read-only)    Width and height in pixels, zero when image data cant be loaded", 
+        "size": "(read-only)    Width and height in pixels, zero when image data can't be loaded", 
         "source": "(read-only)    Where the clip comes from", 
         "tracking": "(read-only)", 
         "use_proxy": "Use a preview proxy and/or timecode index for this clip", 
@@ -7022,6 +7536,7 @@
     "NlaTrack": {
       "fields": {
         "active": "(read-only)    NLA Track is active", 
+        "is_override_data": "(read-only)    In a local override data, whether this NLA track comes from the linked reference data, or is local to the override", 
         "is_solo": "NLA Track is evaluated itself (i.e. active Action and all other NLA Tracks in the same AnimData block are disabled)", 
         "lock": "NLA Track is locked", 
         "mute": "Disable NLA Track evaluation", 
@@ -7036,7 +7551,6 @@
     }, 
     "Node": {
       "fields": {
-        "active_preview": "Node is previewed in other editor", 
         "bl_icon": "The node icon", 
         "bl_label": "The node label", 
         "bl_static_type": "Node type (deprecated, use with care)", 
@@ -7154,6 +7668,7 @@
     }, 
     "NodeSocket": {
       "fields": {
+        "bl_label": "Label to display for the socket type in the UI", 
         "description": "Socket tooltip", 
         "display_shape": "Socket shape", 
         "enabled": "Enable the socket", 
@@ -7252,6 +7767,15 @@
         "NodeSocketStandard"
       ]
     }, 
+    "NodeSocketFloatTimeAbsolute": {
+      "fields": {
+        "default_value": "Input value used for unconnected socket"
+      }, 
+      "inherits": [
+        "NodeSocket", 
+        "NodeSocketStandard"
+      ]
+    }, 
     "NodeSocketFloatUnsigned": {
       "fields": {
         "default_value": "Input value used for unconnected socket"
@@ -7281,6 +7805,8 @@
     }, 
     "NodeSocketInterface": {
       "fields": {
+        "attribute_domain": "Attribute domain used by the geometry nodes modifier to create an attribute output", 
+        "bl_label": "Label to display for the socket type in the UI", 
         "description": "Socket tooltip", 
         "hide_value": "Hide the socket input value even when the socket is not connected", 
         "identifier": "(read-only)    Unique identifier for mapping sockets", 
@@ -7381,6 +7907,17 @@
         "NodeSocketInterfaceStandard"
       ]
     }, 
+    "NodeSocketInterfaceFloatTimeAbsolute": {
+      "fields": {
+        "default_value": "Input value used for unconnected socket", 
+        "max_value": "Maximum value", 
+        "min_value": "Minimum value"
+      }, 
+      "inherits": [
+        "NodeSocketInterface", 
+        "NodeSocketInterfaceStandard"
+      ]
+    }, 
     "NodeSocketInterfaceFloatUnsigned": {
       "fields": {
         "default_value": "Input value used for unconnected socket", 
@@ -7445,6 +7982,15 @@
         "NodeSocketInterfaceStandard"
       ]
     }, 
+    "NodeSocketInterfaceMaterial": {
+      "fields": {
+        "default_value": "(read-only)    Input value used for unconnected socket"
+      }, 
+      "inherits": [
+        "NodeSocketInterface", 
+        "NodeSocketInterfaceStandard"
+      ]
+    }, 
     "NodeSocketInterfaceObject": {
       "fields": {
         "default_value": "(read-only)    Input value used for unconnected socket"
@@ -7465,6 +8011,15 @@
     "NodeSocketInterfaceString": {
       "fields": {
         "default_value": "Input value used for unconnected socket"
+      }, 
+      "inherits": [
+        "NodeSocketInterface", 
+        "NodeSocketInterfaceStandard"
+      ]
+    }, 
+    "NodeSocketInterfaceTexture": {
+      "fields": {
+        "default_value": "(read-only)    Input value used for unconnected socket"
       }, 
       "inherits": [
         "NodeSocketInterface", 
@@ -7575,6 +8130,15 @@
         "NodeSocketStandard"
       ]
     }, 
+    "NodeSocketMaterial": {
+      "fields": {
+        "default_value": "Input value used for unconnected socket"
+      }, 
+      "inherits": [
+        "NodeSocket", 
+        "NodeSocketStandard"
+      ]
+    }, 
     "NodeSocketObject": {
       "fields": {
         "default_value": "Input value used for unconnected socket"
@@ -7585,6 +8149,15 @@
       ]
     }, 
     "NodeSocketString": {
+      "fields": {
+        "default_value": "Input value used for unconnected socket"
+      }, 
+      "inherits": [
+        "NodeSocket", 
+        "NodeSocketStandard"
+      ]
+    }, 
+    "NodeSocketTexture": {
       "fields": {
         "default_value": "Input value used for unconnected socket"
       }, 
@@ -7669,7 +8242,7 @@
         "nodes": "(read-only)", 
         "outputs": "(read-only)    Node tree outputs", 
         "type": "(read-only)    Node Tree type (deprecated, bl_idname is the actual node tree type identifier)", 
-        "view_center": "(read-only)"
+        "view_center": "(read-only)    The current location (offset) of the view for this Node Tree"
       }, 
       "inherits": [
         "ID"
@@ -7698,10 +8271,10 @@
         "noise_offset": "Offset the noise along the strokes", 
         "noise_scale": "Scale the noise frequency", 
         "pass_index": "Pass index", 
-        "random": "Use random values over time", 
         "seed": "Random seed", 
         "step": "Number of frames before recalculate random values again", 
         "use_custom_curve": "Use a custom curve to define noise effect along the strokes", 
+        "use_random": "Use random values over time", 
         "vertex_group": "Vertex group name for modulating the deform"
       }, 
       "inherits": [
@@ -7738,7 +8311,6 @@
         "color": "Object color and alpha, used when faces have the ObColor mode enabled", 
         "constraints": "(read-only)    Constraints affecting the transformation of the object", 
         "cycles": "(read-only)    Cycles object settings", 
-        "cycles_visibility": "(read-only)    Cycles visibility settings", 
         "data": "Object data", 
         "delta_location": "Extra translation added to the location of the object", 
         "delta_rotation_euler": "Extra rotation added to the rotation of the object (when using Euler rotations)", 
@@ -7765,7 +8337,9 @@
         "instance_type": "If not None, object instancing method to use", 
         "is_from_instancer": "(read-only)    Object comes from a instancer", 
         "is_from_set": "(read-only)    Object comes from a background set", 
+        "is_holdout": "Render objects as a holdout or matte, creating a hole in the image with zero alpha, to fill out in compositing with real footage or another render", 
         "is_instancer": "(read-only)", 
+        "is_shadow_catcher": "Only render shadows and reflections on this object, for compositing renders into real footage. Objects with this setting are considered to already exist in the footage, objects without it are synthetic objects being composited into it", 
         "lineart": "(read-only)    Line art settings for the object", 
         "location": "Location of the object", 
         "lock_location": "Lock editing of location when transforming", 
@@ -7826,7 +8400,13 @@
         "use_mesh_mirror_y": "Enable mesh symmetry in the Y axis", 
         "use_mesh_mirror_z": "Enable mesh symmetry in the Z axis", 
         "use_shape_key_edit_mode": "Apply shape keys in edit mode (for meshes only)", 
-        "vertex_groups": "(read-only)    Vertex groups of the object"
+        "vertex_groups": "(read-only)    Vertex groups of the object", 
+        "visible_camera": "Object visibility to camera rays", 
+        "visible_diffuse": "Object visibility to diffuse rays", 
+        "visible_glossy": "Object visibility to glossy rays", 
+        "visible_shadow": "Object visibility to shadow rays", 
+        "visible_transmission": "Object visibility to transmission rays", 
+        "visible_volume_scatter": "Object visibility to volume scattering rays"
       }, 
       "inherits": [
         "ID"
@@ -7924,8 +8504,13 @@
         "location": "Values for change location", 
         "material": "Material used for filtering effect", 
         "pass_index": "Pass index", 
+        "random_offset": "Value for changes in location", 
+        "random_rotation": "Value for changes in rotation", 
+        "random_scale": "Value for changes in scale", 
         "rotation": "Values for changes in rotation", 
         "scale": "Values for changes in scale", 
+        "seed": "Random seed", 
+        "use_uniform_random_scale": "Use the same random seed for each scale axis for a uniform scale", 
         "vertex_group": "Vertex group name for modulating the deform"
       }, 
       "inherits": [
@@ -7946,9 +8531,10 @@
         "layer_pass": "Layer pass index", 
         "material": "Material used for filtering effect", 
         "modify_color": "Set what colors of the stroke are affected", 
-        "normalize_opacity": "Replace the stroke opacity", 
         "pass_index": "Pass index", 
         "use_custom_curve": "Use a custom curve to define opacity effect along the strokes", 
+        "use_normalized_opacity": "Replace the stroke opacity", 
+        "use_weight_factor": "Use weight to modulate effect", 
         "vertex_group": "Vertex group name for modulating the deform"
       }, 
       "inherits": [
@@ -7957,6 +8543,7 @@
     }, 
     "Operator": {
       "fields": {
+        "bl_cursor_pending": "Cursor to use when waiting for the user to select a location to activate the operator (when ``bl_options`` has ``DEPENDS_ON_CURSOR`` set)", 
         "bl_options": "Options for this operator type", 
         "has_reports": "(read-only)    Operator has a set of reports (warnings and errors) from last execution", 
         "layout": "(read-only)", 
@@ -8053,14 +8640,18 @@
     }, 
     "Panel": {
       "fields": {
+        "bl_category": "The category (tab) in which the panel will be displayed, when applicable", 
         "bl_context": "The context in which the panel belongs to. (TODO: explain the possible combinations bl_context/bl_region_type/bl_space_type)", 
+        "bl_description": "The panel tooltip", 
         "bl_idname": "If this is set, the panel gets a custom ID, otherwise it takes the name of the class used to define the panel. For example, if the class name is \"OBJECT_PT_hello\", and bl_idname is not set by the script, then bl_idname = \"OBJECT_PT_hello\"", 
         "bl_label": "The panel label, shows up in the panel header at the right of the triangle used to collapse the panel", 
         "bl_options": "Options for this panel type", 
         "bl_order": "Panels with lower numbers are default ordered before panels with higher numbers", 
+        "bl_owner_id": "The ID owning the data displayed in the panel, if any", 
         "bl_parent_id": "If this is set, the panel becomes a sub-panel", 
         "bl_region_type": "The region where the panel is going to be used in", 
         "bl_space_type": "The space where the panel is going to be used in", 
+        "bl_translation_context": "Specific translation context, only define when the label needs to be disambiguated from others using the exact same label", 
         "bl_ui_units_x": "When set, defines popup panel width", 
         "custom_data": "(read-only)    Panel data", 
         "is_popover": "(read-only)", 
@@ -8465,9 +9056,9 @@
         "frame_step": "Number of frames between cached frames", 
         "index": "Index number of cache files", 
         "info": "(read-only)    Info on current cache status", 
-        "is_baked": "(read-only)", 
-        "is_baking": "(read-only)", 
-        "is_frame_skip": "(read-only)", 
+        "is_baked": "(read-only)    The cache is baked", 
+        "is_baking": "(read-only)    The cache is being baked", 
+        "is_frame_skip": "(read-only)    Some frames were skipped while baking/saving that cache", 
         "is_outdated": "(read-only)", 
         "name": "Cache name", 
         "point_caches": "(read-only)", 
@@ -8485,9 +9076,9 @@
         "frame_step": "Number of frames between cached frames", 
         "index": "Index number of cache files", 
         "info": "(read-only)    Info on current cache status", 
-        "is_baked": "(read-only)", 
-        "is_baking": "(read-only)", 
-        "is_frame_skip": "(read-only)", 
+        "is_baked": "(read-only)    The cache is baked", 
+        "is_baking": "(read-only)    The cache is being baked", 
+        "is_frame_skip": "(read-only)    Some frames were skipped while baking/saving that cache", 
         "is_outdated": "(read-only)", 
         "name": "Cache name", 
         "use_disk_cache": "Save cache files to disk (.blend file must be saved first)", 
@@ -8544,27 +9135,27 @@
     "PoseBone": {
       "fields": {
         "bbone_curveinx": "X-axis handle offset for start of the B-Bone's curve, adjusts curvature", 
-        "bbone_curveiny": "Y-axis handle offset for start of the B-Bone's curve, adjusts curvature", 
+        "bbone_curveinz": "Z-axis handle offset for start of the B-Bone's curve, adjusts curvature", 
         "bbone_curveoutx": "X-axis handle offset for end of the B-Bone's curve, adjusts curvature", 
-        "bbone_curveouty": "Y-axis handle offset for end of the B-Bone's curve, adjusts curvature", 
+        "bbone_curveoutz": "Z-axis handle offset for end of the B-Bone's curve, adjusts curvature", 
         "bbone_custom_handle_end": "(read-only)    Bone that serves as the end handle for the B-Bone curve", 
         "bbone_custom_handle_start": "(read-only)    Bone that serves as the start handle for the B-Bone curve", 
         "bbone_easein": "Length of first Bezier Handle (for B-Bones only)", 
         "bbone_easeout": "Length of second Bezier Handle (for B-Bones only)", 
         "bbone_rollin": "Roll offset for the start of the B-Bone, adjusts twist", 
         "bbone_rollout": "Roll offset for the end of the B-Bone, adjusts twist", 
-        "bbone_scaleinx": "X-axis scale factor for start of the B-Bone, adjusts thickness (for tapering effects)", 
-        "bbone_scaleiny": "Y-axis scale factor for start of the B-Bone, adjusts thickness (for tapering effects)", 
-        "bbone_scaleoutx": "X-axis scale factor for end of the B-Bone, adjusts thickness (for tapering effects)", 
-        "bbone_scaleouty": "Y-axis scale factor for end of the B-Bone, adjusts thickness (for tapering effects)", 
+        "bbone_scalein": "Scale factors for the start of the B-Bone, adjusts thickness (for tapering effects)", 
+        "bbone_scaleout": "Scale factors for the end of the B-Bone, adjusts thickness (for tapering effects)", 
         "bone": "(read-only)    Bone associated with this PoseBone", 
         "bone_group": "Bone group this pose channel belongs to", 
         "bone_group_index": "Bone group this pose channel belongs to (0 means no group)", 
         "child": "(read-only)    Child of this pose bone", 
         "constraints": "(read-only)    Constraints that act on this pose channel", 
         "custom_shape": "Object that defines custom display shape for this bone", 
-        "custom_shape_scale": "Adjust the size of the custom shape", 
+        "custom_shape_rotation_euler": "Adjust the rotation of the custom shape", 
+        "custom_shape_scale_xyz": "Adjust the size of the custom shape", 
         "custom_shape_transform": "Bone that defines the display transform of this custom shape", 
+        "custom_shape_translation": "Adjust the location of the custom shape", 
         "head": "(read-only)    Location of head of the channel's bone", 
         "ik_linear_weight": "Weight of scale constraint for IK", 
         "ik_max_x": "Maximum angles for IK Limit", 
@@ -8614,6 +9205,7 @@
       "fields": {
         "active_section": "Active section of the preferences shown in the user interface", 
         "addons": "(read-only)", 
+        "apps": "(read-only)    Preferences that work only for apps", 
         "autoexec_paths": "(read-only)", 
         "edit": "(read-only)    Settings for interacting with Blender data", 
         "experimental": "(read-only)    Settings for features that are still early in their development stage", 
@@ -8628,6 +9220,13 @@
         "use_preferences_save": "Save preferences on exit when modified (unless factory settings have been loaded)", 
         "version": "(read-only)    Version of Blender the userpref.blend was saved with", 
         "view": "(read-only)    Preferences related to viewing data"
+      }
+    }, 
+    "PreferencesApps": {
+      "fields": {
+        "show_corner_split": "Split and join editors by dragging from corners", 
+        "show_edge_resize": "Resize editors by dragging from the edges", 
+        "show_regions_visibility_toggle": "Header and side bars visibility toggles"
       }
     }, 
     "PreferencesEdit": {
@@ -8654,9 +9253,11 @@
         "use_cursor_lock_adjust": "Place the cursor without 'jumping' to the new location (when lock-to-cursor is used)", 
         "use_duplicate_action": "Causes actions to be duplicated with the data-blocks", 
         "use_duplicate_armature": "Causes armature data to be duplicated with the object", 
+        "use_duplicate_camera": "Causes camera data to be duplicated with the object", 
         "use_duplicate_curve": "Causes curve data to be duplicated with the object", 
         "use_duplicate_grease_pencil": "Causes grease pencil data to be duplicated with the object", 
         "use_duplicate_hair": "Causes hair data to be duplicated with the object", 
+        "use_duplicate_lattice": "Causes lattice data to be duplicated with the object", 
         "use_duplicate_light": "Causes light data to be duplicated with the object", 
         "use_duplicate_lightprobe": "Causes light probe data to be duplicated with the object", 
         "use_duplicate_material": "Causes material data to be duplicated with the object", 
@@ -8664,6 +9265,7 @@
         "use_duplicate_metaball": "Causes metaball data to be duplicated with the object", 
         "use_duplicate_particle": "Causes particle systems to be duplicated with the object", 
         "use_duplicate_pointcloud": "Causes point cloud data to be duplicated with the object", 
+        "use_duplicate_speaker": "Causes speaker data to be duplicated with the object", 
         "use_duplicate_surface": "Causes surface data to be duplicated with the object", 
         "use_duplicate_text": "Causes text data to be duplicated with the object", 
         "use_duplicate_volume": "Causes volume data to be duplicated with the object", 
@@ -8680,8 +9282,12 @@
     "PreferencesExperimental": {
       "fields": {
         "override_auto_resync": "Enable library overrides automatic resync detection and process on file load. Disable when dealing with older .blend files that need manual Resync (Enforce) handling", 
-        "use_asset_browser": "Enable Asset Browser editor and operators to manage data-blocks as asset", 
+        "proxy_to_override_auto_conversion": "Enable automatic conversion of proxies to library overrides on file load", 
+        "show_asset_debug_info": "Enable some extra fields in the Asset Browser to aid in debugging", 
         "use_cycles_debug": "Enable Cycles debugging options for developers", 
+        "use_extended_asset_browser": "Enable Asset Browser editor and operators to manage regular data-blocks as assets, not just poses", 
+        "use_full_frame_compositor": "Enable compositor full frame execution mode option (no tiling, reduces execution time and memory usage)", 
+        "use_geometry_nodes_legacy": "Enable legacy geometry nodes in the menu", 
         "use_new_hair_type": "Enable the new hair type in the ui", 
         "use_new_point_cloud_type": "Enable the new point cloud type in the ui", 
         "use_override_templates": "Enable library override template in the python API", 
@@ -8696,26 +9302,26 @@
         "animation_player_preset": "Preset configs for external animation players", 
         "asset_libraries": "(read-only)", 
         "auto_save_time": "The time (in minutes) to wait between automatic temporary saves", 
+        "file_preview_type": "What type of blend preview to create", 
         "font_directory": "The default directory to search for loading fonts", 
-        "hide_recent_locations": "Hide recent locations in the file selector", 
-        "hide_system_bookmarks": "Hide system bookmarks in the file selector", 
         "i18n_branches_directory": "The path to the '/branches' directory of your local svn-translation copy, to allow translating from the UI", 
         "image_editor": "Path to an image editor", 
         "recent_files": "Maximum number of recently opened files to remember", 
         "render_cache_directory": "Where to cache raw render results", 
         "render_output_directory": "The default directory for rendering output, for new scenes", 
         "save_version": "The number of old versions to maintain in the current directory, when manually saving", 
-        "script_directory": "Alternate script path, matching the default layout with subdirectories: startup, add-ons and modules (requires restart)", 
-        "show_hidden_files_datablocks": "Hide files and data-blocks if their name start with a dot (.*)", 
+        "script_directory": "Alternate script path, matching the default layout with subdirectories: startup, add-ons, modules, and presets (requires restart)", 
+        "show_hidden_files_datablocks": "Show files and data-blocks that are normally hidden", 
+        "show_recent_locations": "Show Recent locations list in the File Browser", 
+        "show_system_bookmarks": "Show System locations list in the File Browser", 
         "sound_directory": "The default directory to search for sounds", 
         "temporary_directory": "The directory for storing temporary save files", 
         "texture_directory": "The default directory to search for textures", 
         "use_auto_save_temporary_files": "Automatic saving of temporary files in temp directory, uses process ID.", 
         "use_file_compression": "Enable file compression when saving .blend files", 
-        "use_filter_files": "Display only files with extensions in the image select window", 
+        "use_filter_files": "Enable filtering of files in the File Browser", 
         "use_load_ui": "Load user interface setup when loading .blend files", 
         "use_relative_paths": "Default relative path option for the file selector, when no path is defined yet", 
-        "use_save_preview_images": "Enables automatic saving of preview images in the .blend file as well as a thumbnail of the .blend", 
         "use_scripts_auto_execute": "Allow any .blend file to run scripts automatically (unsafe with blend files from an untrusted source)", 
         "use_tabs_as_spaces": "Automatically convert all new tabs into spaces for new and loaded text files"
       }
@@ -8834,7 +9440,6 @@
         "show_column_layout": "Use a column layout for toolbox", 
         "show_developer_ui": "Show options for developers (edit source in context menu, geometry indices)", 
         "show_gizmo": "Use transform gizmos by default", 
-        "show_layout_ui": "Split and join editors by dragging from corners", 
         "show_navigate_ui": "Show navigation controls in 2D and 3D views which do not have scroll bars", 
         "show_object_info": "Display objects name and frame number in 3D view", 
         "show_playback_fps": "Show the frames per second screen refresh rate, while animation is played back", 
@@ -8933,10 +9538,10 @@
     "RegionView3D": {
       "fields": {
         "is_orthographic_side_view": "Is current view an orthographic side view", 
-        "lock_rotation": "Lock view rotation in side views", 
+        "lock_rotation": "Lock view rotation of side views to Top/Front/Right", 
         "perspective_matrix": "(read-only)    Current perspective matrix (``window_matrix * view_matrix``)", 
         "show_sync_view": "Sync view position between side views", 
-        "use_box_clip": "Clip objects based on what's visible in other side views", 
+        "use_box_clip": "Clip view contents based on what is visible in other side views", 
         "view_camera_offset": "View shift in camera view", 
         "view_camera_zoom": "Zoom factor in camera view", 
         "view_distance": "Distance to the view location", 
@@ -8963,12 +9568,13 @@
     }, 
     "RenderEngine": {
       "fields": {
+        "bl_use_alembic_procedural": "Support loading Alembic data at render time", 
         "bl_use_custom_freestyle": "Handles freestyle rendering on its own, instead of delegating it to EEVEE", 
         "bl_use_eevee_viewport": "Uses Eevee for viewport shading in LookDev shading mode", 
         "bl_use_gpu_context": "Enable OpenGL context for the render method, for engines that render using OpenGL", 
+        "bl_use_image_save": "Save images/movie to disk while rendering an animation. Disabling image saving is only supported when bl_use_postprocess is also disabled", 
         "bl_use_postprocess": "Apply compositing on render results", 
         "bl_use_preview": "Render engine supports being used for rendering previews of materials, lights and worlds", 
-        "bl_use_save_buffers": "Support render to an on disk buffer during rendering", 
         "bl_use_shading_nodes_custom": "Don't expose Cycles and Eevee shading nodes in the node editor user interface, so own nodes can be used instead", 
         "bl_use_spherical_stereo": "Support spherical stereo camera models", 
         "bl_use_stereo_viewport": "Support rendering stereo 3D viewport", 
@@ -8980,13 +9586,10 @@
     }, 
     "RenderLayer": {
       "fields": {
-        "invert_zmask": "(read-only)    For Zmask, only render what is behind solid z values instead of in front", 
         "name": "(read-only)    View layer name", 
         "passes": "(read-only)", 
-        "use_all_z": "(read-only)    Fill in Z values for solid faces in invisible layers, for masking", 
         "use_ao": "(read-only)    Render Ambient Occlusion in this Layer", 
-        "use_edge_enhance": "(read-only)    Render edge-enhance in this layer (only works for solid faces)", 
-        "use_halo": "(read-only)    Render Halos in this Layer (on top of Solid)", 
+        "use_motion_blur": "(read-only)    Render motion blur in this Layer, if enabled in the scene", 
         "use_pass_ambient_occlusion": "(read-only)    Deliver Ambient Occlusion pass", 
         "use_pass_combined": "(read-only)    Deliver full combined RGBA buffer", 
         "use_pass_diffuse_color": "(read-only)    Deliver diffuse color pass", 
@@ -9001,6 +9604,7 @@
         "use_pass_mist": "(read-only)    Deliver mist factor pass (0.0 to 1.0)", 
         "use_pass_normal": "(read-only)    Deliver normal pass", 
         "use_pass_object_index": "(read-only)    Deliver object index pass", 
+        "use_pass_position": "(read-only)    Deliver position pass", 
         "use_pass_shadow": "(read-only)    Deliver shadow pass", 
         "use_pass_subsurface_color": "(read-only)    Deliver subsurface color pass", 
         "use_pass_subsurface_direct": "(read-only)    Deliver subsurface direct pass", 
@@ -9014,9 +9618,7 @@
         "use_sky": "(read-only)    Render Sky in this Layer", 
         "use_solid": "(read-only)    Render Solid faces in this Layer", 
         "use_strand": "(read-only)    Render Strands in this Layer", 
-        "use_volumes": "(read-only)    Render volumes in this Layer", 
-        "use_zmask": "(read-only)    Only render what's in front of the solid z values", 
-        "use_ztransp": "(read-only)    Render Z-transparent faces in this layer (on top of Solid and Halos)"
+        "use_volumes": "(read-only)    Render volumes in this Layer"
       }
     }, 
     "RenderPass": {
@@ -9072,7 +9674,6 @@
         "pixel_aspect_x": "Horizontal aspect ratio - for anamorphic or non-square pixel output", 
         "pixel_aspect_y": "Vertical aspect ratio - for anamorphic or non-square pixel output", 
         "preview_pixel_size": "Pixel size for viewport rendering", 
-        "preview_start_resolution": "Resolution to start rendering preview at, progressively increasing it to the full viewport size", 
         "resolution_percentage": "Percentage scale for render resolution", 
         "resolution_x": "Number of horizontal pixels in the rendered image", 
         "resolution_y": "Number of vertical pixels in the rendered image", 
@@ -9096,8 +9697,6 @@
         "stereo_views": "(read-only)", 
         "threads": "Maximum number of CPU cores to use simultaneously while rendering (for multi-core/CPU systems)", 
         "threads_mode": "Determine the amount of render threads used", 
-        "tile_x": "Horizontal tile size to use while rendering", 
-        "tile_y": "Vertical tile size to use while rendering", 
         "use_bake_clear": "Clear Images before baking", 
         "use_bake_lores_mesh": "Calculate heights against unsubdivided low resolution mesh", 
         "use_bake_multires": "Bake directly from multires object", 
@@ -9108,7 +9707,6 @@
         "use_crop_to_border": "Crop the rendered frame to the defined render region size", 
         "use_file_extension": "Add the file format extensions to the rendered file name (eg: filename + .jpg)", 
         "use_freestyle": "Draw stylized strokes using Freestyle", 
-        "use_full_sample": "Save for every anti-aliasing sample the entire RenderLayer results (this solves anti-aliasing issues with compositing)", 
         "use_high_quality_normals": "Use high quality tangent space at the cost of lower performance", 
         "use_lock_interface": "Lock interface during rendering in favor of giving more memory to the renderer", 
         "use_motion_blur": "Use multi-sampled 3D scene motion blur", 
@@ -9117,7 +9715,6 @@
         "use_persistent_data": "Keep render data around for faster re-renders and animation renders, at the cost of increased memory usage", 
         "use_placeholder": "Create empty placeholder files while rendering frames (similar to Unix 'touch')", 
         "use_render_cache": "Save render cache to EXR files (useful for heavy compositing, Note: affects indirectly rendered scenes)", 
-        "use_save_buffers": "Save tiles for all RenderLayers and SceneNodes to files in the temp directory (saves memory, required for Full Sample)", 
         "use_sequencer": "Process the render (and composited) result through the video sequence editor pipeline, if sequencer strips exist", 
         "use_sequencer_override_scene_strip": "Use workbench render settings from the sequencer scene, instead of each individual scene used in the strip", 
         "use_simplify": "Enable simplification of scene for quicker preview renders", 
@@ -9265,7 +9862,7 @@
         "audio_volume": "Audio volume", 
         "background_set": "Background set scene", 
         "camera": "Active camera, used for rendering the scene", 
-        "collection": "(read-only)    Scene master collection that objects and other collections in the scene", 
+        "collection": "(read-only)    Scene root collection that owns all the objects and other collections instantiated in the scene", 
         "cursor": "(read-only)", 
         "cycles": "(read-only)    Cycles render settings", 
         "cycles_curves": "(read-only)    Cycles hair rendering settings", 
@@ -9425,11 +10022,11 @@
         "scene_input": "Input type to use for the Scene strip", 
         "strobe": "Only display every nth frame", 
         "transform": "(read-only)", 
+        "use_annotations": "Show Annotations in OpenGL previews", 
         "use_deinterlace": "Remove fields from video movies", 
         "use_flip_x": "Flip on the X axis", 
         "use_flip_y": "Flip on the Y axis", 
         "use_float": "Convert input to float data", 
-        "use_grease_pencil": "Show Grease Pencil strokes in OpenGL previews", 
         "use_proxy": "Use a preview proxy and/or time-code index for this strip", 
         "use_reverse_frames": "Reverse frame order"
       }, 
@@ -9514,6 +10111,7 @@
         "blend_alpha": "Percentage of how much the strip's colors affect other strips", 
         "blend_type": "Method for controlling how the strip combines with other strips", 
         "channel": "Y position of the sequence strip", 
+        "color_tag": "Color tag for a strip", 
         "effect_fader": "Custom fade value", 
         "frame_duration": "(read-only)    The length of the contents of this strip before the handles are applied", 
         "frame_final_duration": "The length of the contents of this strip after the handles are applied", 
@@ -9524,7 +10122,6 @@
         "modifiers": "(read-only)    Modifiers affecting this strip", 
         "mute": "Disable strip so that it cannot be viewed in the output", 
         "override_cache_settings": "Override global cache settings", 
-        "speed_factor": "Multiply the current speed of the sequence with this number or remap current frame to this frame", 
         "type": "(read-only)", 
         "use_cache_composite": "Cache intermediate composited images, for faster tweaking of stacked strips at the cost of memory usage", 
         "use_cache_preprocessed": "Cache preprocessed images, for faster tweaking of effects at the cost of memory usage", 
@@ -9540,7 +10137,13 @@
         "invert_gain": "Invert the gain color`", 
         "invert_gamma": "Invert the gamma color", 
         "invert_lift": "Invert the lift color", 
-        "lift": "Color balance lift (shadows)"
+        "invert_offset": "Invert the offset color", 
+        "invert_power": "Invert the power color", 
+        "invert_slope": "Invert the slope color`", 
+        "lift": "Color balance lift (shadows)", 
+        "offset": "Correction for entire tonal range", 
+        "power": "Correction for midtones", 
+        "slope": "Correction for highlights"
       }
     }, 
     "SequenceCrop": {
@@ -9564,7 +10167,7 @@
         "show_cache_final_out": "Visualize cached complete frames", 
         "show_cache_preprocessed": "Visualize cached pre-processed images", 
         "show_cache_raw": "Visualize cached raw images", 
-        "show_overlay": "Partial overlay on top of the sequencer with a frame offset", 
+        "show_overlay_frame": "Partial overlay on top of the sequencer with a frame offset", 
         "use_cache_composite": "Cache intermediate composited images, for faster tweaking of stacked strips at the cost of memory usage", 
         "use_cache_final": "Cache final image for each frame", 
         "use_cache_preprocessed": "Cache pre-processed images, for faster tweaking of effects at the cost of memory usage", 
@@ -9575,6 +10178,7 @@
     "SequenceElement": {
       "fields": {
         "filename": "Name of the source file", 
+        "orig_fps": "(read-only)    Original frames per second", 
         "orig_height": "(read-only)    Original image height", 
         "orig_width": "(read-only)    Original image width"
       }
@@ -9601,11 +10205,30 @@
         "build_record_run": "Build record run time code index", 
         "directory": "Location to store the proxy files", 
         "filepath": "Location of custom proxy file", 
-        "quality": "JPEG Quality of proxies to build", 
+        "quality": "Quality of proxies to build", 
         "timecode": "Method for reading the inputs timecode", 
         "use_overwrite": "Overwrite existing proxy files when building", 
         "use_proxy_custom_directory": "Use a custom directory to store data", 
         "use_proxy_custom_file": "Use a custom file to read proxy data from"
+      }
+    }, 
+    "SequencerPreviewOverlay": {
+      "fields": {
+        "show_annotation": "Show annotations for this view", 
+        "show_metadata": "Show metadata of first visible strip", 
+        "show_safe_areas": "Show TV title safe and action safe areas in preview", 
+        "show_safe_center": "Show safe areas to fit content in a different aspect ratio"
+      }
+    }, 
+    "SequencerTimelineOverlay": {
+      "fields": {
+        "show_fcurves": "Display strip opacity/volume curve", 
+        "show_grid": "Show vertical grid lines", 
+        "show_strip_offset": "Display strip in/out offsets", 
+        "show_strip_source": "Display path to source file, or name of source datablock", 
+        "show_strip_tag_color": "Display the strip color tags in the sequencer", 
+        "show_thumbnails": "Show strip thumbnails", 
+        "waveform_display_type": "How Waveforms are displayed"
       }
     }, 
     "SequencerTonemapModifierData": {
@@ -9625,13 +10248,22 @@
     }, 
     "SequencerToolSettings": {
       "fields": {
-        "fit_method": "Scale fit method"
+        "fit_method": "Scale fit method", 
+        "overlap_mode": "How to resolve overlap after transformation", 
+        "pivot_point": "Rotation or scaling pivot point", 
+        "snap_distance": "Maximum distance for snapping in pixels", 
+        "snap_ignore_muted": "Don't snap to hidden strips", 
+        "snap_ignore_sound": "Don't snap to sound strips", 
+        "snap_to_current_frame": "Snap to current frame", 
+        "snap_to_hold_offset": "Snap to strip hold offsets", 
+        "use_snap_current_frame_to_strips": "Snap current frame to strip start or end"
       }
     }, 
     "SequenceTransform": {
       "fields": {
         "offset_x": "Move along X axis", 
         "offset_y": "Move along Y axis", 
+        "origin": "Origin of image for transformation", 
         "rotation": "Rotate around image center", 
         "scale_x": "Scale along X axis", 
         "scale_y": "Scale along Y axis"
@@ -9671,8 +10303,8 @@
     }, 
     "ShaderFxFlip": {
       "fields": {
-        "flip_horizontal": "Flip image horizontally", 
-        "flip_vertical": "Flip image vertically"
+        "use_flip_x": "Flip image horizontally", 
+        "use_flip_y": "Flip image vertically"
       }, 
       "inherits": [
         "ShaderFx"
@@ -9841,6 +10473,16 @@
         "ShaderNode"
       ]
     }, 
+    "ShaderNodeFloatCurve": {
+      "fields": {
+        "mapping": "(read-only)"
+      }, 
+      "inherits": [
+        "Node", 
+        "NodeInternal", 
+        "ShaderNode"
+      ]
+    }, 
     "ShaderNodeGroup": {
       "fields": {
         "interface": "(read-only)    Interface socket data"
@@ -9985,7 +10627,7 @@
     }, 
     "ShaderNodeSubsurfaceScattering": {
       "fields": {
-        "falloff": "Function to determine how much light nearby points contribute based on their distance to the shading point"
+        "falloff": "Method for rendering subsurface scattering"
       }, 
       "inherits": [
         "Node", 
@@ -10571,6 +11213,7 @@
         "annotation_source": "Where the annotation comes from", 
         "clip": "Movie clip displayed and edited in this space", 
         "clip_user": "(read-only)    Parameters defining which frame of the movie clip is displayed", 
+        "cursor_location": "2D cursor location for this view", 
         "lock_selection": "Lock viewport to selected markers during playback", 
         "lock_time_cursor": "Lock curves view to time cursor during playback and tracking", 
         "mask": "Mask displayed and edited in this space", 
@@ -10769,6 +11412,7 @@
         "id_from": "(read-only)    Data-block from which the edited data-block is linked", 
         "insert_offset_direction": "Direction to offset nodes on insertion", 
         "node_tree": "Base node tree from context", 
+        "overlay": "(read-only)    Settings for display of overlays in the Node Editor", 
         "path": "(read-only)    Path from the data-block to the currently edited node tree", 
         "pin": "Use the pinned node tree", 
         "shader_type": "Type of data to take shader from", 
@@ -10786,6 +11430,12 @@
     "SpaceNodeEditorPath": {
       "fields": {
         "to_string": "(read-only)"
+      }
+    }, 
+    "SpaceNodeOverlay": {
+      "fields": {
+        "show_overlays": "Display overlays like colored or dashed wires", 
+        "show_wire_color": "Color node links based on their connected sockets"
       }
     }, 
     "SpaceOutliner": {
@@ -10817,6 +11467,7 @@
         "use_filter_object_light": "Show light objects", 
         "use_filter_object_mesh": "Show mesh objects", 
         "use_filter_object_others": "Show curves, lattices, light probes, fonts, ...", 
+        "use_filter_view_layers": "Show all the view layers", 
         "use_sync_select": "Sync outliner selection with other editors"
       }, 
       "inherits": [
@@ -10845,31 +11496,30 @@
     }, 
     "SpaceSequenceEditor": {
       "fields": {
+        "cursor_location": "2D cursor location for this view", 
         "display_channel": "The channel number shown in the image preview. 0 is the result of all strips combined", 
         "display_mode": "View mode to use for displaying sequencer output", 
         "grease_pencil": "Grease Pencil data for this Preview region", 
-        "overlay_type": "Overlay display method", 
+        "overlay_frame_type": "Overlay display method", 
         "preview_channels": "Channels of the preview to display", 
+        "preview_overlay": "(read-only)    Settings for display of overlays", 
         "proxy_render_size": "Display preview using full resolution or different proxy resolutions", 
-        "show_annotation": "Show annotations for this view", 
         "show_backdrop": "Display result under strips", 
-        "show_fcurves": "Display strip opacity/volume curve", 
         "show_frames": "Display frames rather than seconds", 
+        "show_gizmo": "Show gizmos of all types", 
+        "show_gizmo_context": "Context sensitive gizmos for the active item", 
+        "show_gizmo_navigate": "Viewport navigation gizmo", 
+        "show_gizmo_tool": "Active tool gizmo", 
         "show_markers": "If any exists, show markers in a separate row at the bottom of the editor", 
-        "show_metadata": "Show metadata of first visible strip", 
         "show_overexposed": "Show overexposed areas with zebra stripes", 
-        "show_safe_areas": "Show TV title safe and action safe areas in preview", 
-        "show_safe_center": "Show safe areas to fit content in a different aspect ratio", 
         "show_seconds": "Show timing in seconds not frames", 
         "show_separate_color": "Separate color channels in preview", 
-        "show_strip_offset": "Display strip in/out offsets", 
-        "show_strip_source": "Display path to source file, or name of source datablock", 
         "show_transform_preview": "Show preview of the transformed frames", 
+        "timeline_overlay": "(read-only)    Settings for display of overlays", 
         "use_marker_sync": "Transform markers as well as strips", 
         "use_proxies": "Use optimized files for faster scrubbing when available", 
         "use_zoom_to_fit": "Automatically zoom preview image to make it fully fit the region", 
-        "view_type": "Type of the Sequencer view (sequencer, preview or both)", 
-        "waveform_display_type": "How Waveforms are displayed"
+        "view_type": "Type of the Sequencer view (sequencer, preview or both)"
       }, 
       "inherits": [
         "Space"
@@ -10878,9 +11528,11 @@
     "SpaceSpreadsheet": {
       "fields": {
         "attribute_domain": "Attribute domain to display", 
+        "columns": "(read-only)    Persistent data associated with spreadsheet columns", 
         "context_path": "(read-only)    Context path to the data being displayed", 
         "geometry_component_type": "Part of the geometry to display data from", 
         "is_pinned": "Context path is pinned", 
+        "row_filters": "(read-only)    Filters to remove rows from the displayed data", 
         "show_only_selected": "Only include rows that correspond to selected elements"
       }, 
       "inherits": [
@@ -10914,6 +11566,7 @@
     }, 
     "SpaceUVEditor": {
       "fields": {
+        "custom_grid_subdivisions": "Number of grid units in UV space that make one UV Unit", 
         "display_stretch_type": "Type of stretch to display", 
         "edge_display_type": "Display style for UV edges", 
         "lock_bounds": "Constraint to stay within the image bounds while editing", 
@@ -10926,6 +11579,7 @@
         "show_texpaint": "Display overlay of texture paint uv layer", 
         "sticky_select_mode": "Method for extending UV vertex selection", 
         "tile_grid_shape": "How many tiles will be shown in the background", 
+        "use_custom_grid": "Use a grid with a user-defined number of steps", 
         "use_live_unwrap": "Continuously unwrap the selected UV island while transforming pinned vertices", 
         "uv_opacity": "Opacity of UV overlays"
       }
@@ -11007,10 +11661,11 @@
       "fields": {
         "input_1": "First input for the effect strip", 
         "input_count": "(read-only)", 
-        "multiply_speed": "Multiply the resulting speed after the speed factor", 
-        "use_as_speed": "Interpret the value as speed instead of a frame number", 
-        "use_frame_interpolate": "Do crossfade blending between current and next frame", 
-        "use_scale_to_length": "Scale values from 0.0 to 1.0 to target sequence length"
+        "speed_control": "Speed control method", 
+        "speed_factor": "Multiply the current speed of the sequence with this number or remap current frame to this frame", 
+        "speed_frame_number": "Frame number of input strip", 
+        "speed_length": "Percentage of input strip length", 
+        "use_frame_interpolate": "Do crossfade blending between current and next frame"
       }, 
       "inherits": [
         "Sequence", 
@@ -11046,6 +11701,7 @@
         "bezier_points": "(read-only)    Collection of points for Bezier curves only", 
         "character_index": "(read-only)    Location of this character in the text data (only for text curves)", 
         "hide": "Hide this curve in Edit mode", 
+        "material_index": "Material slot index of this curve", 
         "order_u": "NURBS order in the U direction (for splines and surfaces, higher values let points influence a greater area)", 
         "order_v": "NURBS order in the V direction (for surfaces only, higher values let points influence a greater area)", 
         "point_count_u": "(read-only)    Total number points for the curve or surface in the U direction", 
@@ -11128,9 +11784,20 @@
         "Light"
       ]
     }, 
+    "SpreadsheetColumn": {
+      "fields": {
+        "data_type": "(read-only)    The data type of the corresponding column visible in the spreadsheet", 
+        "id": "(read-only)    Data used to identify the corresponding data from the data source"
+      }
+    }, 
     "SpreadsheetContext": {
       "fields": {
         "type": "(read-only)    Type of the context"
+      }
+    }, 
+    "SpreadsheetRowFilter": {
+      "fields": {
+        "threshold": "How close float values need to be to be equal"
       }
     }, 
     "Stereo3dDisplay": {
@@ -11299,6 +11966,7 @@
         "is_bound": "(read-only)    Whether geometry has been bound to target mesh", 
         "strength": "Strength of modifier deformations", 
         "target": "Mesh object to deform with", 
+        "use_sparse_bind": "Only record binding data for vertices matching the vertex group at the time of bind", 
         "vertex_group": "Vertex group name for selecting/weighting the affected areas"
       }, 
       "inherits": [
@@ -11334,7 +12002,7 @@
         "select_end_character": "Index of character after end of selection in the selection end line", 
         "select_end_line": "(read-only)    End line of selection", 
         "select_end_line_index": "Index of last TextLine in selection", 
-        "use_module": "Run this text as a script on loading, Text name must end with \".py\""
+        "use_module": "Run this text as a Python script on loading"
       }, 
       "inherits": [
         "ID"
@@ -11342,7 +12010,8 @@
     }, 
     "TextCharacterFormat": {
       "fields": {
-        "kerning": "Spacing between characters"
+        "kerning": "Spacing between characters", 
+        "material_index": "Material slot index of this character"
       }
     }, 
     "TextCurve": {
@@ -11559,6 +12228,7 @@
         "sequence_editor": "(read-only)", 
         "spreadsheet": "(read-only)", 
         "statusbar": "(read-only)", 
+        "strip_color": "(read-only)", 
         "text_editor": "(read-only)", 
         "topbar": "(read-only)", 
         "user_interface": "(read-only)", 
@@ -11629,7 +12299,6 @@
     }, 
     "ThemeFontStyle": {
       "fields": {
-        "font_kerning_style": "Which style to use for font kerning", 
         "points": "Font size in points", 
         "shadow": "Shadow size (0, 3 and 5 supported)", 
         "shadow_offset_x": "Shadow offset in pixels", 
@@ -11698,7 +12367,8 @@
     }, 
     "ThemeNodeEditor": {
       "fields": {
-        "grid_levels": "Amount of grid lines displayed in the background", 
+        "dash_alpha": "Opacity for the dashed lines in wires", 
+        "grid_levels": "Number of subdivisions for the dot grid displayed in the background", 
         "noodle_curving": "Curving of the noodle", 
         "space": "(read-only)    Settings for space", 
         "space_list": "(read-only)    Settings for space list"
@@ -11741,12 +12411,18 @@
     "ThemeSpreadsheet": {
       "fields": {
         "row_alternate": "Overlay color on every other row", 
-        "space": "(read-only)    Settings for space"
+        "space": "(read-only)    Settings for space", 
+        "space_list": "(read-only)    Settings for space list"
       }
     }, 
     "ThemeStatusBar": {
       "fields": {
         "space": "(read-only)    Settings for space"
+      }
+    }, 
+    "ThemeStripColor": {
+      "fields": {
+        "color": "Strip Color"
       }
     }, 
     "ThemeStyle": {
@@ -11775,6 +12451,7 @@
         "icon_saturation": "Saturation of icons in the interface", 
         "menu_shadow_fac": "Blending factor for menu shadows", 
         "menu_shadow_width": "Width of menu shadows, set to zero to disable", 
+        "panel_roundness": "Roundness of the corners of panels and sub-panels", 
         "transparent_checker_primary": "Primary color of checkerboard pattern indicating transparent areas", 
         "transparent_checker_secondary": "Secondary color of checkerboard pattern indicating transparent areas", 
         "transparent_checker_size": "Size of checkerboard pattern indicating transparent areas", 
@@ -11829,11 +12506,12 @@
         "layer": "Layer name", 
         "layer_pass": "Layer pass index", 
         "material": "Material used for filtering effect", 
-        "normalize_thickness": "Replace the stroke thickness", 
         "pass_index": "Pass index", 
         "thickness": "Absolute thickness to apply everywhere", 
         "thickness_factor": "Factor to multiply the thickness with", 
         "use_custom_curve": "Use a custom curve to define thickness change along the strokes", 
+        "use_normalized_thickness": "Replace the stroke thickness", 
+        "use_weight_factor": "Use weight to modulate effect", 
         "vertex_group": "Vertex group name for modulating the deform"
       }, 
       "inherits": [
@@ -11890,6 +12568,7 @@
         "radius": "Defines the maximum distance of the effect", 
         "tint_type": "Select type of tinting algorithm", 
         "use_custom_curve": "Use a custom curve to define vertex color effect along the strokes", 
+        "use_weight_factor": "Use weight to modulate effect", 
         "vertex_group": "Vertex group name for modulating the deform", 
         "vertex_mode": "Defines how vertex color affect to the strokes"
       }, 
@@ -11968,7 +12647,9 @@
         "use_snap_rotate": "Rotate is affected by the snapping settings", 
         "use_snap_scale": "Scale is affected by snapping settings", 
         "use_snap_self": "Snap onto itself (Edit Mode Only)", 
+        "use_snap_sequencer": "Snap to strip edges or current frame", 
         "use_snap_translate": "Move is affected by snapping settings", 
+        "use_snap_uv_grid_absolute": "Absolute grid alignment while translating (based on the pivot center)", 
         "use_transform_correct_face_attributes": "Correct data such as UV's and vertex colors when transforming", 
         "use_transform_correct_keep_connected": "During the Face Attributes correction, merge attributes connected to the same vertex", 
         "use_transform_data_origin": "Transform object origins, while leaving the shape in place", 
@@ -12137,6 +12818,7 @@
         "bl_idname": "If this is set, the uilist gets a custom ID, otherwise it takes the name of the class used to define the uilist (for example, if the class name is \"OBJECT_UL_vgroups\", and bl_idname is not set by the script, then bl_idname = \"OBJECT_UL_vgroups\")", 
         "filter_name": "Only show items matching this name (use '*' as wildcard)", 
         "layout_type": "(read-only)", 
+        "list_id": "(read-only)    Identifier of the list, if any was passed to the \"list_id\" parameter of \"template_list()\"", 
         "use_filter_invert": "Invert filtering (show hidden items, and vice versa)", 
         "use_filter_show": "Show filtering options", 
         "use_filter_sort_alpha": "Sort items by their name", 
@@ -12384,6 +13066,7 @@
         "grid_scale": "Multiplier for the distance between 3D View grid lines", 
         "grid_scale_unit": "(read-only)    Grid cell size scaled by scene unit system settings", 
         "grid_subdivisions": "Number of subdivisions between grid lines", 
+        "normals_constant_screen_size": "Screen size for normals in the 3D view", 
         "normals_length": "Display size for normals in the 3D view", 
         "show_annotation": "Show annotations for this view", 
         "show_axis_x": "Show the X axis line", 
@@ -12442,6 +13125,7 @@
         "use_gpencil_onion_skin": "Show ghosts of the keyframes before and after the current frame", 
         "use_gpencil_show_directions": "Show stroke drawing direction with a bigger green dot (start) and smaller red dot (end) points", 
         "use_gpencil_show_material_name": "Show material name assigned to each stroke", 
+        "use_normals_constant_screen_size": "Keep size of normals constant in relation to 3D view", 
         "vertex_opacity": "Opacity for edit vertices", 
         "vertex_paint_mode_opacity": "Opacity of the texture paint mode stencil mask overlay", 
         "weight_paint_mode_opacity": "Opacity of the weight paint mode overlay", 
@@ -12503,7 +13187,6 @@
         "depsgraph": "(read-only)    Dependencies in the scene data", 
         "eevee": "(read-only)    View layer settings for Eevee", 
         "freestyle_settings": "(read-only)", 
-        "invert_zmask": "For Zmask, only render what is behind solid z values instead of in front", 
         "layer_collection": "(read-only)    Root of collections hierarchy of this view layer,its 'collection' pointer property is the same as the scene's master collection", 
         "material_override": "Material to override all other materials in this view layer", 
         "name": "View layer name", 
@@ -12512,11 +13195,9 @@
         "pass_cryptomatte_depth": "Sets how many unique objects can be distinguished per pixel", 
         "samples": "Override number of render samples for this view layer, 0 will use the scene setting", 
         "use": "Enable or disable rendering of this View Layer", 
-        "use_all_z": "Fill in Z values for solid faces in invisible layers, for masking", 
         "use_ao": "Render Ambient Occlusion in this Layer", 
-        "use_edge_enhance": "Render edge-enhance in this layer (only works for solid faces)", 
         "use_freestyle": "Render stylized strokes in this Layer", 
-        "use_halo": "Render Halos in this Layer (on top of Solid)", 
+        "use_motion_blur": "Render motion blur in this Layer, if enabled in the scene", 
         "use_pass_ambient_occlusion": "Deliver Ambient Occlusion pass", 
         "use_pass_combined": "Deliver full combined RGBA buffer", 
         "use_pass_cryptomatte_accurate": "Generate a more accurate cryptomatte pass", 
@@ -12535,6 +13216,7 @@
         "use_pass_mist": "Deliver mist factor pass (0.0 to 1.0)", 
         "use_pass_normal": "Deliver normal pass", 
         "use_pass_object_index": "Deliver object index pass", 
+        "use_pass_position": "Deliver position pass", 
         "use_pass_shadow": "Deliver shadow pass", 
         "use_pass_subsurface_color": "Deliver subsurface color pass", 
         "use_pass_subsurface_direct": "Deliver subsurface direct pass", 
@@ -12548,9 +13230,7 @@
         "use_sky": "Render Sky in this Layer", 
         "use_solid": "Render Solid faces in this Layer", 
         "use_strand": "Render Strands in this Layer", 
-        "use_volumes": "Render volumes in this Layer", 
-        "use_zmask": "Only render what's in front of the solid z values", 
-        "use_ztransp": "Render Z-transparent faces in this layer (on top of Solid and Halos)"
+        "use_volumes": "Render volumes in this Layer"
       }
     }, 
     "ViewLayerEEVEE": {
@@ -12620,7 +13300,7 @@
     "VolumeRender": {
       "fields": {
         "clipping": "Value under which voxels are considered empty space to optimize rendering", 
-        "space": "Specify volume density and step size  in object or world space", 
+        "space": "Specify volume density and step size in object or world space", 
         "step_size": "Distance between volume samples. Lower values render more detail at the cost of performance. If set to zero, the step size is automatically determined based on voxel size"
       }
     }, 
@@ -12717,6 +13397,29 @@
         "Modifier"
       ]
     }, 
+    "WeightAngleGpencilModifier": {
+      "fields": {
+        "angle": "Angle", 
+        "invert_layer_pass": "Inverse filter", 
+        "invert_layers": "Inverse filter", 
+        "invert_material_pass": "Inverse filter", 
+        "invert_materials": "Inverse filter", 
+        "invert_vertex": "Inverse filter", 
+        "layer": "Layer name", 
+        "layer_pass": "Layer pass index", 
+        "material": "Material used for filtering effect", 
+        "minimum_weight": "Minimum value for vertex weight", 
+        "pass_index": "Pass index", 
+        "space": "Coordinates space", 
+        "target_vertex_group": "Output Vertex group", 
+        "use_invert_output": "Invert output weight values", 
+        "use_multiply": "Multiply the calculated weights with the existing values in the vertex group", 
+        "vertex_group": "Vertex group name for modulating the deform"
+      }, 
+      "inherits": [
+        "GpencilModifier"
+      ]
+    }, 
     "WeightedNormalModifier": {
       "fields": {
         "invert_vertex_group": "Invert vertex group influence", 
@@ -12731,9 +13434,34 @@
         "Modifier"
       ]
     }, 
+    "WeightProxGpencilModifier": {
+      "fields": {
+        "distance_end": "Distance mapping to 1.0 weight", 
+        "distance_start": "Distance mapping to 0.0 weight", 
+        "invert_layer_pass": "Inverse filter", 
+        "invert_layers": "Inverse filter", 
+        "invert_material_pass": "Inverse filter", 
+        "invert_materials": "Inverse filter", 
+        "invert_vertex": "Inverse filter", 
+        "layer": "Layer name", 
+        "layer_pass": "Layer pass index", 
+        "material": "Material used for filtering effect", 
+        "minimum_weight": "Minimum value for vertex weight", 
+        "object": "Object used as distance reference", 
+        "pass_index": "Pass index", 
+        "target_vertex_group": "Output Vertex group", 
+        "use_invert_output": "Invert output weight values", 
+        "use_multiply": "Multiply the calculated weights with the existing values in the vertex group", 
+        "vertex_group": "Vertex group name for modulating the deform"
+      }, 
+      "inherits": [
+        "GpencilModifier"
+      ]
+    }, 
     "WeldModifier": {
       "fields": {
         "invert_vertex_group": "Invert vertex group influence", 
+        "loose_edges": "Collapse edges without faces, cloth sewing edges", 
         "merge_threshold": "Limit below which to merge vertices", 
         "mode": "Mode defines the merge rule", 
         "vertex_group": "Vertex group name for selecting the affected areas"
@@ -12769,9 +13497,11 @@
         "addon_filter": "Filter add-ons by category", 
         "addon_search": "Search within the selected filter", 
         "addon_support": "Display support level", 
+        "asset_path_dummy": "(read-only)    Full path to the Blender file containing the active asset", 
         "is_interface_locked": "(read-only)    If true, the interface is currently locked by a running job and data shouldn't be modified from application timers. Otherwise, the running job might conflict with the handler causing unexpected results or even crashes", 
         "keyconfigs": "(read-only)    Registered key configurations", 
         "operators": "(read-only)    Operator registry", 
+        "pose_assets": "(read-only)", 
         "preset_name": "Name for new preset", 
         "windows": "(read-only)    Open windows", 
         "xr_session_settings": "(read-only)", 
@@ -12828,6 +13558,8 @@
     }, 
     "WorkSpace": {
       "fields": {
+        "active_pose_asset_index": "Per workspace index of the active pose asset", 
+        "asset_library_ref": "Active asset library to show in the UI, not used by the Asset Browser (which has its own active asset library)", 
         "object_mode": "Switch to this object mode when activating the workspace", 
         "owner_ids": "(read-only)", 
         "screens": "(read-only)    Screen layouts of a workspace", 
@@ -12879,27 +13611,92 @@
         "use_mist": "Occlude objects with the environment color as they are further away"
       }
     }, 
+    "XrActionMap": {
+      "fields": {
+        "actionmap_items": "(read-only)    Items in the action map, mapping an XR event to an operator, pose, or haptic output", 
+        "name": "Name of the action map"
+      }
+    }, 
+    "XrActionMapBinding": {
+      "fields": {
+        "axis0_region": "Action execution region for the first input axis", 
+        "axis1_region": "Action execution region for the second input axis", 
+        "component_path0": "OpenXR component path", 
+        "component_path1": "OpenXR component path", 
+        "name": "Name of the action map binding", 
+        "profile": "OpenXR interaction profile path", 
+        "threshold": "Input threshold for button/axis actions"
+      }
+    }, 
+    "XrActionMapItem": {
+      "fields": {
+        "bimanual": "The action depends on the states/poses of both user paths", 
+        "bindings": "(read-only)    Bindings for the action map item, mapping the action to an XR input", 
+        "haptic_amplitude": "Intensity of the haptic vibration, ranging from 0.0 to 1.0", 
+        "haptic_duration": "Haptic duration in seconds. 0.0 is the minimum supported duration", 
+        "haptic_frequency": "Frequency of the haptic vibration in hertz. 0.0 specifies the OpenXR runtime's default frequency", 
+        "haptic_match_user_paths": "Apply haptics to the same user paths for the haptic action and this action", 
+        "haptic_mode": "Haptic application mode", 
+        "haptic_name": "Name of the haptic action to apply when executing this action", 
+        "name": "Name of the action map item", 
+        "op": "Identifier of operator to call on action event", 
+        "op_mode": "Operator execution mode", 
+        "op_name": "(read-only)    Name of operator (translated) to call on action event", 
+        "op_properties": "(read-only)    Properties to set when the operator is called", 
+        "pose_is_controller_aim": "The action poses will be used for the VR controller aims", 
+        "pose_is_controller_grip": "The action poses will be used for the VR controller grips", 
+        "selected_binding": "Currently selected binding", 
+        "type": "Action type", 
+        "user_path0": "OpenXR user path", 
+        "user_path1": "OpenXR user path"
+      }
+    }, 
+    "XrEventData": {
+      "fields": {
+        "action": "(read-only)    XR action name", 
+        "action_set": "(read-only)    XR action set name", 
+        "bimanual": "(read-only)    Whether bimanual interaction is occurring", 
+        "controller_location": "(read-only)    Location of the action's corresponding controller aim in world space", 
+        "controller_location_other": "(read-only)    Controller aim location of the other user path for bimanual actions", 
+        "controller_rotation": "(read-only)    Rotation of the action's corresponding controller aim in world space", 
+        "controller_rotation_other": "(read-only)    Controller aim rotation of the other user path for bimanual actions", 
+        "float_threshold": "(read-only)    Input threshold for float/2D vector actions", 
+        "state": "(read-only)    XR action values corresponding to type", 
+        "state_other": "(read-only)    State of the other user path for bimanual actions", 
+        "type": "(read-only)    XR action type"
+      }
+    }, 
     "XrSessionSettings": {
       "fields": {
         "base_pose_angle": "Rotation angle around the Z-Axis to apply the rotation deltas from the VR headset to", 
         "base_pose_location": "Coordinates to apply translation deltas from the VR headset to", 
         "base_pose_object": "Object to take the location and rotation to which translation and rotation deltas from the VR headset will be applied to", 
         "base_pose_type": "Define where the location and rotation for the VR view come from, to which translation and rotation deltas from the VR headset will be applied to", 
+        "base_scale": "Uniform scale to apply to VR view", 
         "clip_end": "VR viewport far clipping distance", 
         "clip_start": "VR viewport near clipping distance", 
+        "controller_draw_style": "Style to use when drawing VR controllers", 
         "shading": "(read-only)", 
         "show_annotation": "Show annotations for this view", 
+        "show_controllers": "Show VR controllers (requires VR actions for controller poses)", 
+        "show_custom_overlays": "Show custom VR overlays", 
         "show_floor": "Show the ground plane grid", 
+        "show_selection": "Show selection outlines", 
+        "use_absolute_tracking": "Allow the VR tracking origin to be defined independently of the headset location", 
         "use_positional_tracking": "Allow VR headsets to affect the location in virtual space, in addition to the rotation"
       }
     }, 
     "XrSessionState": {
       "fields": {
+        "actionmaps": "(read-only)", 
+        "navigation_location": "Location offset to apply to base pose when determining viewer location", 
+        "navigation_rotation": "Rotation offset to apply to base pose when determining viewer rotation", 
+        "navigation_scale": "Additional scale multiplier to apply to base scale when determining viewer scale", 
         "viewer_pose_location": "(read-only)    Last known location of the viewer pose (center between the eyes) in world space", 
         "viewer_pose_rotation": "(read-only)    Last known rotation of the viewer pose (center between the eyes) in world space"
       }
     }
   }, 
   "system": "Blender", 
-  "version": "2.93"
+  "version": "3.0"
 }

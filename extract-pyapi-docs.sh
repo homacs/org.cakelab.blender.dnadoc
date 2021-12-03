@@ -13,27 +13,12 @@
 # -homac
 #
 
-
+source blender-utils.sh
 
 
 
 
 ################# CONFIGURATION SECTION ################
-
-
-# BLENDER_BASE
-# Base directory of the blender installation.
-# This may be overridden when using a custom build environment
-# to be configured further below.
-BLENDER_BASE=/home/homac/opt/blender/blender-latest
-
-# BLENDER
-# Path to blender executable. Used to determine blender 
-# version by executing: 
-# > blender -v
-# This variable may be overridden, when using a custom build
-# environment, as to be configured further below.
-BLENDER=${BLENDER_BASE}/blender
 
 
 
@@ -44,9 +29,9 @@ BLENDER=${BLENDER_BASE}/blender
 # Default is "/usr/share/blender/scripts" .
 # > BLENDER_SYSTEM_SCRIPTS="/usr/share/blender/scripts"
 # When downloading and extracting blender manually it is instead
-# > BLENDER_SYSTEM_SCRIPTS="${BLENDER_BASE}/$VERSION/scripts"
+# > BLENDER_SYSTEM_SCRIPTS="${BLENDER_HOME}/$VERSION/scripts"
 # Since we do not know the version yet, we use a wildcard path instead:
-BLENDER_SYSTEM_SCRIPTS="${BLENDER_BASE}/*/scripts"
+BLENDER_SYSTEM_SCRIPTS="${BLENDER_HOME}/*/scripts"
 
 # BLENDER_BUILD_ENV
 #
@@ -59,7 +44,7 @@ BLENDER_BUILD_ENV=false
 #
 # Required only if BLENDER_BUILD_ENV is set to true.
 # Path to blender source code. 
-BLENDER_SOURCE="/home/homac/repos/git/blender.org/blender"
+BLENDER_SOURCE="$BLENDER_REPO_HOME/blender"
 
 # BLENDER_BUILD
 #
@@ -74,12 +59,12 @@ BLENDER_BUILD="$BLENDER_SOURCE/build"
 # JSON_CLASSPATH
 # 
 # classpath for dependency org.cakelab.json
-JSON_CLASSPATH="/home/homac/repos/git/cakelab.org/playground/org.cakelab.json/bin"
+JSON_CLASSPATH="$CAKELAB_REPO_HOME/org.cakelab.json/bin"
 
 # JAVA_BLEND_CLASSPATH
 # 
 # Java .Blend SDK class path
-JAVA_BLEND_CLASSPATH="/home/homac/repos/git/cakelab.org/playground/org.cakelab.blender.io/bin"
+JAVA_BLEND_CLASSPATH="$CAKELAB_REPO_HOME/org.cakelab.blender.io/bin"
 
 #
 # SCRIPT
@@ -125,57 +110,11 @@ TMP=/tmp
 
 
 
-function error_exit () {
-	echo "error: $1" 1>&2
-	exit -1
-}
-
-function abort ()
-{
-	error_exit "aborted."
-}
-
-function proceed ()
-{
- 	while [ -z "$answer" ] 
- 	do  
- 		read -p "proceed (y/n)? " answer
- 	done
- 	
- 	if [ "$answer" == "y" ]
- 	then
- 		return 0
- 	else
- 		return -1
- 	fi
-}
-
 
 function length () {
 	wc -l $1 | awk '{ print $1 }' 
 }
 
-
-function blender-version () {
-	# parse output of 
-	#    blender -v
-	# and extract the major and minor version (only!)
-	#    -> X.XX
-	
-	# supports older version of blender too
-	$BLENDER -v | awk ' /^Blender [0-9]+\.[0-9]+\.[0-9]$/ \
-						{                                 \
-							gsub(/\.[0-9]+$/,"",$2);      \
-							print $2 ;                    \
-							exit 0;                       \
-						}                                 \
-						/^Blender [0-9]+\.[0-9]+$/        \
-						{                                 \
-							print $2 ;                    \
-							exit 0;                       \
-						}                                 \
-					  '
-}
 
 
 if $BLENDER_BUILD_ENV ; then

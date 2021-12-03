@@ -8,19 +8,20 @@
 # -homac
 #
 
-
+source blender-utils.sh
 
 ################## CONFIG SECTION ##################
+
 
 # BLENDER_VERSION
 #
 # Major and minor part of blender version string
-BLENDER_VERSION=2.93
+BLENDER_VERSION=$(blender-version)
 
 # ENV_PATH_BASE
 #
 # Path to blender source code directory
-ENV_PATH_BASE="/home/homac/repos/git/blender.org/blender"
+ENV_PATH_BASE="${BLENDER_REPO_HOME}/blender"
 
 # REL_SRC_PATH
 #
@@ -31,7 +32,7 @@ REL_SRC_PATH="source/blender/makesdna"
 # 
 # This is the root path of the target Java.Blend documentation.
 # The script will create a subdirectory $BLENDER_VERSION/dnasrc.
-OUTPUT_PATH="/home/homac/repos/git/cakelab.org/playground/org.cakelab.blender.dnadoc/resources/dnadoc"
+OUTPUT_PATH="${CAKELAB_REPO_HOME}/org.cakelab.blender.dnadoc/resources/dnadoc"
 
 # ALL_COMMENTS
 #
@@ -42,17 +43,17 @@ ALL_COMMENTS=true
 # JDOXML_CLASSPATH
 #
 # Classpath to the JDOX Parser implementation.
-JDOXML_CLASSPATH="/home/homac/repos/git/cakelab.org/playground/org.cakelab.jdoxml/bin"
+JDOXML_CLASSPATH="${CAKELAB_REPO_HOME}/org.cakelab.jdoxml/bin"
 
 # JSON_CLASSPATH
 #
 # Classpath to the JSON Codec implementation.
-JSON_CLASSPATH="/home/homac/repos/git/cakelab.org/playground/org.cakelab.json/bin"
+JSON_CLASSPATH="${CAKELAB_REPO_HOME}/org.cakelab.json/bin"
 
 # DNADOC_CLASSPATH
 #
 # Classpath to the Java .Blend Documentation generator.
-JAVA_BLEND_CLASSPATH="/home/homac/repos/git/cakelab.org/playground/org.cakelab.blender.io/bin"
+JAVA_BLEND_CLASSPATH="${CAKELAB_REPO_HOME}/org.cakelab.blender.io/bin"
 
 
 ################## CONFIG SECTION END ###############
@@ -93,6 +94,14 @@ if ! [ -d "$ENV_INPUT" ]
 then
 	error_exit "can't find '$ENV_INPUT'"
 fi
+
+
+# give feedback
+cat <<EOF
+	BLENDER_VERSION: $BLENDER_VERSION
+	OUTPUT_PATH: $OUTPUT_PATH
+EOF
+
 
 
 if $ALL_COMMENTS

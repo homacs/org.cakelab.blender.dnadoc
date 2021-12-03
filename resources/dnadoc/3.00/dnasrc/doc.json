@@ -42,7 +42,7 @@
         "panels": "<p>{@link Panel} . </p>", 
         "panels_category": "<p>{@link Panel}  categories runtime. </p>", 
         "panels_category_active": "<p> Stack of panel categories. </p>", 
-        "regiondata": "<p> XXX 2.50, need spacedata equivalent?. </p>", 
+        "regiondata": "<p> XXX 2.50, need spacedata equivalent? </p>", 
         "regiontimer": "<p> Blend in/out. </p>", 
         "regiontype": "<p> Window, header, etc. identifier for drawing. </p>", 
         "sizex": "<p><code></code> . However to get the current region size, you should usually use winx/winy from above, not this! </p>", 
@@ -98,23 +98,43 @@
     "ArrayModifierData": {
       "fields": {
         "count": "<p> the number of duplicates to generate for MOD_ARR_FIXEDCOUNT </p>", 
-        "curve_ob": "<p> the curve object to use for MOD_ARR_FITCURVE </p>", 
-        "end_cap": "<p> the object with which to cap the end of the array <br/> \n </p>", 
+        "curve_ob": "<p> the curve object to use for MOD_ARR_FITCURVE. </p>", 
+        "end_cap": "<p> the object with which to cap the end of the array. </p>", 
         "fit_type": "<p> determines how duplicate count is calculated; one of:<ul><li><p> MOD_ARR_FIXEDCOUNT -> fixed</p></li><li><p> MOD_ARR_FITLENGTH -> calculated to fit a set length</p></li><li><p> MOD_ARR_FITCURVE -> calculated to fit the length of a {@link Curve}  object </p></li></ul> \nMOD_ARR_FIXEDCOUNT -> fixed\nMOD_ARR_FITLENGTH -> calculated to fit a set length\nMOD_ARR_FITCURVE -> calculated to fit the length of a Curve object \n\n</p>", 
         "flags": "<p> general flags: MOD_ARR_MERGE -> merge vertices in adjacent duplicates </p>", 
         "length": "<p> the length over which to distribute the duplicates </p>", 
         "merge_dist": "<p> the limit below which to merge vertices in adjacent duplicates </p>", 
         "offset": "<p> a constant duplicate offset; 1 means the duplicates are 1 unit apart </p>", 
-        "offset_ob": "<p> the object to use for object offset </p>", 
+        "offset_ob": "<p> the object to use for object offset. </p>", 
         "offset_type": "<p> flags specifying how total offset is calculated; binary OR of:<ul><li><p> MOD_ARR_OFF_CONST -> total offset += offset</p></li><li><p> MOD_ARR_OFF_RELATIVE -> total offset += relative * object width</p></li><li><p> MOD_ARR_OFF_OBJ -> total offset += offset_ob's matrix total offset is the sum of the individual enabled offsets </p></li></ul> \nMOD_ARR_OFF_CONST -> total offset += offset\nMOD_ARR_OFF_RELATIVE -> total offset += relative * object width\nMOD_ARR_OFF_OBJ -> total offset += offset_ob's matrix total offset is the sum of the individual enabled offsets \n\n</p>", 
         "scale": "<p> a scaled factor for duplicate offsets; 1 means the duplicates are 1 object-width apart </p>", 
-        "start_cap": "<p> the object with which to cap the start of the array <br/> \n </p>"
+        "start_cap": "<p> the object with which to cap the start of the array. </p>"
+      }
+    }, 
+    "AssetFilterSettings": {
+      "fields": {
+        "id_types": "<p> rna_enum_id_type_filter_items </p>", 
+        "tags": "<p> Tags to match against. These are newly allocated, and compared against the {@link AssetMetaData.tags} . {@link AssetTag}  </p>"
+      }
+    }, 
+    "AssetHandle": {
+      "doc": "<p> Not part of the core design, we should try to get rid of it. Only needed to wrap {@link FileDirEntry}  into a type with PropertyGroup as base, so we can have an RNA collection of {@link AssetHandle} 's to pass to the UI. </p>"
+    }, 
+    "AssetLibraryReference": {
+      "doc": "<p> Information to identify a asset library. May be either one of the predefined types (current 'Main', builtin library, project library), or a custom type as defined in the Preferences.</p><p> If the type is set to {@link ASSET_LIBRARY_CUSTOM}<code></code>  must be set to identify the custom library. Otherwise it is not used. </p>", 
+      "fields": {
+        "custom_library_index": "<p> If showing a custom asset library ({@link ASSET_LIBRARY_CUSTOM} ), this is the index of the {@link bUserAssetLibrary}  within {@link UserDef.asset_libraries} . Should be ignored otherwise (but better set to -1 then, for sanity and debugging). </p>", 
+        "type": "<p> eAssetLibraryType </p>"
       }
     }, 
     "AssetMetaData": {
       "doc": "<p> The meta-data of an asset. By creating and giving this for a data-block ({@link ID.asset_data} ), the data-block becomes an asset. </p><p><h2>Note</h2><p> This struct must be readable without having to read anything but blocks from the {@link ID}  it is attached to! That way, asset information of a file can be read, without reading anything more than that from the file. So pointers to other IDs or {@link ID}  data are strictly forbidden. </p> This struct must be readable without having to read anything but blocks from the ID it is attached to! That way, asset information of a file can be read, without reading anything more than that from the file. So pointers to other IDs or ID data are strictly forbidden. \n\n</p>", 
       "fields": {
+        "author": "<p> Optional name of the author for display in the UI. Dynamic length. </p>", 
+        "catalog_id": "<p> Asset Catalog identifier. Should not contain spaces. Mapped to a path in the asset catalog hierarchy by an #AssetCatalogService. Use #BKE_asset_metadata_catalog_id_set() to ensure a valid {@link ID}  is set. </p>", 
+        "catalog_simple_name": "<p> Short name of the asset's catalog. This is for debugging purposes only, to allow (partial) reconstruction of asset catalogs in the unfortunate case that the mapping from catalog UUID to catalog path is lost. The catalog's simple name is copied to {@link catalog_simple_name}  whenever {@link catalog_id}  is updated. MAX_NAME </p>", 
         "description": "<p> Optional description of this asset for display in the UI. Dynamic length. </p>", 
+        "local_type_info": "<p> Runtime type, to reference event callbacks. Only valid for local assets. </p>", 
         "properties": "<p> Custom asset meta-data. Cannot store pointers to IDs (#STRUCT_NO_DATABLOCK_IDPROPERTIES)! </p>", 
         "tags": "<p> User defined tags for this asset. The asset manager uses these for filtering, but how they function exactly (e.g. how they are registered to provide a list of searchable available tags) is up to the asset-engine. {@link AssetTag}  </p>", 
         "tot_tags": "<p> Store the number of tags to avoid continuous counting. Could be turned into runtime data, we can always reliably reconstruct it from the list. </p>"
@@ -125,9 +145,6 @@
       "fields": {
         "name": "<p> MAX_NAME </p>"
       }
-    }, 
-    "AssetUUID": {
-      "doc": "<p> Used to communicate with asset engines outside of 'import' context. </p>"
     }, 
     "AudioData": {
       "doc": "<p><hr/> \n Audio </p>", 
@@ -188,7 +205,7 @@
     "bActionGroup": {
       "doc": "<p><hr/> \n Action Groups -----------------------------------<mdash/>  Action-Channel Group (agrp)</p><p> These are stored as a list per-Action, and are only used to group that Action's channels in an Animation Editor.</p><p> Even though all FCurves live in a big list per Action, each group they are in also holds references to the achans within that list which belong to it. Care must be taken to ensure that action-groups never end up being the sole 'owner' of a channel.</p><p> This is also exploited for bone-groups. Bone-Groups are stored per {@link bPose} , and are used primarily to color bones in the 3d-view. There are other benefits too, but those are mostly related to Action-Groups.</p><p> Note that these two uses each have their own RNA 'ActionGroup' and 'BoneGroup'. </p>", 
       "fields": {
-        "channels": "<p> Note: this must not be touched by standard listbase functions which would clear links to other channels. </p>", 
+        "channels": "<p> NOTE: this must not be touched by standard listbase functions which would clear links to other channels. </p>", 
         "cs": "<p> Color set to use when customCol == -1. </p>", 
         "customCol": "<p> Index of custom color set to use when used for bones (0=default - used for all old files, -1=custom set). </p>", 
         "flag": "<p> Settings for this action-group. </p>", 
@@ -224,7 +241,7 @@
     }, 
     "bAddon": {
       "fields": {
-        "prop": "<p> User-Defined Properties on this Addon (for storing preferences). </p>"
+        "prop": "<p> User-Defined Properties on this add-on (for storing preferences). </p>"
       }
     }, 
     "BakeData": {
@@ -286,7 +303,7 @@
     "bClampToConstraint": {
       "doc": "<p> Clamp-To Constraint </p>", 
       "fields": {
-        "flag": "<p> Which axis/plane to compare owner's location on . </p>", 
+        "flag": "<p> Which axis/plane to compare owner's location on. </p>", 
         "flag2": "<p> For legacy reasons, this is flag2. used for any extra settings. </p>", 
         "tar": "<p> 'target' must be a curve. </p>"
       }
@@ -296,25 +313,25 @@
       "fields": {
         "data": "<p> Constraint data (a valid constraint type). </p>", 
         "enforce": "<p> Amount of influence exerted by constraint (0.0-1.0). </p>", 
-        "flag": "<p> Flag - General Settings. <br/> \n </p>", 
+        "flag": "<p> Flag - General Settings. </p>", 
         "headtail": "<p><code></code>  bone where the actual target is. 0=head (default for all), 1=tail. </p>", 
         "ipo": "<p> old animation system, deprecated for 2.5. Local influence ipo or driver \n@deprecated\n Deprecated</p>", 
-        "lin_error": "<p> below are readonly fields that are set at runtime by the solver for use in the GE (only IK atm) Residual error on constraint expressed in blender unit. </p>", 
+        "lin_error": "<p> Below are read-only fields that are set at runtime by the solver for use in the GE (only IK at the moment). Residual error on constraint expressed in blender unit. </p>", 
         "name": "<p> Constraint name, MAX_NAME. </p>", 
         "ownspace": "<p> Space that owner should be evaluated in. </p>", 
         "rot_error": "<p> Residual error on constraint expressed in radiant. </p>", 
         "space_object": "<p>{@link Object}  to use as target for Custom Space of owner. </p>", 
         "space_subtarget": "<p> Subtarget for Custom Space of owner - pchan or vgroup name, MAX_ID_NAME-2. </p>", 
         "tarspace": "<p> Space that target should be evaluated in (only used if 1 target). </p>", 
-        "type": "<p> Constraint type. <br/> \n </p>", 
+        "type": "<p> Constraint type. </p>", 
         "ui_expand_flag": "<p> An \"expand\" bit for each of the constraint's (sub)panels (uiPanelDataExpansion). </p>"
       }
     }, 
     "bConstraintChannel": {
-      "doc": "<p> XXX deprecated... old AnimSys. </p><p> channels reside in {@link Object}  or Action ({@link ListBase} ) constraintChannels </p>"
+      "doc": "<p> channels reside in {@link Object}  or Action ({@link ListBase} ) constraintChannels XXX: deprecated... old AnimSys. </p>"
     }, 
     "bConstraintTarget": {
-      "doc": "<p> Multiple-target constraints ------------------<mdash/>  <br/> \n This struct defines a constraint target. It is used during constraint solving regardless of how many targets the constraint has. </p>", 
+      "doc": "<p> Multiple-target constraints ------------------<mdash/>  This struct defines a constraint target. It is used during constraint solving regardless of how many targets the constraint has. </p>", 
       "fields": {
         "flag": "<p> Runtime settings (for editor, etc.). </p>", 
         "matrix": "<p> Matrix used during constraint solving - should be cleared before each use. </p>", 
@@ -408,7 +425,7 @@
       }
     }, 
     "bFaceMap": {
-      "doc": "<p> Face Maps </p>", 
+      "doc": "<p> Face Maps. </p>", 
       "fields": {
         "name": "<p> MAX_VGROUP_NAME. </p>"
       }
@@ -454,13 +471,14 @@
         "select_last_index": "<p> Stroke selection last index. Used to generate a unique selection index. </p>", 
         "totcol": "<p> Total materials. </p>", 
         "totlayer": "<p> stats </p>", 
+        "vertex_group_names": "<p> List of {@link bDeformGroup}  names and flag only. </p>", 
         "zdepth_offset": "<p> Offset for drawing over surfaces to keep strokes on top. </p>"
       }
     }, 
     "bGPdata_Runtime": {
       "doc": "<p><hr/> \n GP Datablock Runtime temp data for {@link bGPdata}  </p>", 
       "fields": {
-        "arrow_start": "<p> Arrow points for stroke corners </p>", 
+        "arrow_start": "<p> Arrow points for stroke corners. </p>", 
         "arrow_start_style": "<p> Arrow style for each corner </p>", 
         "cp_points": "<p> Array of control-points for stroke. </p>", 
         "matid": "<p>{@link Material}  index of the stroke. </p>", 
@@ -632,11 +650,11 @@
     "bGPDstroke_Runtime": {
       "doc": "<p><hr/> \n GP Strokes Runtime temp data for {@link bGPDstroke}  </p>", 
       "fields": {
-        "curve_start": "<p>{@link Curve}  Handles offset in the ibo where this handle starts. </p>", 
+        "curve_start": "<p>{@link Curve}  Handles offset in the IBO where this handle starts. </p>", 
         "fill_start": "<p> Triangle offset in the ibo where this fill starts. </p>", 
         "gps_orig": "<p> Original stroke (used to dereference evaluated data) </p>", 
         "multi_frame_falloff": "<p> Runtime falloff factor (only for transform). </p>", 
-        "stroke_start": "<p> Vertex offset in the vbo where this stroke starts. </p>", 
+        "stroke_start": "<p> Vertex offset in the VBO where this stroke starts. </p>", 
         "tmp_layerinfo": "<p> temporary layer name only used during copy/paste to put the stroke in the original layer </p>"
       }
     }, 
@@ -693,12 +711,12 @@
       }
     }, 
     "bLocLimitConstraint": {
-      "doc": "<p> transform limiting constraints - zero target -------------------------<mdash/>  <br/> \n Limit Location Constraint </p>"
+      "doc": "<p> transform limiting constraints - zero target -------------------------<mdash/>  Limit Location Constraint </p>"
     }, 
     "BlurShaderFxData": {
       "fields": {
         "flag": "<p> Flags. </p>", 
-        "rotation": "<p> Rotation of blur effect. <br/> \n </p>", 
+        "rotation": "<p> Rotation of blur effect. </p>", 
         "samples": "<p> Number of samples. </p>"
       }
     }, 
@@ -729,7 +747,7 @@
       }
     }, 
     "bNode": {
-      "doc": "<p> limit data in {@link bNode}  to what we want to see saved? </p>", 
+      "doc": "<p> TODO: Limit data in {@link bNode}  to what we want to see saved. </p>", 
       "fields": {
         "anim_init_locx": "<p> Initial locx for insert offset animation. </p>", 
         "anim_ofsx": "<p> Offset that will be added to locx for insert offset animation. </p>", 
@@ -738,6 +756,7 @@
         "butr": "<p> Optional buttons area. </p>", 
         "color": "<p> Custom user-defined color. </p>", 
         "custom1": "<p> To be abused for buttons. </p>", 
+        "declaration": "<p> Describes the desired interface of the node. This is run-time data only. The actual interface of the node may deviate from the declaration temporarily. It's possible to sync the actual state of the node to the desired state. Currently, this is only done when a node is created or loaded.</p><p> In the future, we may want to keep more data only in the declaration, so that it does not have to be synced to other places that are stored in files. That especially applies to data that can't be edited by users directly (e.g. min/max values of sockets, tooltips, ...).</p><p> The declaration of a node can be recreated at any time when it is used. Caching it here is just a bit more efficient when it is used a lot. To make sure that the cache is up-to-date, call #nodeDeclarationEnsure before using it.</p><p> Currently, the declaration is the same for every node of the same type. Going forward, that is intended to change though. Especially when nodes become more dynamic with respect to how many sockets they have. </p>", 
         "done": "<p> Both for dependency and sorting. </p>", 
         "id": "<p> Optional link to libdata. </p>", 
         "idname": "<p> Runtime type identifier. </p>", 
@@ -780,6 +799,7 @@
     }, 
     "bNodeSocket": {
       "fields": {
+        "attribute_domain": "<p> #AttributeDomain used when the geometry nodes modifier creates an attribute for a group output. </p>", 
         "cache": "<p> Cached data from execution. </p>", 
         "default_value": "<p> Default input value used for unlinked sockets. </p>", 
         "groupsock": "<p> XXX deprecated, still forward compatible since verification restores pointer from matching own_index. \n@deprecated\n Deprecated</p>", 
@@ -842,6 +862,8 @@
         "done": "<p> Generic temporary flag for recursion check (DFS/BFS). </p>", 
         "edit_quality": "<p> Quality setting when editing. </p>", 
         "execdata": "<p> Execution data.</p><p> XXX It would be preferable to completely move this data out of the underlying node tree, so node tree execution could finally run independent of the tree itself. This would allow node trees to be merely linked by other data (materials, textures, etc.), as {@link ID}  data is supposed to. Execution data is generated from the tree once at execution start and can then be used as long as necessary, even while the tree is being modified. </p>", 
+        "execution_mode": "<p> Execution mode to use for compositor engine. </p>", 
+        "field_inferencing_interface": "<p> Information about how inputs and outputs of the node group interact with fields. </p>", 
         "gpd": "<p> Grease pencil data. </p>", 
         "idname": "<p> Runtime type identifier. </p>", 
         "inputs": "<p> Lists of {@link bNodeSocket}  to hold default values and own_index. Warning! Don't make links to these sockets, input/output nodes are used for that. These sockets are used only for generating external interfaces. </p>", 
@@ -849,7 +871,7 @@
         "is_updating": "<p> Flag to prevent re-entrant update calls. </p>", 
         "nodetype": "<p> Specific node type this tree is used for. \n@deprecated\n Deprecated</p>", 
         "previews": "<p> Node preview hash table Only available in base node trees (e.g. scene->node_tree) </p>", 
-        "progress": "<p> callbacks </p>", 
+        "progress": "<p> Callbacks. </p>", 
         "render_quality": "<p> Quality setting when rendering. </p>", 
         "stats_draw": "<p><h2>Warning</h2><p> may be called by different threads </p> may be called by different threads \n\n</p>", 
         "type": "<p> Set init on fileread. </p>", 
@@ -878,7 +900,7 @@
       }
     }, 
     "BoidSettings": {
-      "doc": "<p> planned for near future typedef struct BoidSignal { struct BoidSignal *next, *prev; float loc[3]; float volume, falloff; int id; } BoidSignal; typedef struct BoidSignalDefine { struct BoidSignalDefine *next, *prev; int id, rt; char name[32]; } BoidSignalDefine; </p><p> typedef struct BoidSimulationData { {@link ListBase} / {@link ListBase} / } BoidSimulationData; </p>", 
+      "doc": "<p> planned for near future typedef struct BoidSignal { struct BoidSignal *next, *prev; float loc[3]; float volume, falloff; int id; } BoidSignal; typedef struct BoidSignalDefine { struct BoidSignalDefine *next, *prev; int id, _pad[4]; char name[32]; } BoidSignalDefine; </p><p> typedef struct BoidSimulationData { {@link ListBase} / {@link ListBase} / } BoidSimulationData; </p>", 
       "fields": {
         "air_min_speed": "<p> flying related </p>", 
         "land_jump_speed": "<p> walk/run related </p>"
@@ -896,6 +918,7 @@
         "arm_mat": "<p><code></code> , rest pose. </p>", 
         "arm_roll": "<p> Roll in Armature Space (rest pose). </p>", 
         "arm_tail": "<p> Head/tail in Armature Space (rest pose). </p>", 
+        "bbone_flag": "<p> B-Bone flags. </p>", 
         "bbone_prev": "<p> Next/prev bones to use as handle references when calculating bbones (optional). </p>", 
         "bbone_prev_type": "<p> Type of next/prev bone handles. </p>", 
         "bone_mat": "<p> Rotation derived from head/tail/roll. </p>", 
@@ -910,10 +933,14 @@
         "rad_head": "<p><code></code><code></code> . </p>", 
         "roll": "<p> Roll is input for edit-mode, length calculated. </p>", 
         "roll1": "<p> Curved bones settings - these define the \"rest-pose\" for a curved bone. </p>", 
+        "scale_in_x": "<p>\n@deprecated\n Deprecated</p>", 
+        "scale_in_z": "<p>\n@deprecated\n Deprecated</p>", 
+        "scale_out_x": "<p>\n@deprecated\n Deprecated</p>", 
+        "scale_out_z": "<p>\n@deprecated\n Deprecated</p>", 
         "segments": "<p> For B-bones. </p>", 
         "size": "<p> Patch for upward compatibility, UNUSED! </p>", 
         "tail": "<p> Head/tail and roll in {@link Bone}  Space. </p>", 
-        "xwidth": "<p> width: for block bones. keep in this order, transform!. </p>"
+        "xwidth": "<p> The width for block bones.</p><p><h2>Note</h2><p><code></code><code></code>  as offsets. </p> keep in this order for transform code which stores a pointer to xwidth, accessing length and zwidth as offsets. \n\n</p>"
       }
     }, 
     "BoundBox": {
@@ -975,6 +1002,7 @@
         "constinv": "<p> Inverse result of constraints. doesn't include effect of rest-position, parent, and local transform. </p>", 
         "constraints": "<p> Constraints that act on this PoseChannel. </p>", 
         "custom": "<p> Draws custom object instead of default bone shape. </p>", 
+        "custom_scale": "<p> Deprecated </p>", 
         "custom_tx": "<p> Odd feature, display with another bones transform. needed in rare cases for advanced rigs, since the alternative is highly complicated - campbell </p>", 
         "disp_mat": "<p> For display, pose_mat with bone length applied. </p>", 
         "disp_tail_mat": "<p> For display, pose_mat with bone length applied and translated to tail. </p>", 
@@ -1001,6 +1029,10 @@
         "rotAxis": "<p> Axis-angle rotation. </p>", 
         "rotmode": "<p>{@link eRotationModes}  - rotation representation to use. </p>", 
         "runtime": "<p> Runtime data (keep last). </p>", 
+        "scale_in_x": "<p>\n@deprecated\n Deprecated</p>", 
+        "scale_in_z": "<p>\n@deprecated\n Deprecated</p>", 
+        "scale_out_x": "<p>\n@deprecated\n Deprecated</p>", 
+        "scale_out_z": "<p>\n@deprecated\n Deprecated</p>", 
         "selectflag": "<p> Copy of bone flag, so you can work with library armatures, not for runtime use. </p>", 
         "siktree": "<p> Spline-IK \"trees\" - only while evaluating pose. </p>", 
         "stiffness": "<p> DOF stiffness. </p>", 
@@ -1116,6 +1148,8 @@
         "aspect_ratio": "<p> factor xy of shape for dots gradients </p>", 
         "brush_draw_mode": "<p>{@link Brush}  preselected mode (Active/Material/Vertexcolor). </p>", 
         "brush_type": "<p> Moved to '{@link Brush.gpencil_tool} '. \n@deprecated\n Deprecated</p>", 
+        "caps_type": "<p> Type of caps: eGPDstroke_Caps. </p>", 
+        "dilate_pixels": "<p> Number of pixels to dilate fill area. </p>", 
         "draw_angle": "<p> Angle when the brush has full thickness. </p>", 
         "draw_angle_factor": "<p> Factor to apply when angle change (only 90 degrees). </p>", 
         "draw_jitter": "<p> Amount of jitter to apply to newly created strokes. </p>", 
@@ -1166,14 +1200,14 @@
         "do_refresh": "<p> Notifier for scale screen, changed screen, etc. </p>", 
         "flag": "<p> General flags. </p>", 
         "redraws_flag": "<p> User-setting for which editors get redrawn during anim playback. </p>", 
-        "regionbase": "<p> Screen level regions (menus), runtime only. </p>", 
+        "regionbase": "<p> End variables that must be in sync with {@link ScrAreaMap} . Screen level regions (menus), runtime only. </p>", 
         "scene": "<p>\n@deprecated\n Deprecated</p>", 
         "scrubbing": "<p> Set when scrubbing to avoid some costly updates. </p>", 
         "skip_handling": "<p> Set to delay screen handling after switching back from maximized area. </p>", 
         "state": "<p> Temp screen for image render display or fileselect. </p>", 
         "temp": "<p> Temp screen in a temp window, don't save (like user prefs). </p>", 
         "tool_tip": "<p> Runtime. </p>", 
-        "vertbase": "<p> TODO Should become {@link ScrAreaMap}  now. ** NOTE: KEEP ORDER IN SYNC WITH ScrAreaMap! (see AREAMAP_FROM_SCREEN macro above) ** Screens have vertices/edges to define areas. </p>", 
+        "vertbase": "<p> TODO: Should become {@link ScrAreaMap}  now. NOTE: KEEP ORDER IN SYNC WITH {@link ScrAreaMap} ! (see AREAMAP_FROM_SCREEN macro above). Screens have vertices/edges to define areas. </p>", 
         "winid": "<p> Winid from WM, starts with 1. </p>"
       }
     }, 
@@ -1234,8 +1268,9 @@
     "bTheme": {
       "doc": "<p> A theme.</p><p><h2>Note</h2><p> Currently only a single theme is ever used at once. Different theme presets are stored as external files now. </p> Currently only a single theme is ever used at once. Different theme presets are stored as external files now. \n\n</p>", 
       "fields": {
-        "collection_color": "<p>{@link ThemeWireColor}  tobj[20]; See COLLECTION_COLOR_TOT for the number of collection colors. </p>", 
+        "collection_color": "<p>{@link ThemeWireColor}  tobj[20];. </p><p> See COLLECTION_COLOR_TOT for the number of collection colors. </p>", 
         "space_properties": "<p> Individual Spacetypes: <h2>Note</h2><p> Ensure #UI_THEMESPACE_END is updated when adding. </p> Ensure #UI_THEMESPACE_END is updated when adding. \n\n</p>", 
+        "strip_color": "<p> See SEQUENCE_COLOR_TOT for the total number of strip colors. </p>", 
         "tarm": "<p> 20 sets of bone colors for this theme </p>"
       }
     }, 
@@ -1252,6 +1287,7 @@
     }, 
     "bToolRef_Runtime": {
       "fields": {
+        "flag": "<p><code></code> . </p>", 
         "index": "<p> Index when a tool is a member of a group. </p>", 
         "keymap": "<p> One of these 3 must be defined. </p>", 
         "keymap_fallback": "<p> Keymap for {@link bToolRef.idname_fallback} , if set. </p>", 
@@ -1259,7 +1295,7 @@
       }
     }, 
     "bTrackToConstraint": {
-      "doc": "<p> Single-target subobject constraints ------------------<mdash/>  <br/> \n Track To Constraint </p>", 
+      "doc": "<p> Single-target subobject constraints ------------------<mdash/>  Track To Constraint </p>", 
       "fields": {
         "reserved1": "<p> I'll be using reserved1 and reserved2 as Track and Up flags, not sure if that's what they were intended for anyway. Not sure either if it would create backward incompatibility if I were to rename them.<ul><li><p> theeth </p></li></ul> \ntheeth \n\n</p>", 
         "subtarget": "<p> MAX_ID_NAME-2. </p>"
@@ -1289,9 +1325,9 @@
         "subtarget": "<p> MAX_ID_NAME-2. </p>", 
         "tar": "<p> Target (i.e. 'driver' object/bone). </p>", 
         "to_euler_order": "<p> Output euler order override. </p>", 
-        "to_min": "<p> Range of motion on owner caused by target . </p>", 
-        "to_min_rot": "<p> Range of motion on owner caused by target . </p>", 
-        "to_min_scale": "<p> Range of motion on owner caused by target . </p>"
+        "to_min": "<p> Range of motion on owner caused by target. </p>", 
+        "to_min_rot": "<p> Range of motion on owner caused by target. </p>", 
+        "to_min_scale": "<p> Range of motion on owner caused by target. </p>"
       }
     }, 
     "bTransLikeConstraint": {
@@ -1336,17 +1372,26 @@
     "bUserMenuItem": {
       "doc": "<p> May be part of {@link bUserMenu}  or other list. </p>"
     }, 
+    "bUUID": {
+      "doc": "<p> Universally Unique Identifier according to RFC4122. </p><p><code></code> , because Windows already defines that type. </p>"
+    }, 
     "CacheFile": {
       "fields": {
-        "draw_flag": "<p> UNUSED </p>", 
         "filepath": "<p> 1024 = FILE_MAX. </p>", 
         "flag": "<p> Animation flag. </p>", 
         "frame": "<p> The frame/time to lookup in the cache file. </p>", 
         "frame_offset": "<p> The frame offset to subtract. </p>", 
         "handle": "<p> Runtime </p>", 
-        "object_paths": "<p> Paths of the objects inside of the Alembic archive referenced by this {@link CacheFile} . </p>", 
-        "velocity_name": "<p> Name of the velocity property in the Alembic file. </p>"
+        "object_paths": "<p> Paths of the objects inside of the archive referenced by this {@link CacheFile} . </p>", 
+        "prefetch_cache_size": "<p> Size in megabytes for the prefetch cache used by the Cycles Procedural. </p>", 
+        "type": "<p> eCacheFileType enum. </p>", 
+        "use_prefetch": "<p> Enable data prefetching when using the Cycles Procedural. </p>", 
+        "use_render_procedural": "<p> Do not load data from the cache file and display objects in the scene as boxes, Cycles will load objects directly from the {@link CacheFile} . Other render engines which can load Alembic data directly can take care of rendering it themselves. </p>", 
+        "velocity_name": "<p> Name of the velocity property in the archive. </p>"
       }
+    }, 
+    "CacheObjectPath": {
+      "doc": "<p> UNUSED Representation of an object's path inside the archive. Note that this is not a file path. </p>"
     }, 
     "Camera": {
       "fields": {
@@ -1410,7 +1455,7 @@
       "doc": "<p> Child particles are created around or between parent particles </p>", 
       "fields": {
         "fuv": "<p> Face vertex weights and offset. </p>", 
-        "num": "<p> Num is face index on the final derived mesh. </p>", 
+        "num": "<p> Face index on the final derived mesh. </p>", 
         "pa": "<p> Nearest particles to the child, used for the interpolation. </p>", 
         "w": "<p> Interpolation weights for the above particles. </p>"
       }
@@ -1451,7 +1496,7 @@
         "avg_spring_len": "<p> Used for normalized springs. </p>", 
         "bending": "<p> Flexion spring stiffness. </p>", 
         "bending_damping": "<p> XXX various hair stuff should really be separate, this struct is a horrible mess already Damping of bending springs. </p>", 
-        "cache": "<p> UNUSED atm. </p>", 
+        "cache": "<p> UNUSED. </p>", 
         "Cdis": "<p> Mechanical damping of springs. \n@deprecated\n Deprecated</p>", 
         "collider_friction": "<p> Friction with colliders. </p>", 
         "compression_damp": "<p> Mechanical damping of compression springs. </p>", 
@@ -1494,7 +1539,7 @@
         "velocity_smooth": "<p> Smoothing of velocities for hair. </p>", 
         "vgroup_bend": "<p> Vertex group for scaling bending stiffness. </p>", 
         "vgroup_intern": "<p> Vertex group for scaling structural stiffness. </p>", 
-        "vgroup_mass": "<p> Optional vertexgroup name for assigning weight.. </p>", 
+        "vgroup_mass": "<p> Optional vertexgroup name for assigning weight. </p>", 
         "vgroup_shear": "<p> Vertex group for scaling structural stiffness. </p>", 
         "vgroup_shrink": "<p> Vertex group for shrinking cloth. </p>", 
         "vgroup_struct": "<p> Vertex group for scaling structural stiffness. </p>", 
@@ -1507,7 +1552,8 @@
         "collection": "<p> Deprecated \n@deprecated\n Deprecated</p>", 
         "gobject": "<p>{@link CollectionObject} . </p>", 
         "layer": "<p>\n@deprecated\n Deprecated</p>", 
-        "lineart_usage": "<p> Line Art engine specific </p>", 
+        "lineart_flags": "<p> eCollectionLineArt_Flags </p>", 
+        "lineart_usage": "<p> eCollectionLineArt_Usage </p>", 
         "object_cache": "<p> Runtime. Cache of objects in this collection and all its children. This is created on demand when e.g. some physics simulation needs it, we don't want to have it for every collections due to memory usage reasons. </p>", 
         "object_cache_instanced": "<p> Need this for line art sub-collection selections. </p>", 
         "parents": "<p> Runtime. List of collections that are a parent of this datablock. </p>", 
@@ -1525,7 +1571,7 @@
         "time_x": "<p> Cfra time of modifier. </p>", 
         "x": "<p> Position at the beginning of the frame. </p>", 
         "xnew": "<p> Position at the end of the frame. </p>", 
-        "xold": "<p> Unused atm, but was discussed during sprint. </p>"
+        "xold": "<p> Unused at the moment, but was discussed during sprint. </p>"
       }
     }, 
     "ColorBand": {
@@ -1534,7 +1580,7 @@
     "ColorGpencilModifierData": {
       "fields": {
         "flag": "<p> Flags. </p>", 
-        "hsv": "<p> Hsv factors. </p>", 
+        "hsv": "<p> HSV factors. </p>", 
         "layer_pass": "<p> Custom index for passes. </p>", 
         "layername": "<p> Layer name. </p>", 
         "material": "<p>{@link Material}  for filtering. </p>", 
@@ -1585,7 +1631,7 @@
     "CorrectiveSmoothModifierData": {
       "fields": {
         "bind_coords": "<p> positions set during 'bind' operator use for MOD_CORRECTIVESMOOTH_RESTSOURCE_BIND </p>", 
-        "bind_coords_num": "<p> note: -1 is used to bind </p>", 
+        "bind_coords_num": "<p> NOTE: -1 is used to bind. </p>", 
         "defgrp_name": "<p> MAX_VGROUP_NAME. </p>", 
         "delta_cache": "<p> runtime-only cache </p>"
       }
@@ -1601,6 +1647,7 @@
         "actvert": "<p> edit, index in active nurb ({@link BPoint}  or {@link BezTriple} ) </p>", 
         "adt": "<p> Animation data (must be immediately after id for utilities to use it). </p>", 
         "ctime": "<p> font part end Current evaltime - for use by Objects parented to curves. </p>", 
+        "curve_eval": "<p> A pointer to curve data from evaluation. Owned by the object's #geometry_set_eval, either as a geometry instance or the data of the evaluated #CurveComponent. The curve may also contain data in the {@link nurb}  list, but for evaluated curves this is the proper place to retrieve data, since it also contains the result of geometry nodes evaluation, and isn't just a copy of the original object data. </p>", 
         "editnurb": "<p> Edited data, not in file, use pointer so we can check for it. </p>", 
         "ipo": "<p> Old animation system, deprecated for 2.5. \n@deprecated\n Deprecated</p>", 
         "len": "<p><code></code> . </p>", 
@@ -1653,7 +1700,7 @@
       "fields": {
         "changed_timestamp": "<p> Used for keeping track how many times the widget is changed. </p>", 
         "flag": "<p> Flag for mode states, sampling options, etc... </p>", 
-        "path": "<p>{@link Sequence}  of points defining the shape of the curve. <br/> \n </p>", 
+        "path": "<p>{@link Sequence}  of points defining the shape of the curve. </p>", 
         "path_len": "<p> Number of user-added points that define the profile. </p>", 
         "preset": "<p> Preset to use when reset. </p>", 
         "segments": "<p> The positions of the sampled points. Used to display a preview of where they will be. </p>", 
@@ -1680,7 +1727,7 @@
         "pool": "<p> (BMesh Only): Memory pool for allocation of blocks. </p>", 
         "totlayer": "<p> Number of layers, size of layers array. </p>", 
         "totsize": "<p> In editmode, total size of all data layers. </p>", 
-        "typemap": "<p> runtime only! - maps types to indices of first layer of that type, MUST be >= CD_NUMTYPES, but we cant use a define here. Correct size is ensured in CustomData_update_typemap assert(). </p>"
+        "typemap": "<p> runtime only! - maps types to indices of first layer of that type, MUST be >= CD_NUMTYPES, but we can't use a define here. Correct size is ensured in CustomData_update_typemap assert(). </p>"
       }
     }, 
     "CustomDataExternal": {
@@ -1695,12 +1742,27 @@
         "active_clone": "<p> Number of the layer to render. </p>", 
         "active_mask": "<p> Number of the layer to render. </p>", 
         "active_rnd": "<p> Number of the layer to render. </p>", 
+        "anonymous_id": "<p> Run-time identifier for this layer. If no one has a strong reference to this id anymore, the layer can be removed. The custom data layer only has a weak reference to the id, because otherwise there will always be a strong reference and the attribute can't be removed automatically. </p>", 
         "data": "<p> Layer data. </p>", 
         "flag": "<p> General purpose flag. </p>", 
         "name": "<p> Layer name, MAX_CUSTOMDATA_LAYER_NAME. </p>", 
         "offset": "<p> In editmode, offset of layer in block. </p>", 
         "type": "<p> Type of data in layer. </p>", 
         "uid": "<p> Shape keyblock unique id reference. </p>"
+      }
+    }, 
+    "DashGpencilModifierData": {
+      "fields": {
+        "flag": "<p> Flags. </p>", 
+        "layer_pass": "<p> Custom index for passes. </p>", 
+        "layername": "<p> Layer name. </p>", 
+        "material": "<p>{@link Material}  for filtering. </p>", 
+        "pass_index": "<p> Custom index for passes. </p>"
+      }
+    }, 
+    "DashGpencilModifierSegment": {
+      "fields": {
+        "dmd": "<p> For path reference. </p>"
       }
     }, 
     "DataTransferModifierData": {
@@ -1752,10 +1814,10 @@
         "flag": "<p> Flags for the validity of the target (NOTE: these get reset every time the types change). </p>", 
         "id": "<p> ID-block which owns the target, no user count. </p>", 
         "idtype": "<p> Type of ID-block that this target can use. </p>", 
-        "pchan_name": "<p> Name of the posebone to use (for vars where DTAR_FLAG_STRUCT_REF is used) - MAX_ID_NAME-2. </p>", 
+        "pchan_name": "<p><code></code> . </p>", 
         "rna_path": "<p> RNA path defining the setting to use (for DVAR_TYPE_SINGLE_PROP). </p>", 
         "rotation_mode": "<p> Rotation channel calculation type. </p>", 
-        "transChan": "<p> Transform channel index (for DVAR_TYPE_TRANSFORM_CHAN.) </p>"
+        "transChan": "<p> Transform channel index (for {@link DVAR_TYPE_TRANSFORM_CHAN} ). </p>"
       }
     }, 
     "DriverVar": {
@@ -1763,7 +1825,7 @@
       "fields": {
         "curval": "<p> Result of previous evaluation. </p>", 
         "flag": "<p> Validation tags, etc. (eDriverVar_Flags). </p>", 
-        "name": "<p> Name of the variable to use in py-expression (must be valid python identifier) - MAX_ID_NAME-2. </p>", 
+        "name": "<p><code></code> . </p>", 
         "num_targets": "<p> Number of targets actually used by this variable. </p>", 
         "targets": "<p> MAX_DRIVER_TARGETS, target slots. </p>", 
         "type": "<p> Type of driver variable (eDriverVar_Types). </p>"
@@ -1866,7 +1928,7 @@
       "fields": {
         "f1": "<p> Settings for 'min' control point. </p>", 
         "f2": "<p> Settings for 'max' control point. </p>", 
-        "min": "<p> Min/max values for envelope at this point (absolute values) . </p>", 
+        "min": "<p> Min/max values for envelope at this point (absolute values). </p>", 
         "time": "<p> Time for that this sample-point occurs. </p>"
       }
     }, 
@@ -1897,38 +1959,34 @@
       }
     }, 
     "FileAssetSelectParams": {
-      "doc": "<p> File selection parameters for asset browsing mode, with {@link FileSelectParams}  as base. </p>"
+      "doc": "<p> File selection parameters for asset browsing mode, with {@link FileSelectParams}  as base. </p>", 
+      "fields": {
+        "asset_catalog_visibility": "<p> eFileSel_Params_AssetCatalogVisibility </p>", 
+        "catalog_id": "<p> If {@link asset_catalog_visibility}  is #FILE_SHOW_ASSETS_FROM_CATALOG, this sets the {@link ID}  of the catalog to show. </p>", 
+        "import_type": "<p> eFileAssetImportType </p>"
+      }
     }, 
     "FileDirEntry": {
-      "doc": "<p> Container for mere direntry, with additional asset-related data. </p>", 
+      "doc": "<p> ***** Related to file browser, but never saved in DNA, only here to help with RNA. ***** </p>", 
       "fields": {
         "asset_data": "<p> If this file represents an asset, its asset data is here. Note that we may show assets of external files in which case this is set but not the id above. Note comment for FileListInternEntry.local_data, the same applies here! </p>", 
         "attributes": "<p> eFileAttributes defined in BLI_fileops.h </p>", 
         "blentype": "<p>{@link ID}  type, in case typeflag has FILE_TYPE_BLENDERLIB set. </p>", 
-        "entry": "<p> Either point to active variant/revision if available, or own entry (in mere filebrowser case). </p>", 
         "id": "<p> When showing local IDs (FILE_MAIN, FILE_MAIN_ASSET), {@link ID}  this file represents. Note comment for FileListInternEntry.local_data, the same applies here! </p>", 
         "name": "<p> Name needs freeing if FILE_ENTRY_NAME_FREE is set. Otherwise this is a direct pointer to a name buffer. </p>", 
         "preview_icon_id": "<p> The icon_id for the preview image. </p>", 
         "redirection_path": "<p> Optional argument for shortcuts, aliases etc. </p>", 
         "relpath": "<p> Path to item that is relative to current folder root. </p>", 
-        "tags": "<p> Tags are for info only, most of filtering is done in asset engine. </p>", 
-        "typeflag": "<p>{@link eFileSel_File_Types} . </p>"
+        "size_str": "<p> Temp caching of UI-generated strings. </p>", 
+        "typeflag": "<p>{@link eFileSel_File_Types} . </p>", 
+        "uid": "<p> FileUID </p>"
       }
     }, 
     "FileDirEntryArr": {
-      "doc": "<p> Array of direntries.</p><p> This struct is used in various, different contexts.</p><p> In Filebrowser UI, it stores the total number of available entries, the number of visible (filtered) entries, and a subset of those in 'entries' {@link ListBase} , from idx_start (included) to idx_end (excluded).</p><p> In AssetEngine context (i.e. outside of 'browsing' context), entries contain all needed data, there is no filtering, so nbr_entries_filtered, entry_idx_start and entry_idx_end should all be set to -1. </p>", 
+      "doc": "<p> Array of directory entries.</p><p> Stores the total number of available entries, the number of visible (filtered) entries, and a subset of those in 'entries' {@link ListBase} , from idx_start (included) to idx_end (excluded). </p>", 
       "fields": {
         "root": "<p> FILE_MAX. </p>"
       }
-    }, 
-    "FileDirEntryRevision": {
-      "doc": "<p> Container for a revision, only relevant in asset context. </p>", 
-      "fields": {
-        "size_str": "<p> Temp caching of UI-generated strings... </p>"
-      }
-    }, 
-    "FileDirEntryVariant": {
-      "doc": "<p> Container for a variant, only relevant in asset context. In case there are no variants, a single one shall exist, with NULL name/description. </p>"
     }, 
     "FileFolderHistory": {
       "doc": "<p> A wrapper to store previous and next folder lists (#FolderList) for a specific browse mode ({@link eFileBrowse_Mode} ). </p>", 
@@ -1944,32 +2002,24 @@
         "build_commit_timestamp": "<p> Commit timestamp from buildinfo. </p>", 
         "build_hash": "<p> Hash from buildinfo. </p>", 
         "filename": "<p> File path where this was saved, for recover (1024 = FILE_MAX). </p>", 
-        "subvstr": "<p> Needs to be here, for human fileformat recognition (keep first!). </p>"
-      }
-    }, 
-    "FileSelectAssetLibraryUID": {
-      "doc": "<p> Information to identify a asset library. May be either one of the predefined types (current 'Main', builtin library, project library), or a custom type as defined in the Preferences.</p><p> If the type is set to {@link FILE_ASSET_LIBRARY_CUSTOM} , idname must have the name to identify the custom library. Otherwise idname is not used. </p>", 
-      "fields": {
-        "custom_library_index": "<p> If showing a custom asset library ({@link FILE_ASSET_LIBRARY_CUSTOM} ), this is the index of the {@link bUserAssetLibrary}  within {@link UserDef.asset_libraries} . Should be ignored otherwise (but better set to -1 then, for sanity and debugging). </p>", 
-        "type": "<p> eFileAssetLibrary_Type </p>"
+        "subvstr": "<p> Needs to be here, for human file-format recognition (keep first!). </p>"
       }
     }, 
     "FileSelectParams": {
       "doc": "<p> Config and Input for File Selector </p>", 
       "fields": {
-        "_pad0": "<p> Same as filter, but for {@link ID}  types (aka library groups). </p>", 
         "active_file": "<p> Active file used for keyboard navigation. </p>", 
         "details_flags": "<p> Details toggles (file size, creation date, etc.) </p>", 
         "dir": "<p> Directory, FILE_MAX_LIBEXTRA, 1024 + 66, this is for extreme case when 1023 length path needs to be linked in, where foo.blend/Armature need adding </p>", 
         "display": "<p> Display mode flag. </p>", 
-        "f_fp": "<p> XXX <mdash/>  still unused <ndash/>  Show font preview. </p>", 
         "filter": "<p> Filter when (flags & FILE_FILTER) is true. </p>", 
-        "filter_glob": "<p> List of filetypes to filter (FILE_MAXFILE). </p>", 
+        "filter_glob": "<p> List of file-types to filter (#FILE_MAXFILE). </p>", 
+        "filter_id": "<p> Same as filter, but for {@link ID}  types (aka library groups). </p>", 
         "filter_search": "<p>{@link Text}  items name must match to be shown. </p>", 
         "flag": "<p> Settings for filter, hiding dots files. </p>", 
-        "fp_str": "<p> String to use for font preview. </p>", 
         "highlight_file": "<p> File under cursor. </p>", 
         "recursion_level": "<p> Max number of levels in dirtree to show at once, 0 to disable recursion. </p>", 
+        "rename_id": "<p> An {@link ID}<code></code>  but for local IDs (takes precedence). Don't keep this stored across handlers! Would break on undo. </p>", 
         "sort": "<p> Sort order. </p>", 
         "title": "<p> Title, also used for the text of the execute button. </p>", 
         "type": "<p> short XXXXX for now store type here, should be moved to the operator. eFileSelectType </p>"
@@ -1994,7 +2044,7 @@
         "_pad8": "<p> Unused. </p>", 
         "_pad9": "<p> Unused. </p>", 
         "active_color": "<p> Monitor smoke color. </p>", 
-        "adapt_margin": "<p><ndash/>  User-accesible fields (from here on). <ndash/>  Adaptive domain options. </p>", 
+        "adapt_margin": "<p><ndash/>  User-accessible fields (from here on). <ndash/>  Adaptive domain options. </p>", 
         "alpha": "<p> Smoke domain options. </p>", 
         "base_res": "<p> Initial \"non-adapted\" resolution. </p>", 
         "border_collisions": "<p> How domain border collisions are handled. </p>", 
@@ -2020,15 +2070,13 @@
         "gravity_final": "<p>{@link Scene}  or domain gravity multiplied with gravity weight. </p>", 
         "gridlines_color_field": "<p>{@link Simulation}  field used to color map onto gridlines. </p>", 
         "guide_alpha": "<p> Fluid guiding options. Guiding weight scalar (determines strength). </p>", 
-        "guide_beta": "<p> Guiding blur radius (affects size of vortices). </p>", 
+        "guide_beta": "<p> Guiding blur radius (affects size of vortices vortices). </p>", 
         "guide_res": "<p> Res for velocity guide grids - independent from base res. </p>", 
         "guide_vel_factor": "<p> Multiply guiding velocity by this factor. </p>", 
         "imat": "<p> Domain object imat. </p>", 
         "maxres": "<p> Fluid domain options Longest axis on the BB gets this resolution assigned. </p>", 
         "mesh_concave_upper": "<p>{@link Mesh}  options. </p>", 
-        "mesh_velocities": "<p> Vertex velocities of simulated fluid mesh. </p>", 
         "noise_strength": "<p> Noise options. </p>", 
-        "noise_type": "<p> Noise type: wave, curl, anisotropic. </p>", 
         "obj_shift_f": "<p> How much object has shifted since previous smoke frame (used to \"lock\" domain while drawing). </p>", 
         "obmat": "<p> Domain obmat. </p>", 
         "openvdb_compression": "<p> OpenVDB cache options. </p>", 
@@ -2056,20 +2104,20 @@
       "doc": "<p> Collision objects (filled with smoke). </p>", 
       "fields": {
         "fmd": "<p><ndash/>  Runtime-only fields (from here on). <ndash/>  For fast RNA access. </p>", 
-        "surface_distance": "<p><ndash/>  User-accesible fields (from here on). <ndash/>  Thickness of mesh surface, used in obstacle sdf. </p>", 
+        "surface_distance": "<p><ndash/>  User-accessible fields (from here on). <ndash/>  Thickness of mesh surface, used in obstacle sdf. </p>", 
         "vel_multi": "<p> Guiding options. Multiplier for object velocity. </p>"
       }
     }, 
     "FluidFlowSettings": {
       "fields": {
-        "behavior": "<p> Inflow, outflow, static. <br/> \n </p>", 
-        "density": "<p><ndash/>  User-accesible fields (from here on). <ndash/>  Emission. </p>", 
+        "behavior": "<p> Inflow, outflow, static. </p>", 
+        "density": "<p><ndash/>  User-accessible fields (from here on). <ndash/>  Emission. </p>", 
         "flags": "<p> Absolute emission etc. </p>", 
         "fmd": "<p><ndash/>  Runtime-only fields (from here on). <ndash/>  For fast RNA access. </p>", 
         "surface_distance": "<p> Maximum emission distance from mesh surface. </p>", 
         "temperature": "<p> Delta temperature (temp - ambient temp). </p>", 
         "texture_size": "<p> Texture control. </p>", 
-        "type": "<p> Smoke, flames, both, outflow, liquid. <br/> \n </p>", 
+        "type": "<p> Smoke, flames, both, outflow, liquid. </p>", 
         "uvlayer_name": "<p> MAX_CUSTOMDATA_LAYER_NAME. </p>", 
         "vel_multi": "<p> Multiplier for inherited velocity. </p>", 
         "verts_old": "<p> Initial velocity. Previous vertex positions in domain space. </p>", 
@@ -2114,7 +2162,7 @@
         "partSlipValue": "<p> boundary \"stickiness\" for part slip values </p>", 
         "realsize": "<p> size of the domain in real units (meters along largest resolution x, y, z extent) </p>", 
         "resolutionxyz": "<p> domain object settings resolutions </p>", 
-        "show_advancedoptions": "<p> display advanced options in fluid sim tab (on=1, off=0) </p>", 
+        "show_advancedoptions": "<p> Display advanced options in fluid sim tab (on=1, off=0). </p>", 
         "surfaceSmoothing": "<p> smooth fluid surface? </p>", 
         "surfaceSubdivs": "<p> Number of surface subdivisions. </p>", 
         "surfdataPath": "<p> store output path, and file prefix for baked fluid surface strlens; 256= FILE_MAXFILE, 768= FILE_MAXDIR </p>", 
@@ -2127,7 +2175,7 @@
       }
     }, 
     "FMod_Cycles": {
-      "doc": "<p> TODO: we can only do complete cycles... </p><p> cycling/repetition modifier data </p>", 
+      "doc": "<p> cycling/repetition modifier data TODO: we can only do complete cycles. </p>", 
       "fields": {
         "after_cycles": "<p> Number of 'cycles' after last keyframe to do. </p>", 
         "after_mode": "<p> Extrapolation mode to use after last keyframe. </p>", 
@@ -2138,7 +2186,7 @@
     "FMod_Envelope": {
       "doc": "<p> envelope-like adjustment to values (for fade in/out) </p>", 
       "fields": {
-        "data": "<p> Data-points defining envelope to apply (array) . </p>", 
+        "data": "<p> Data-points defining envelope to apply (array). </p>", 
         "midval": "<p> Value that envelope's influence is centered around / based on. </p>", 
         "min": "<p> Distances from 'middle-value' for 1:1 envelope influence. </p>", 
         "totvert": "<p> Number of envelope points. </p>"
@@ -2199,7 +2247,7 @@
         "efra": "<p> End frame of restricted frame-range. </p>", 
         "flag": "<p> Settings for the modifier. </p>", 
         "influence": "<p> The amount that the modifier should influence the value. </p>", 
-        "name": "<p> User-defined description for the modifier - MAX_ID_NAME-2. </p>", 
+        "name": "<p><code></code> . </p>", 
         "sfra": "<p> Start frame of restricted frame-range. </p>", 
         "type": "<p> Type of f-curve modifier. </p>", 
         "ui_expand_flag": "<p><code></code>  total panels). </p>"
@@ -2214,7 +2262,7 @@
     }, 
     "FreestyleConfig": {
       "fields": {
-        "crease_angle": "<p> In radians!. </p>", 
+        "crease_angle": "<p> In radians. </p>", 
         "flags": "<p> Suggestive contours, ridges/valleys, material boundaries. </p>", 
         "mode": "<p> Scripting, editor. </p>", 
         "raycasting_algorithm": "<p>\n@deprecated\n Deprecated</p>"
@@ -2241,7 +2289,7 @@
       "fields": {
         "blend_mode": "<p> Blend modes. </p>", 
         "flag": "<p> Flags. </p>", 
-        "rotation": "<p> Rotation of effect. <br/> \n </p>"
+        "rotation": "<p> Rotation of effect. </p>"
       }
     }, 
     "GlowVars": {
@@ -2289,7 +2337,7 @@
       "doc": "<p> Grease pencil sculpt paint. </p>"
     }, 
     "GPUDOFSettings": {
-      "doc": "<p> Keep for '{@link Camera} ' versioning. Properties for dof effect. </p>", 
+      "doc": "<p> Keep for '{@link Camera} ' versioning. Properties for DOF effect. </p>", 
       "fields": {
         "focus_distance": "<p> Focal distance for depth of field. </p>"
       }
@@ -2335,7 +2383,7 @@
     }, 
     "Histogram": {
       "fields": {
-        "co": "<p> sample line only image coords src -> dst </p>"
+        "co": "<p> Sample line only (image coords: source -> destination). </p>"
       }
     }, 
     "HookGpencilModifierData": {
@@ -2369,6 +2417,7 @@
       "fields": {
         "asset_data": "<p> If the {@link ID}  is an asset, this pointer is set. Owning pointer. </p>", 
         "flag": "<p> LIB_... flags report on status of the data-block this {@link ID}  belongs to (persistent, saved to and read from .blend). </p>", 
+        "library_weak_reference": "<p> Weak reference to an {@link ID}  in a given library file, used to allow re-using already appended data in some cases, instead of appending it again.</p><p> May be NULL. </p>", 
         "name": "<p> MAX_ID_NAME. </p>", 
         "orig_id": "<p> Only set for data-blocks which are coming from copy-on-write, points to the original version of it. Also used temporarily during memfile undo to keep a reference to old {@link ID}  when found. </p>", 
         "override_library": "<p> Reference linked {@link ID}  which this one overrides. </p>", 
@@ -2402,14 +2451,14 @@
       "doc": "<p> add any future new id property types here. Static {@link ID}  override structs. </p>", 
       "fields": {
         "operation": "<p> Type of override. </p>", 
-        "subitem_reference_name": "<p> Sub-item references, if needed (for arrays or collections only). We need both reference and local values to allow e.g. insertion into collections (constraints, modifiers...). In collection case, if names are defined, they are used in priority. Names are pointers (instead of char[64]) to save some space, NULL when unset. Indices are -1 when unset. </p>", 
+        "subitem_reference_name": "<p> Sub-item references, if needed (for arrays or collections only). We need both reference and local values to allow e.g. insertion into RNA collections (constraints, modifiers...). In RNA collection case, if names are defined, they are used in priority. Names are pointers (instead of char[64]) to save some space, NULL or empty string when unset. Indices are -1 when unset.</p><p> NOTE: For insertion operations in RNA collections, reference may not actually exist in the linked reference data. It is used to identify the anchor of the insertion operation (i.e. the item after or before which the new local item should be inserted), in the local override. </p>", 
         "tag": "<p> Runtime, tags are common to both IDOverrideProperty and IDOverridePropertyOperation. </p>"
       }
     }, 
     "IDProperty": {
       "fields": {
-        "data": "<p> Note, alignment for 64 bits. </p>", 
-        "len": "<p> array length, also (this is important!) string length + 1. the idea is to be able to reuse array realloc functions on strings. </p>", 
+        "data": "<p> NOTE: alignment for 64 bits. </p>", 
+        "len": "<p> Array length, also (this is important!) string length + 1. the idea is to be able to reuse array realloc functions on strings. </p>", 
         "name": "<p> MAX_IDPROP_NAME. </p>", 
         "saved": "<p> saved is used to indicate if this struct has been saved yet. seemed like a good idea as a '_pad' var was needed anyway :) </p>", 
         "totallen": "<p> Strings and arrays are both buffered, though the buffer isn't saved. totallen is total length of allocated array/string, including a buffer. Note that the buffering is mild; the code comes from python's list implementation. </p>"
@@ -2417,8 +2466,32 @@
     }, 
     "IDPropertyData": {
       "fields": {
-        "val": "<p> Note, we actually fit a double into these two ints. </p>"
+        "val": "<p> NOTE: we actually fit a double into these two 32bit integers. </p>"
       }
+    }, 
+    "IDPropertyUIData": {
+      "fields": {
+        "description": "<p> Tooltip / property description pointer. Owned by the {@link IDProperty} . </p>", 
+        "rna_subtype": "<p> RNA subtype, used for every type except string properties (PropertySubType). </p>"
+      }
+    }, 
+    "IDPropertyUIDataFloat": {
+      "doc": "<p> IDP_UI_DATA_TYPE_FLOAT </p>", 
+      "fields": {
+        "default_array": "<p> Only for array properties. </p>"
+      }
+    }, 
+    "IDPropertyUIDataID": {
+      "doc": "<p> IDP_UI_DATA_TYPE_ID </p>"
+    }, 
+    "IDPropertyUIDataInt": {
+      "doc": "<p> IDP_UI_DATA_TYPE_INT </p>", 
+      "fields": {
+        "default_array": "<p> Only for array properties. </p>"
+      }
+    }, 
+    "IDPropertyUIDataString": {
+      "doc": "<p> IDP_UI_DATA_TYPE_STRING </p>"
     }, 
     "Image": {
       "fields": {
@@ -2431,13 +2504,13 @@
         "filepath": "<p> File path, 1024 = FILE_MAX. </p>", 
         "gen_x": "<p> for generated images </p>", 
         "gpu_refresh_areas": "<p><code></code> . </p>", 
-        "gputexture": "<p> Not written in file 3 = TEXTARGET_COUNT, 2 = stereo eyes. </p>", 
+        "gputexture": "<p> Not written in file 3 = TEXTARGET_COUNT, 2 = stereo eyes, 2 = IMA_TEXTURE_RESOLUTION_LEN. </p>", 
         "packedfile": "<p> Deprecated. \n@deprecated\n Deprecated</p>", 
         "views": "<p>{@link ImageView} . </p>"
       }
     }, 
     "ImageFormatData": {
-      "doc": "<p><hr/> \n Generic image format settings, this is used for {@link NodeImageFile}  and IMAGE_OT_save_as operator too.</p><p> note: its a bit strange that even though this is an image format struct the imtype can still be used to select video formats. RNA ensures these enum's are only selectable for render output. </p>", 
+      "doc": "<p><hr/> \n Generic image format settings, this is used for {@link NodeImageFile}  and IMAGE_OT_save_as operator too.</p><p> NOTE: its a bit strange that even though this is an image format struct the imtype can still be used to select video formats. RNA ensures these enum's are only selectable for render output. </p>", 
       "fields": {
         "cineon_flag": "<p> Cineon </p>", 
         "compress": "<p> (0 - 100), eg: png compression. </p>", 
@@ -2471,10 +2544,15 @@
         "stencil": "<p> Workaround until we support true layer masks. </p>"
       }
     }, 
+    "ImageTile_Runtime": {
+      "fields": {
+        "slots": "<p><code></code><code></code>  </p>"
+      }
+    }, 
     "ImageUser": {
       "doc": "<p>{@link ImageUser}  is in Texture, in Nodes, Background {@link Image} , {@link Image}  Window, .... should be used in conjunction with an {@link ID}  * to {@link Image} . </p>", 
       "fields": {
-        "_pad0": "<p> Cyclic flag. </p>", 
+        "cycl": "<p> Cyclic flag. </p>", 
         "framenr": "<p> Movies, sequences: current to display. </p>", 
         "frames": "<p> Total amount of frames to use. </p>", 
         "multi_index": "<p> Listbase indices, for menu browsing or retrieve buffer. </p>", 
@@ -2493,7 +2571,7 @@
       "doc": "<p><mdash/>  ID-Datablock <mdash/>  IPO Data-Block </p>", 
       "fields": {
         "blocktype": "<p> Blocktype: self-explanatory; showkey: either 0 or 1 (show vertical yellow lines for editing). </p>", 
-        "cur": "<p> Rect defining extents of keyframes?. </p>", 
+        "cur": "<p> Rect defining extents of keyframes? </p>", 
         "curve": "<p> A list of {@link IpoCurve}  structs in a linked list. </p>", 
         "muteipo": "<p> Muteipo: either 0 or 1 (whether ipo block is muted). </p>"
       }
@@ -2501,14 +2579,14 @@
     "IpoCurve": {
       "doc": "<p><mdash/>  IPO {@link Curve}  <mdash/>  IPO {@link Curve}  </p>", 
       "fields": {
-        "bezt": "<p> Array of BezTriples (sizeof(BezTriple) * totvert) - i.e. user-editable keyframes . </p>", 
-        "bitmask": "<p> ???. </p>", 
+        "bezt": "<p><code></code>  - i.e. user-editable keyframes. </p>", 
+        "bitmask": "<p> Unused since the first available revision. </p>", 
         "blocktype": "<p> Blocktype= ipo-blocktype; adrcode= type of ipo-curve; vartype= 'format' of data. </p>", 
-        "bp": "<p> Array of BPoints (sizeof(BPoint) * totvert) - i.e. baked/imported data. </p>", 
+        "bp": "<p><code></code>  - i.e. baked/imported data. </p>", 
         "curval": "<p> Value of ipo-curve for current frame. </p>", 
         "driver": "<p> Pointer to ipo-driver for this curve. </p>", 
-        "flag": "<p> Flag= settings; rt= ???. </p>", 
-        "ipo": "<p> Interpolation and extrapolation modes . </p>", 
+        "flag": "<p> Flag= settings. </p>", 
+        "ipo": "<p> Interpolation and extrapolation modes. </p>", 
         "maxrct": "<p> Bounding boxes. </p>", 
         "slide_min": "<p> Minimum/maximum values for sliders (in action editor). </p>", 
         "totvert": "<p> Total number of BezTriples (i.e. keyframes) on curve. </p>", 
@@ -2532,7 +2610,7 @@
         "elemsize": "<p> Size of each element in {@link KeyBlock.data} , use for allocation and stride. </p>", 
         "elemstr": "<p> This is not a regular string, although it is \\0 terminated this is an array of (element_array_size, element_type) pairs (each one char) used for calculating shape key-blocks. </p>", 
         "ipo": "<p> old animation system, deprecated for 2.5 \n@deprecated\n Deprecated</p>", 
-        "refkey": "<p><em></em>  'key->block.first', perhaps later on it could be defined as some other {@link KeyBlock}  - campbell </p>", 
+        "refkey": "<p><code></code><em></em>  'key->block.first', perhaps later on it could be defined as some other {@link KeyBlock}  - campbell </p>", 
         "totkey": "<p> (totkey == BLI_listbase_count(&key->block)) </p>", 
         "type": "<p> absolute or relative shape key </p>", 
         "uidgen": "<p> Can never be 0, this is used for detecting old data. current free UID for key-blocks. </p>"
@@ -2540,14 +2618,14 @@
     }, 
     "KeyBlock": {
       "fields": {
-        "curval": "<p> influence (typically [0 - 1] but can be more), (Key->type == KEY_RELATIVE) only. </p>", 
-        "data": "<p> array of shape key values, size is (Key->elemsize * KeyBlock->totelem) </p>", 
+        "curval": "<p><code></code>  only. </p>", 
+        "data": "<p><code></code>  </p>", 
         "name": "<p> MAX_NAME (unique name, user assigned) </p>", 
         "pos": "<p> point in time (Key->type == KEY_NORMAL) only, for historic reasons this is relative to (Key->ctime / 100), so this value increments by 0.1f per frame. </p>", 
         "relative": "<p> relative == 0 means first key is reference, otherwise the index of Key->blocks </p>", 
         "slidermin": "<p> ranges, for RNA and UI only to clamp 'curval' </p>", 
         "totelem": "<p> total number if items in the keyblock (compare with mesh/curve verts to check we match) </p>", 
-        "type": "<p> interpolation type (Key->type == KEY_NORMAL) only. </p>", 
+        "type": "<p><code></code>  only. </p>", 
         "uid": "<p> for meshes only, match the unique number with the customdata layer </p>", 
         "vgroup": "<p> MAX_VGROUP_NAME (optional vertex group), array gets allocated into 'weights' when set </p>"
       }
@@ -2558,12 +2636,12 @@
         "active_path": "<p> Index of the active path. </p>", 
         "description": "<p> (RNA_DYN_DESCR_MAX) short help text. </p>", 
         "flag": "<p> Settings for {@link KeyingSet} . </p>", 
-        "idname": "<p> Unique name (for search, etc.) - MAX_ID_NAME-2 . </p>", 
+        "idname": "<p><code></code> . </p>", 
         "keyingflag": "<p> (eInsertKeyFlags) settings to supply insertkey() with. </p>", 
         "keyingoverride": "<p> (eInsertKeyFlags) for each flag set, the relevant keyingflag bit overrides the default. </p>", 
-        "name": "<p> User-viewable name for {@link KeyingSet}  (for menus, etc.) - MAX_ID_NAME-2. </p>", 
+        "name": "<p> User-viewable name for {@link KeyingSet}<code></code> . </p>", 
         "paths": "<p> ({@link KS_Path} ) paths to keyframe to. </p>", 
-        "typeinfo": "<p> Name of the typeinfo data used for the relative paths - MAX_ID_NAME-2. </p>"
+        "typeinfo": "<p><code></code> . </p>"
       }
     }, 
     "KS_Path": {
@@ -2571,7 +2649,7 @@
       "fields": {
         "array_index": "<p> Index that path affects. </p>", 
         "flag": "<p> Various settings, etc. </p>", 
-        "group": "<p> Name of the group to add to - MAX_ID_NAME-2. </p>", 
+        "group": "<p><code></code> . </p>", 
         "groupmode": "<p> Group naming (eKSP_Grouping). </p>", 
         "id": "<p>{@link ID}  block that keyframes are for. </p>", 
         "idtype": "<p> -type that path can be used on. </p>", 
@@ -2595,6 +2673,7 @@
       "fields": {
         "actbp": "<p> Active element index, unset with LT_ACTBP_NONE. </p>", 
         "ipo": "<p> Old animation system, deprecated for 2.5. \n@deprecated\n Deprecated</p>", 
+        "vertex_group_names": "<p> List of {@link bDeformGroup}  names and flag only. </p>", 
         "vgroup": "<p> Multiply the influence, MAX_VGROUP_NAME. </p>"
       }
     }, 
@@ -2621,14 +2700,34 @@
         "scene_collection": "<p>\n@deprecated\n Deprecated</p>"
       }
     }, 
+    "LengthGpencilModifierData": {
+      "fields": {
+        "flag": "<p> Flags. </p>", 
+        "layer_pass": "<p> Custom index for passes. </p>", 
+        "layername": "<p> Layer name. </p>", 
+        "material": "<p>{@link Material}  for filtering. </p>", 
+        "mode": "<p> Modifier mode. </p>", 
+        "overshoot_fac": "<p> Overshoot trajectory factor. </p>", 
+        "pass_index": "<p> Custom index for passes. </p>", 
+        "point_density": "<p> Curvature parameters. </p>", 
+        "start_fac": "<p> Length. </p>"
+      }
+    }, 
     "Library": {
       "doc": "<p> For each library file used, a {@link Library}  struct is added to Main WARNING: readfile.c, expand_doit() reads this struct without DNA check! </p>", 
       "fields": {
         "filepath": "<p> Path name used for reading, can be relative and edited in the outliner. </p>", 
         "filepath_abs": "<p><code></code>  is the real path used on file read but in some cases its useful to access the absolute one.</p><p><code></code>  directly and it will be kept in sync - campbell </p>", 
         "parent": "<p> Set for indirectly linked libs, used in the outliner and while reading. </p>", 
-        "temp_index": "<p> Temp data needed by read/write code. </p>", 
+        "temp_index": "<p> Temp data needed by read/write code, and liboverride recursive resync. </p>", 
         "versionfile": "<p> See BLENDER_FILE_VERSION, BLENDER_FILE_SUBVERSION, needed for do_versions. </p>"
+      }
+    }, 
+    "LibraryWeakReference": {
+      "doc": "<p> A weak library/ID reference for local data that has been appended, to allow re-using that local data instead of creating a new copy of it in future appends.</p><p> NOTE: This is by design a week reference, in other words code should be totally fine and perform a regular append if it cannot find a valid matching local {@link ID} .</p><p> NOTE: There should always be only one single {@link ID}  in current Main matching a given linked reference. </p>", 
+      "fields": {
+        "library_filepath": "<p><code> Expected to match a {@link Library.filepath}</code> . </p>", 
+        "library_id_name": "<p> MAX_ID_NAME. May be different from the current local {@link ID}  name. </p>"
       }
     }, 
     "Light": {
@@ -2698,14 +2797,18 @@
       "fields": {
         "angle_splitting_threshold": "<p><code></code>  angle, for splitting strokes at sharp points. </p>", 
         "calculation_flags": "<p> Ported from SceneLineArt flags. </p>", 
+        "chain_smooth_tolerance": "<p> Strength for smoothing jagged chains. </p>", 
         "chaining_image_threshold": "<p> CPU mode </p>", 
         "crease_threshold": "<p><code></code>  range for cosine angle </p>", 
-        "edge_types": "<p> line type enable flags, bits in eLineartEdgeFlag </p>", 
-        "flags": "<p> Additional Switches. </p>", 
-        "render_buffer": "<p> Runtime only. </p>", 
-        "source_type": "<p>{@link Object}  or {@link Collection} , from eLineartGpencilModifierSource </p>", 
+        "edge_types": "<p> Line type enable flags, bits in #eLineartEdgeFlag. </p>", 
+        "flags": "<p>{@link eLineArtGPencilModifierFlags} , modifier internal state. </p>", 
+        "level_start_override": "<p> Runtime data. Because we can potentially only compute features lines once per modifier stack (Use Cache), we need to have these override values to ensure that we have the data we need is computed and stored in the cache. </p>", 
+        "mask_switches": "<p>{@link eLineartGpencilMaskSwitches}  </p>", 
+        "overscan": "<p>{@link Camera}<code></code> , before calculation, which give a wider FOV, this doesn't change coordinates range internally (-1, 1), but makes the calculated frame bigger than actual output. This is for the easier shifting calculation. A value of 0.5 means the \"internal\" focal length become 2/3 of the actual camera. </p>", 
+        "render_buffer_ptr": "<p> Keep a pointer to the render buffer so we can call destroy from {@link ModifierData} . </p>", 
+        "source_type": "<p>{@link Object}  or {@link Collection} , from #eLineartGpencilModifierSource. </p>", 
         "source_vertex_group": "<p><code></code>  specifies which vertex groups our strokes from source_vertex_group will go to. </p>", 
-        "transparency_flags": "<p> eLineartGpencilTransparencyFlags </p>"
+        "stroke_depth_offset": "<p> Move strokes towards camera to avoid clipping while preserve depth for the viewport. </p>"
       }
     }, 
     "LineStyleColorModifier_AlongStroke": {
@@ -2731,17 +2834,17 @@
     }, 
     "LineStyleGeometryModifier_2DTransform": {
       "fields": {
-        "angle": "<p> In radians!. </p>"
+        "angle": "<p> In radians. </p>"
       }
     }, 
     "LineStyleGeometryModifier_PerlinNoise1D": {
       "fields": {
-        "angle": "<p> In radians!. </p>"
+        "angle": "<p> In radians. </p>"
       }
     }, 
     "LineStyleGeometryModifier_PerlinNoise2D": {
       "fields": {
-        "angle": "<p> In radians!. </p>"
+        "angle": "<p> In radians. </p>"
       }
     }, 
     "LineStyleGeometryModifier_Sampling": {
@@ -2755,7 +2858,7 @@
     "LineStyleThicknessModifier_Calligraphy": {
       "doc": "<p> Calligraphic thickness modifier </p>", 
       "fields": {
-        "orientation": "<p> In radians!. </p>"
+        "orientation": "<p> In radians. </p>"
       }
     }, 
     "Link": {
@@ -2789,8 +2892,8 @@
         "alpha": "<p> blending options </p>", 
         "flag": "<p> For animation. </p>", 
         "name": "<p> Name of the mask layer (64 = MAD_ID_NAME - 2). </p>", 
-        "restrictflag": "<p> Matching '{@link Object} ' flag of the same name - eventually use in the outliner . </p>", 
-        "splines": "<p> List of splines which defines this mask layer. </p>"
+        "splines": "<p> List of splines which defines this mask layer. </p>", 
+        "visibility_flag": "<p> Matching '{@link Object} ' flag of the same name - eventually use in the outliner. </p>"
       }
     }, 
     "MaskLayerShape": {
@@ -2841,7 +2944,7 @@
     }, 
     "MaskSplinePoint": {
       "fields": {
-        "bezt": "<p> Actual point coordinates and its handles . </p>", 
+        "bezt": "<p> Actual point coordinates and its handles. </p>", 
         "parent": "<p> Parenting information of particular spline point. </p>", 
         "tot_uw": "<p> Number of uv feather values. </p>", 
         "uw": "<p> Feather UV values. </p>"
@@ -2902,7 +3005,9 @@
     }, 
     "MaterialLineArt": {
       "fields": {
-        "flags": "<p> eMaterialLineArtFlags </p>"
+        "flags": "<p> eMaterialLineArtFlags </p>", 
+        "mat_occlusion": "<p> Maximum 255 levels of equivalent occlusion. </p>", 
+        "material_mask_bits": "<p> Used to filter line art occlusion edges </p>"
       }
     }, 
     "MCol": {
@@ -2939,8 +3044,8 @@
         "adt": "<p> Animation data (must be immediately after id for utilities to use it). </p>", 
         "attributes_active_index": "<p> END BMESH ONLY </p>", 
         "cd_flag": "<p> customdata flag, for bevel-weight and crease, which are now optional </p>", 
-        "dvert": "<p> Deformgroup vertices. </p>", 
-        "edit_mesh": "<p> When the object is available, the preferred access method is: BKE_editmesh_from_object(ob) Not saved in file!. </p>", 
+        "dvert": "<p> Deform-group vertices. </p>", 
+        "edit_mesh": "<p> When the object is available, the preferred access method is: BKE_editmesh_from_object(ob) Not saved in file. </p>", 
         "face_sets_color_default": "<p> Stores the initial Face Set to be rendered white. This way the overlay can be enabled by default and Face Sets can be used without affecting the color of the mesh. </p>", 
         "ipo": "<p> Old animation system, deprecated for 2.5. \n@deprecated\n Deprecated</p>", 
         "ldata": "<p> BMESH ONLY </p>", 
@@ -2948,7 +3053,7 @@
         "mcol": "<p> array of colors for the tessellated faces, must be number of tessellated faces * 4 in length </p>", 
         "medge": "<p> Array of edges. </p>", 
         "mface": "<p> END BMESH ONLY Legacy face storage (quads & tries only), faces are now stored in {@link Mesh.mpoly}  & #Mesh.mloop arrays.</p><p><h2>Note</h2><p> This would be marked deprecated however the particles still use this at run-time for placing particles on the mesh (something which should be eventually upgraded). </p> This would be marked deprecated however the particles still use this at run-time for placing particles on the mesh (something which should be eventually upgraded). \n\n</p>", 
-        "mpoly": "<p> BMESH ONLY new face structures </p>", 
+        "mpoly": "<p> BMESH ONLY New face structures. </p>", 
         "mtface": "<p> Store tessellation face UV's and texture here. </p>", 
         "mvert": "<p> Array of verts. </p>", 
         "subdiv": "<p>\n@deprecated\n Deprecated</p>", 
@@ -2957,7 +3062,8 @@
         "symmetry": "<p> Indicates the symmetry that a mesh has, according to the artist, so that tools can consistently ensure that this symmetry is maintained. </p>", 
         "tface": "<p> Deprecated, use mtface. \n@deprecated\n Deprecated</p>", 
         "totpoly": "<p> BMESH ONLY </p>", 
-        "totvert": "<p> END BMESH ONLY </p>"
+        "totvert": "<p> END BMESH ONLY </p>", 
+        "vertex_group_names": "<p> List of {@link bDeformGroup}  names and flag only. </p>"
       }
     }, 
     "Mesh_Runtime": {
@@ -2968,6 +3074,7 @@
         "deformed_only": "<p> Set by modifier stack if only deformed from original. </p>", 
         "is_original": "<p> Copied from edit-mesh (hint, draw with edit-mesh data when true).</p><p> Modifiers that edit the mesh data in-place must set this to false (most #eModifierTypeType_NonGeometrical modifiers). Otherwise the edit-mesh data will be used for drawing, missing changes from modifiers. See T79517. </p>", 
         "mesh_eval": "<p> Evaluated mesh for objects which do not have effective modifiers. This mesh is used as a result of modifier stack evaluation. Since modifier stack evaluation is threaded on object level we need some synchronization. </p>", 
+        "render_mutex": "<p> Needed to ensure some thread-safety during render data pre-processing. </p>", 
         "shrinkwrap_data": "<p> Non-manifold boundary data for Shrinkwrap Target Project. </p>", 
         "wrapper_type": "<p>{@link eMeshWrapperType}  and others. </p>", 
         "wrapper_type_finalize": "<p> A type mask from wrapper_type, in case there are differences in finalizing logic between types. </p>"
@@ -2998,7 +3105,7 @@
         "dyngrid": "<p> result of dynamic binding Grid with dynamic binding cell points. </p>", 
         "dyngridsize": "<p> Size of the dynamic bind grid. </p>", 
         "dyninfluences": "<p> Dynamic binding vertex influences. </p>", 
-        "dynverts": "<p> Is this vertex bound or not?. </p>", 
+        "dynverts": "<p> Is this vertex bound or not? </p>", 
         "object": "<p>{@link Mesh}  object. </p>", 
         "totinfluence": "<p> Total number of vertex influences. </p>", 
         "totvert": "<p> Total vertices in mesh and cage. </p>"
@@ -3006,12 +3113,8 @@
     }, 
     "MeshSeqCacheModifierData": {
       "fields": {
-        "last_lookup_time": "<p> Caches the scene time (in seconds) used to lookup data in the Alembic archive when the modifier was last executed. Used to access Alembic samples through the RNA. </p>", 
-        "num_vertices": "<p> The number of vertices of the Alembic mesh, set when the modifier is executed. </p>", 
         "object_path": "<p> 1024 = FILE_MAX. </p>", 
-        "reader": "<p> Runtime. </p>", 
-        "velocity_delta": "<p> Time (in frames or seconds) between two velocity samples. Automatically computed to scale the velocity vectors at render time for generating proper motion blur data. </p>", 
-        "vertex_velocities": "<p> Vertex velocities read from the cache. The velocities are not automatically read during modifier execution, and therefore have to manually be read when needed. This is only used through the RNA for now. </p>"
+        "reader": "<p> Runtime. </p>"
       }
     }, 
     "MeshStatVis": {
@@ -3038,7 +3141,7 @@
         "editelems": "<p> Not saved in files, note we use pointer for editmode check. </p>", 
         "flag": "<p> Flag is enum for updates, flag2 is bitflags for settings. </p>", 
         "ipo": "<p> Old animation system, deprecated for 2.5. \n@deprecated\n Deprecated</p>", 
-        "lastelem": "<p> used in editmode {@link ListBase}  edit_elems; </p>", 
+        "lastelem": "<p>{@link ListBase}  edit_elems;. </p><p> used in editmode </p>", 
         "loc": "<p> texture space, copied as one block in editobject.c </p>", 
         "mat": "<p> material of the mother ball will define the material used of all others </p>", 
         "needs_flush_to_id": "<p>{@link ID}  data is older than edit-mode data (TODO: move to edit-mode struct). Set #Main.is_memfile_undo_flush_needed when enabling. </p>", 
@@ -3086,7 +3189,8 @@
     }, 
     "MirrorModifierData": {
       "fields": {
-        "axis": "<p> Deprecated, use flag instead. \n@deprecated\n Deprecated</p>"
+        "axis": "<p> Deprecated, use flag instead. \n@deprecated\n Deprecated</p>", 
+        "use_correct_order_on_merge": "<p> Mirror modifier used to merge the old vertex into its new copy, which would break code relying on access to the original geometry vertices. However, modifying this behavior to the correct one (i.e. merging the copy vertices into their original sources) has several potential effects on other modifiers and tools, so we need to keep that incorrect behavior for existing modifiers, and only use the new correct one for new modifiers. </p>"
       }
     }, 
     "MLoop": {
@@ -3195,8 +3299,8 @@
     }, 
     "MovieTrackingCamera": {
       "fields": {
-        "brown_k1": "<p> Brown-Conrady distortion model coefficients Brown-Conrady radial distortion </p>", 
-        "brown_p1": "<p> Brown-Conrady tangential distortion </p>", 
+        "brown_k1": "<p> Brown-Conrady distortion model coefficients Brown-Conrady radial distortion. </p>", 
+        "brown_p1": "<p> Brown-Conrady tangential distortion. </p>", 
         "division_k1": "<p> Division distortion model coefficients </p>", 
         "focal": "<p> Focal length. </p>", 
         "intrinsics": "<p> Intrinsics handle. </p>", 
@@ -3219,6 +3323,7 @@
     }, 
     "MovieTrackingDopesheetChannel": {
       "fields": {
+        "first_not_disabled_marker_framenr": "<p> These numbers are valid only if tot_segment > 0. </p>", 
         "max_segment": "<p> Longest segment length and total number of tracked frames. </p>", 
         "name": "<p> Name of channel. </p>", 
         "segments": "<p> Tracked segments. </p>", 
@@ -3347,7 +3452,7 @@
       "doc": "<p> Old game engine recast navigation data, while unused 2.7x files may contain this. </p>"
     }, 
     "MSelect": {
-      "doc": "<p> Optionally store the order of selected elements. This wont always be set since only some selection operations have an order.</p><p> Typically accessed from #Mesh.mselect </p>", 
+      "doc": "<p> Optionally store the order of selected elements. This won't always be set since only some selection operations have an order.</p><p> Typically accessed from #Mesh.mselect </p>", 
       "fields": {
         "index": "<p> Index in the vertex, edge or polygon array. </p>", 
         "type": "<p> #ME_VSEL, #ME_ESEL, #ME_FSEL. </p>"
@@ -3406,7 +3511,7 @@
         "flag": "<p> Settings. </p>", 
         "influence": "<p> Influence of strip. </p>", 
         "modifiers": "<p> F-Curve modifiers to be applied to the entire strip's referenced F-Curves. </p>", 
-        "name": "<p> User-Visible Identifier for {@link Strip}  - MAX_ID_NAME-2. </p>", 
+        "name": "<p> User-Visible Identifier for {@link Strip}<code></code> . </p>", 
         "orig_strip": "<p> Pointer to an original NLA strip. </p>", 
         "repeat": "<p> The number of times to repeat the action range (only when no F-Curves). </p>", 
         "scale": "<p> The amount the action range is scaled by (only when no F-Curves). </p>", 
@@ -3422,7 +3527,7 @@
       "fields": {
         "flag": "<p> Settings for this track. </p>", 
         "index": "<p> Index of the track in the stack <h2>Note</h2><p> not really useful, but we need a '_pad' var anyways! </p> not really useful, but we need a '_pad' var anyways! \n\n</p>", 
-        "name": "<p> Short user-description of this track - MAX_ID_NAME-2. </p>", 
+        "name": "<p><code></code> . </p>", 
         "strips": "<p> BActionStrips in this track. </p>"
       }
     }, 
@@ -3447,6 +3552,11 @@
       "fields": {
         "data_type": "<p> CustomDataType. </p>", 
         "domain": "<p> AttributeDomain. </p>"
+      }
+    }, 
+    "NodeAttributeCurveMap": {
+      "fields": {
+        "data_type": "<p> CustomDataType. </p>"
       }
     }, 
     "NodeAttributeMapRange": {
@@ -3485,6 +3595,12 @@
         "operation": "<p> NodeVectorMathOperation </p>"
       }
     }, 
+    "NodeAttributeVectorRotate": {
+      "fields": {
+        "input_type_vector": "<p> GeometryNodeAttributeInputMode </p>", 
+        "mode": "<p> GeometryNodeAttributeVectorRotateMode </p>"
+      }
+    }, 
     "NodeBlurData": {
       "fields": {
         "image_in_width": "<p> Needed for absolute/relative conversions. </p>"
@@ -3512,7 +3628,7 @@
       }
     }, 
     "NodeDefocus": {
-      "doc": "<p> qdn: Defocus blur node </p>"
+      "doc": "<p> Defocus blur node. </p>"
     }, 
     "NodeGeometryAlignRotationToVector": {
       "fields": {
@@ -3521,14 +3637,99 @@
         "pivot_axis": "<p> GeometryNodeAlignRotationToVectorPivotAxis </p>"
       }
     }, 
+    "NodeGeometryAttributeCapture": {
+      "fields": {
+        "data_type": "<p> CustomDataType. </p>", 
+        "domain": "<p> AttributeDomain. </p>"
+      }
+    }, 
     "NodeGeometryAttributeProximity": {
       "fields": {
         "target_geometry_element": "<p> GeometryNodeAttributeProximityTargetType. </p>"
       }
     }, 
+    "NodeGeometryAttributeTransfer": {
+      "fields": {
+        "domain": "<p> AttributeDomain. </p>", 
+        "mapping": "<p> GeometryNodeAttributeTransferMapMode. </p>"
+      }
+    }, 
     "NodeGeometryCollectionInfo": {
       "fields": {
         "transform_space": "<p> GeometryNodeTransformSpace. </p>"
+      }
+    }, 
+    "NodeGeometryCurveFillet": {
+      "fields": {
+        "mode": "<p> GeometryNodeCurveFilletMode. </p>"
+      }
+    }, 
+    "NodeGeometryCurvePrimitiveBezierSegment": {
+      "fields": {
+        "mode": "<p> GeometryNodeCurvePrimitiveBezierSegmentMode. </p>"
+      }
+    }, 
+    "NodeGeometryCurvePrimitiveCircle": {
+      "fields": {
+        "mode": "<p> GeometryNodeCurvePrimitiveMode. </p>"
+      }
+    }, 
+    "NodeGeometryCurvePrimitiveLine": {
+      "fields": {
+        "mode": "<p> GeometryNodeCurvePrimitiveLineMode. </p>"
+      }
+    }, 
+    "NodeGeometryCurvePrimitiveQuad": {
+      "fields": {
+        "mode": "<p> GeometryNodeCurvePrimitiveQuadMode. </p>"
+      }
+    }, 
+    "NodeGeometryCurveResample": {
+      "fields": {
+        "mode": "<p> GeometryNodeCurveResampleMode. </p>"
+      }
+    }, 
+    "NodeGeometryCurveSample": {
+      "fields": {
+        "mode": "<p> GeometryNodeCurveSampleMode. </p>"
+      }
+    }, 
+    "NodeGeometryCurveSelectHandles": {
+      "fields": {
+        "handle_type": "<p> GeometryNodeCurveHandleType. </p>", 
+        "mode": "<p> GeometryNodeCurveHandleMode. </p>"
+      }
+    }, 
+    "NodeGeometryCurveSetHandles": {
+      "fields": {
+        "handle_type": "<p> GeometryNodeCurveHandleType. </p>", 
+        "mode": "<p> GeometryNodeCurveHandleMode. </p>"
+      }
+    }, 
+    "NodeGeometryCurveSplineType": {
+      "fields": {
+        "spline_type": "<p> GeometryNodeSplineType. </p>"
+      }
+    }, 
+    "NodeGeometryCurveSubdivide": {
+      "fields": {
+        "cuts_type": "<p> GeometryNodeAttributeInputMode (integer or attribute). </p>"
+      }
+    }, 
+    "NodeGeometryCurveToPoints": {
+      "fields": {
+        "mode": "<p> GeometryNodeCurveResampleMode. </p>"
+      }
+    }, 
+    "NodeGeometryCurveTrim": {
+      "fields": {
+        "mode": "<p> GeometryNodeCurveSampleMode. </p>"
+      }
+    }, 
+    "NodeGeometryDeleteGeometry": {
+      "fields": {
+        "domain": "<p> AttributeDomain. </p>", 
+        "mode": "<p> GeometryNodeDeleteGeometryMode. </p>"
       }
     }, 
     "NodeGeometryMeshCircle": {
@@ -3550,6 +3751,11 @@
       "fields": {
         "count_mode": "<p> GeometryNodeMeshLineCountMode. </p>", 
         "mode": "<p> GeometryNodeMeshLineMode. </p>"
+      }
+    }, 
+    "NodeGeometryMeshToPoints": {
+      "fields": {
+        "mode": "<p> GeometryNodeMeshToPointsMode </p>"
       }
     }, 
     "NodeGeometryObjectInfo": {
@@ -3579,11 +3785,58 @@
         "input_type": "<p> GeometryNodeAttributeInputMode </p>"
       }
     }, 
+    "NodeGeometryProximity": {
+      "fields": {
+        "target_element": "<p> GeometryNodeProximityTargetType. </p>"
+      }
+    }, 
+    "NodeGeometryRaycast": {
+      "fields": {
+        "data_type": "<p> CustomDataType. </p>", 
+        "input_type_ray_direction": "<p> Deprecated input types in new Ray-cast node. Can be removed when legacy nodes are no longer supported. </p>", 
+        "mapping": "<p> GeometryNodeRaycastMapMode. </p>"
+      }
+    }, 
     "NodeGeometryRotatePoints": {
       "fields": {
         "input_type_axis": "<p> GeometryNodeAttributeInputMode </p>", 
         "space": "<p> GeometryNodeRotatePointsSpace </p>", 
         "type": "<p> GeometryNodeRotatePointsType </p>"
+      }
+    }, 
+    "NodeGeometrySeparateGeometry": {
+      "fields": {
+        "domain": "<p> AttributeDomain. </p>"
+      }
+    }, 
+    "NodeGeometrySetCurveHandlePositions": {
+      "fields": {
+        "mode": "<p> GeometryNodeCurveHandleMode. </p>"
+      }
+    }, 
+    "NodeGeometryStringToCurves": {
+      "fields": {
+        "align_x": "<p> GeometryNodeStringToCurvesAlignXMode </p>", 
+        "align_y": "<p> GeometryNodeStringToCurvesAlignYMode </p>", 
+        "overflow": "<p> GeometryNodeStringToCurvesOverflowMode </p>"
+      }
+    }, 
+    "NodeGeometrySubdivisionSurface": {
+      "fields": {
+        "boundary_smooth": "<p> eSubsurfBoundarySmooth. </p>", 
+        "uv_smooth": "<p> eSubsurfUVSmooth. </p>"
+      }
+    }, 
+    "NodeGeometryTransferAttribute": {
+      "fields": {
+        "data_type": "<p> CustomDataType. </p>", 
+        "domain": "<p> AttributeDomain. </p>", 
+        "mode": "<p> GeometryNodeAttributeTransferMode. </p>"
+      }
+    }, 
+    "NodeGeometryViewer": {
+      "fields": {
+        "data_type": "<p> CustomDataType. </p>"
       }
     }, 
     "NodeGeometryVolumeToMesh": {
@@ -3592,7 +3845,7 @@
       }
     }, 
     "NodeGlare": {
-      "doc": "<p> qdn: glare node </p>", 
+      "doc": "<p> glare node. </p>", 
       "fields": {
         "angle": "<p> XXX angle is only kept for backward/forward compatibility, was used for two different things, see T50736. \n@deprecated\n Deprecated</p>"
       }
@@ -3601,7 +3854,7 @@
       "doc": "<p> NOTE: Only for do-version code. </p>"
     }, 
     "NodeImageAnim": {
-      "doc": "<p> this one has been replaced with {@link ImageUser} , keep it for do_versions() </p>", 
+      "doc": "<p> This one has been replaced with {@link ImageUser} , keep it for do_versions(). </p>", 
       "fields": {
         "cyclic": "<p>\n@deprecated\n Deprecated</p>", 
         "frames": "<p>\n@deprecated\n Deprecated</p>", 
@@ -3616,7 +3869,7 @@
       }
     }, 
     "NodeImageLayer": {
-      "doc": "<p> layer info for image node outputs </p>", 
+      "doc": "<p> Layer info for image node outputs. </p>", 
       "fields": {
         "pass_index": "<p> index in the Image->layers->passes lists \n@deprecated\n Deprecated</p>", 
         "pass_name": "<p> render pass name Amount defined in openexr_multi.h. </p>"
@@ -3640,7 +3893,12 @@
       }
     }, 
     "NodeLensDist": {
-      "doc": "<p> qdn: lens distortion node </p>"
+      "doc": "<p> Lens distortion node. </p>"
+    }, 
+    "NodeRandomValue": {
+      "fields": {
+        "data_type": "<p> CustomDataType. </p>"
+      }
     }, 
     "NodeScriptDict": {
       "fields": {
@@ -3664,9 +3922,19 @@
         "vertex_attribute_name": "<p> Vertex attribute layer for color source, MAX_CUSTOMDATA_LAYER_NAME. </p>"
       }
     }, 
+    "NodesModifierData": {
+      "fields": {
+        "runtime_eval_log": "<p> Contains logged information from the last evaluation. This can be used to help the user to debug a node tree. </p>"
+      }
+    }, 
     "NodesModifierSettings": {
       "fields": {
         "properties": "<p> This stores data that is passed into the node group. </p>"
+      }
+    }, 
+    "NodeSwitch": {
+      "fields": {
+        "input_type": "<p>{@link NodeSwitch} . </p>"
       }
     }, 
     "NodeTexEnvironment": {
@@ -3685,7 +3953,7 @@
       }
     }, 
     "NodeTonemap": {
-      "doc": "<p> qdn: tonemap node </p>"
+      "doc": "<p> Tonemap node. </p>"
     }, 
     "NoiseGpencilModifierData": {
       "fields": {
@@ -3736,8 +4004,8 @@
       "fields": {
         "_pad9": "<p> Runtime evaluation data (keep last). </p>", 
         "actcol": "<p> Currently selected material in the UI. </p>", 
-        "actdef": "<p> Current deformation group, note: index starts at 1. </p>", 
-        "actfmap": "<p> Current face map, note: index starts at 1. </p>", 
+        "actdef": "<p> Current deformation group, NOTE: index starts at 1. \n@deprecated\n Deprecated</p>", 
+        "actfmap": "<p> Current face map, NOTE: index starts at 1. </p>", 
         "action": "<p> struct Path *path; <p> XXX deprecated... old animation system </p>\n@deprecated\n DeprecatedXXX deprecated... old animation system \n</p>", 
         "adt": "<p> Animation data (must be immediately after id for utilities to use it). </p>", 
         "avs": "<p> Settings for visualization of object-transform animation. </p>", 
@@ -3752,7 +4020,7 @@
         "constraintChannels": "<p><p> XXX deprecated... old animation system </p>\n@deprecated\n DeprecatedXXX deprecated... old animation system \n</p>", 
         "constraints": "<p>{@link Object}  constraints. </p>", 
         "data": "<p> Pointer to objects data - an '{@link ID} ' or NULL. </p>", 
-        "defbase": "<p> List of {@link bDeformGroup}  (vertex groups) names and flag only. </p>", 
+        "defbase": "<p><p> Only for versioning, moved to object data. </p>\n@deprecated\n DeprecatedOnly for versioning, moved to object data. \n</p>", 
         "drawdata": "<p> Runtime (must be immediately after id for utilities to use it). </p>", 
         "dscale": "<p> Ack!, changing. </p>", 
         "dsize": "<p> DEPRECATED, 2.60 and older only. \n@deprecated\n Deprecated</p>", 
@@ -3767,7 +4035,6 @@
         "hooks": "<p><p> XXX deprecated... old animation system </p>\n@deprecated\n DeprecatedXXX deprecated... old animation system \n</p>", 
         "ima_ofs": "<p> Offset for image empties. </p>", 
         "imat": "<p> Inverse matrix of 'obmat' for any other use than rendering!</p><p><h2>Note</h2><p> this isn't assured to be valid as with 'obmat', before using this value you should do... invert_m4_m4(ob->imat, ob->obmat); </p> this isn't assured to be valid as with 'obmat', before using this value you should do... invert_m4_m4(ob->imat, ob->obmat); \n\n</p>", 
-        "imat_ren": "<p> Previously 'imat' was used at render time, but as other places use it too the interactive ui of 2.5 creates problems. So now only 'imat_ren' should be used when ever the inverse of ob->obmat * re->viewmat is needed! - jahka </p>", 
         "index": "<p> Custom index, for renderpasses. </p>", 
         "instance_collection": "<p>{@link Object}  duplicator for group. </p>", 
         "instance_faces_scale": "<p> Dupliface scale. </p>", 
@@ -3791,7 +4058,6 @@
         "pose": "<p> Pose data, armature objects only. </p>", 
         "proxy": "<p> if ob->proxy (or proxy_group), this object is proxy for object ob->proxy proxy_from is set in target back to the proxy. </p>", 
         "quat": "<p> Quaternion rotation. </p>", 
-        "restrictflag": "<p> For restricting view, select, render etc. accessible in outliner. </p>", 
         "rigidbody_constraint": "<p> Settings for Bullet constraint. </p>", 
         "rigidbody_object": "<p> Settings for Bullet rigid body. </p>", 
         "rot": "<p> Euler rotation. </p>", 
@@ -3805,7 +4071,8 @@
         "soft": "<p> If exists, saved in file. </p>", 
         "softflag": "<p> Softbody settings. </p>", 
         "totcol": "<p> Copy of mesh, curve & meta struct member of same name (keep in sync). </p>", 
-        "transflag": "<p> Transformation settings and transform locks . </p>"
+        "transflag": "<p> Transformation settings and transform locks. </p>", 
+        "visibility_flag": "<p> For restricting view, select, render etc. accessible in outliner. </p>"
       }
     }, 
     "Object_Runtime": {
@@ -3813,10 +4080,9 @@
       "fields": {
         "bb": "<p> Axis aligned boundbox (in localspace). </p>", 
         "curve_cache": "<p> Runtime evaluated curve-specific data, not stored in the file. </p>", 
-        "data_eval": "<p>{@link Object}  data structure created during object evaluation. It has all modifiers applied. The type is determined by the type of the original object. For example, for mesh and curve objects, this is a mesh. For a volume object, this is a volume. </p>", 
+        "data_eval": "<p>{@link Object}  data structure created during object evaluation. It has all modifiers applied. The type is determined by the type of the original object. </p>", 
         "data_orig": "<p> Original data pointer, before object->data was changed to point to data_eval. Is assigned by dependency graph's copy-on-write evaluation. </p>", 
         "geometry_set_eval": "<p> s can evaluate to a geometry set instead of a single {@link ID} . In those cases, the evaluated geometry set will be stored here. An {@link ID}  of the correct type is still stored in {@link data_eval} . {@link geometry_set_eval}  might reference the {@link ID}  pointed to by {@link data_eval}  as well, but does not own the data. </p>", 
-        "geometry_set_previews": "<p> A GHash that contains geometry sets for intermediate stages of evaluation. The keys are just a hash and are not owned by the map. The geometry sets are owned. </p>", 
         "gpd_eval": "<p>{@link bGPdata}  structure created during object evaluation. It has all modifiers applied. </p>", 
         "gpd_orig": "<p> Original grease pencil {@link bGPdata}  pointer, before object->data was changed to point to gpd_eval. Is assigned by dependency graph's copy-on-write evaluation. </p>", 
         "is_data_eval_owned": "<p> Denotes whether the evaluated data is owned by this object or is referenced and owned by somebody else. </p>", 
@@ -3825,6 +4091,7 @@
         "mesh_deform_eval": "<p>{@link Mesh}  structure created during object evaluation. It has deformation only modifiers applied on it. </p>", 
         "object_as_temp_curve": "<p><code></code> . </p>", 
         "object_as_temp_mesh": "<p><code></code> . </p>", 
+        "overlay_mode_transfer_start_time": "<p> Start time of the mode transfer overlay animation. </p>", 
         "parent_display_origin": "<p> Only used for drawing the parent/child help-line. </p>", 
         "select_id": "<p> Selection id of this object. It might differ between an evaluated and its original object, when the object is being instanced. </p>"
       }
@@ -3852,6 +4119,10 @@
         "material": "<p>{@link Material}  for filtering. </p>", 
         "materialname": "<p>{@link Material}  name. \n@deprecated\n Deprecated</p>", 
         "pass_index": "<p> Custom index for passes. </p>", 
+        "rnd_offset": "<p> Random Offset. </p>", 
+        "rnd_rot": "<p> Random Rotation. </p>", 
+        "rnd_scale": "<p> Random Scales. </p>", 
+        "seed": "<p> (first element is the index) random values. </p>", 
         "vgname": "<p> Optional vertexgroup name, MAX_VGROUP_NAME. </p>"
       }
     }, 
@@ -3930,6 +4201,7 @@
     "Panel_Runtime": {
       "fields": {
         "block": "<p> Pointer to the panel's block. Useful when changes to panel #uiBlocks need some context from traversal of the panel \"tree\". </p>", 
+        "context": "<p> Non-owning pointer. The context is stored in the block. </p>", 
         "custom_data_ptr": "<p> Pointer for storing which data the panel corresponds to. Useful when there can be multiple instances of the same panel type.</p><p><h2>Note</h2><p> A panel and its sub-panels share the same custom data pointer. This avoids freeing the same pointer twice when panels are removed. </p> A panel and its sub-panels share the same custom data pointer. This avoids freeing the same pointer twice when panels are removed. \n\n</p>", 
         "region_ofsx": "<p> Applied to {@link Panel.ofsx} , but saved separately so we can track changes between redraws. </p>"
       }
@@ -4185,8 +4457,8 @@
         "clip_local": "<p> Clip in object space, means we can test for clipping in editmode without first going into worldspace. </p>", 
         "dist": "<p> Distance from 'ofs' along -viewinv[2] vector, where result is negative as is 'ofs'. </p>", 
         "gridview": "<p>\n@deprecated\n Deprecated</p>", 
-        "is_persp": "<p> Check if persp/ortho view, since 'persp' cant be used for this since it can have cameras assigned as well. (only set in #view3d_winmatrix_set) </p>", 
-        "localvd": "<p> Allocated backup of its self while in localview. </p>", 
+        "is_persp": "<p> Check if persp/ortho view, since 'persp' can't be used for this since it can have cameras assigned as well. (only set in #view3d_winmatrix_set) </p>", 
+        "localvd": "<p> Allocated backup of its self while in local-view. </p>", 
         "lpersp": "<p> Lpersp can never be set to 'RV3D_CAMOB'. </p>", 
         "lviewquat": "<p> Last view (use when switching out of camera view). </p>", 
         "ofs": "<p> View center & orbit pivot, negative of worldspace location, also matches -viewinv[3][0:3] in ortho mode. </p>", 
@@ -4228,13 +4500,12 @@
         "border": "<p> Render border to render sub-resions. </p>", 
         "cfra": "<p> Frames as in 'images'. </p>", 
         "color_mgt_flag": "<p> color management settings - color profiles, gamma correction, etc </p>", 
-        "debug_pass_type": "<p> Type of the debug pass to use. Only used when built with debug passes support. </p>", 
         "dimensionspreset": "<p> For the dimensions presets menu. </p>", 
         "dither_intensity": "<p> Dither noise intensity </p>", 
         "engine": "<p> render engine </p>", 
         "fg_stamp": "<p> foreground/background color. </p>", 
         "frame_step": "<p> Frames to jump during render/playback. </p>", 
-        "gauss": "<p> Value used to define filter size for all filter options <br/> \n </p>", 
+        "gauss": "<p> Value used to define filter size for all filter options. </p>", 
         "hair_type": "<p>{@link Hair}  Display </p>", 
         "imtype": "<p>\n@deprecated\n Deprecated</p>", 
         "layers": "<p> information on different layers to be rendered Converted to Scene->view_layers. \n@deprecated\n Deprecated</p>", 
@@ -4249,7 +4520,7 @@
         "scemode": "<p> Flags for render settings. Use bit-masking to access the settings. </p>", 
         "seq_flag": "<p> Flag use for sequence render/draw. </p>", 
         "seq_prev_type": "<p> sequencer options </p>", 
-        "seq_rend_type": "<p> UNUSED!. </p>", 
+        "seq_rend_type": "<p> UNUSED. </p>", 
         "simplify_subsurf": "<p> render simplify </p>", 
         "size": "<p> Size in %. </p>", 
         "stamp": "<p> stamps flags. </p>", 
@@ -4258,7 +4529,8 @@
         "stereomode": "<p> Standalone player stereo settings XXX deprecated since .2.5 \n@deprecated\n Deprecated</p>", 
         "subframe": "<p> Subframe offset from cfra, in 0.0-1.0. </p>", 
         "subimtype": "<p>\n@deprecated\n Deprecated</p>", 
-        "tilex": "<p> render tile dimensions </p>", 
+        "tilex": "<p> render tile dimensions \n@deprecated\n Deprecated</p>", 
+        "tiley": "<p>\n@deprecated\n Deprecated</p>", 
         "unit_line_thickness": "<p> In pixels. </p>", 
         "views": "<p> MultiView {@link SceneRenderView} . </p>", 
         "xasp": "<p> Adjustment factors for the aspect ratio in the x direction, was a short in 2.45 </p>", 
@@ -4277,15 +4549,15 @@
     "Report": {
       "doc": "<p> These two Lines with # tell makesdna this struct can be excluded. </p>", 
       "fields": {
-        "len": "<p><code></code> , saves some time calculating the word wrap . </p>", 
-        "type": "<p> ReportType. </p>"
+        "len": "<p><code></code> , saves some time calculating the word wrap. </p>", 
+        "type": "<p> eReportType. </p>"
       }
     }, 
     "ReportList": {
       "doc": "<p> saved in the wm, don't remove </p>", 
       "fields": {
-        "printlevel": "<p> ReportType. </p>", 
-        "storelevel": "<p> ReportType. </p>"
+        "printlevel": "<p> eReportType. </p>", 
+        "storelevel": "<p> eReportType. </p>"
       }
     }, 
     "ReportTimerInfo": {
@@ -4309,7 +4581,7 @@
         "spring_damping_x": "<p> amount of velocity lost over time </p>", 
         "spring_stiffness_x": "<p> spring settings resistance to deformation </p>", 
         "spring_type": "<p> Spring implementation to use. </p>", 
-        "type": "<p> General Settings for this {@link RigidBodyCon}  (eRigidBodyCon_Type) role of RigidBody in sim . </p>"
+        "type": "<p> General Settings for this {@link RigidBodyCon}  (eRigidBodyCon_Type) role of RigidBody in sim. </p>"
       }
     }, 
     "RigidBodyOb": {
@@ -4330,7 +4602,7 @@
         "restitution": "<p> How 'bouncy' object is when it collides. </p>", 
         "shape": "<p> (eRigidBody_Shape) collision shape to use. </p>", 
         "shared": "<p> This pointer is shared between all evaluated copies. </p>", 
-        "type": "<p> General Settings for this {@link RigidBodyOb}  (eRigidBodyOb_Type) role of RigidBody in sim . </p>"
+        "type": "<p> General Settings for this {@link RigidBodyOb}  (eRigidBodyOb_Type) role of RigidBody in sim. </p>"
       }
     }, 
     "RigidBodyOb_Shared": {
@@ -4381,7 +4653,7 @@
         "cursor": "<p> 3d cursor location. </p>", 
         "customdata_mask": "<p> XXX. runtime flag for drawing, actually belongs in the window, only used by BKE_object_handle_update() </p>", 
         "customdata_mask_modal": "<p> XXX. same as above but for temp operator use (gl renders) </p>", 
-        "depsgraph_hash": "<p> none of the dependency graph vars is mean to be saved </p>", 
+        "depsgraph_hash": "<p> None of the dependency graph vars is mean to be saved. </p>", 
         "ed": "<p>{@link Sequence}  editor data is allocated here. </p>", 
         "flag": "<p> Various settings. </p>", 
         "fps_info": "<p> (runtime) info/cache used for presenting playback framerate info to the user. </p>", 
@@ -4550,12 +4822,13 @@
         "anims": "<p> For MOVIE strips. </p>", 
         "clip": "<p> For MOVIECLIP strips. </p>", 
         "clip_flag": "<p> MOVIECLIP render flags. </p>", 
+        "color_tag": "<p><code></code>  is set. </p>", 
         "effectdata": "<p> Struct pointer for effect settings. </p>", 
         "flag": "<p> Flags bitmap (see below) and the type of sequence. </p>", 
         "ipo": "<p> Old animation system, deprecated for 2.5. \n@deprecated\n Deprecated</p>", 
         "len": "<p> The length of the contents of this strip - before handles are applied. </p>", 
         "lib": "<p> Needed (to be like ipo), else it will raise libdata warnings, this should never be used. </p>", 
-        "machine": "<p> Machine: the strip channel, depth the depth in the sequence when dealing with metastrips. </p>", 
+        "machine": "<p> Machine: the strip channel </p>", 
         "mask": "<p> For MASK strips. </p>", 
         "modifiers": "<p> modifiers </p>", 
         "multicam_source": "<p> For multicam source selection. </p>", 
@@ -4567,6 +4840,7 @@
         "seqbase": "<p> List of strips for metastrips. </p>", 
         "sfra": "<p> is sfra needed anymore? - it looks like its only used in one place Starting frame according to the timeline of the scene. </p>", 
         "sound": "<p> The linked \"bSound\" object. </p>", 
+        "speed_fader": "<p> DEPRECATED, only used for versioning. </p>", 
         "start": "<p> Start frame of contents of strip in absolute frame coordinates. For metastrips start of first strip startdisp. </p>", 
         "startdisp": "<p> Starting and ending points of the strip in the sequence. </p>", 
         "startofs": "<p> Frames after the first frame where display starts, frames before the last frame where display ends. </p>", 
@@ -4588,7 +4862,9 @@
     }, 
     "SequencerToolSettings": {
       "fields": {
-        "fit_method": "<p> eSeqImageFitMethod </p>"
+        "fit_method": "<p> eSeqImageFitMethod </p>", 
+        "overlap_mode": "<p> eSeqOverlapMode </p>", 
+        "snap_distance": "<p> When there are many snap points, 0-1 range corresponds to resolution from boundbox to all possible snap points. </p>"
       }
     }, 
     "SessionUUID": {
@@ -4686,11 +4962,12 @@
     }, 
     "SoftBody": {
       "fields": {
+        "_pad1": "<p> baking </p>", 
         "balldamp": "<p> Cooling down collision response. </p>", 
         "ballstiff": "<p> Pressure the ball is loaded with. </p>", 
         "bpoint": "<p> Not saved in file. </p>", 
         "bspring": "<p> Not saved in file. </p>", 
-        "colball": "<p> self collision Fixed collision ball size if > 0. </p>", 
+        "colball": "<p> Self collision. Fixed collision ball size if > 0. </p>", 
         "defgoal": "<p> Default goal for vertices without vgroup. </p>", 
         "goalfrict": "<p> Softbody goal springs friction. </p>", 
         "goalspring": "<p> goal Softbody goal springs. </p>", 
@@ -4712,7 +4989,6 @@
         "rklimit": "<p> Error limit for ODE solver. </p>", 
         "scratch": "<p> Scratchpad/cache on live time not saved in file. </p>", 
         "secondspring": "<p><hr/> \n </p>", 
-        "sfra": "<p> baking </p>", 
         "totpoint": "<p> dynamic data </p>", 
         "totpointkey": "<p> If totpointkey != totpoint or totkey!- (efra-sfra)/interval -> free keys. </p>", 
         "vertgroup": "<p> Index starting at 1. </p>"
@@ -4736,12 +5012,12 @@
       "fields": {
         "action": "<p> The currently active action. </p>", 
         "ads": "<p> The currently active context (when not showing action). </p>", 
-        "autosnap": "<p> Automatic keyframe snapping mode . </p>", 
+        "autosnap": "<p> Automatic keyframe snapping mode. </p>", 
         "cache_display": "<p> (eTimeline_Cache_Flag). </p>", 
         "mode": "<p>{@link Editing}  context </p>", 
         "mode_prev": "<p> Storage for sub-space types. </p>", 
         "regionbase": "<p> Storage of regions for inactive spaces. </p>", 
-        "timeslide": "<p> For Time-Slide transform mode drawing - current frame?. </p>", 
+        "timeslide": "<p> For Time-Slide transform mode drawing - current frame? </p>", 
         "v2d": "<p> End '{@link SpaceLink} ' header. Copied to region. \n@deprecated\n Deprecated</p>"
       }
     }, 
@@ -4797,7 +5073,7 @@
       "fields": {
         "ads": "<p> Settings for filtering animation data <h2>Note</h2><p> we use a pointer due to code-linking issues. </p> we use a pointer due to code-linking issues. \n\n</p>", 
         "around": "<p> Pivot point for transforms. </p>", 
-        "autosnap": "<p> Time-transform autosnapping settings for Graph editor (eAnimEdit_AutoSnap in {@link DNA_action_types.h} ). </p>", 
+        "autosnap": "<p> Time-transform auto-snapping settings for Graph editor (eAnimEdit_AutoSnap in {@link DNA_action_types.h} ). </p>", 
         "cursorTime": "<p> Time value for cursor (when in drivers mode; animation uses current frame). </p>", 
         "cursorVal": "<p> Cursor value (y-value, x-value is current frame). </p>", 
         "flag": "<p> Settings for Graph editor (eGraphEdit_Flag). </p>", 
@@ -4816,7 +5092,7 @@
       "fields": {
         "centx": "<p> Storage for offset while render drawing. </p>", 
         "cursor": "<p> UV editor 2d cursor. </p>", 
-        "curtile": "<p> The currently active tile of the image when tile is enabled, is kept in sync with the active faces tile. </p>", 
+        "custom_grid_subdiv": "<p><code></code><code></code>  grid. Use when #SI_CUSTOM_GRID is set. </p>", 
         "dt_uv": "<p> UV draw type. </p>", 
         "gpd": "<p> Grease pencil data. </p>", 
         "image": "<p> End '{@link SpaceLink} ' header. </p>", 
@@ -4905,6 +5181,7 @@
     "SpaceSeq": {
       "doc": "<p> Sequencer </p>", 
       "fields": {
+        "cursor": "<p> 2D cursor for transform. </p>", 
         "draw_flag": "<p> Overlay an image of the editing on below the strips. </p>", 
         "gpd": "<p> Grease-pencil data. </p>", 
         "mainb": "<p> Weird name for the sequencer subtype (seq, image, luma... etc). </p>", 
@@ -4919,16 +5196,23 @@
         "zoom": "<p> Deprecated, handled by {@link View2D}  now. \n@deprecated\n Deprecated</p>"
       }
     }, 
+    "SpaceSeqRuntime": {
+      "fields": {
+        "last_displayed_thumbnails": "<p> Stores lists of most recently displayed thumbnails. </p>", 
+        "last_thumbnail_area": "<p> Required for Thumbnail job start condition. </p>"
+      }
+    }, 
     "SpaceSpreadsheet": {
       "fields": {
         "attribute_domain": "<p> #AttributeDomain. </p>", 
         "columns": "<p> End '{@link SpaceLink} ' header. List of {@link SpreadsheetColumn} . </p>", 
-        "context_path": "<p> List of {@link SpreadsheetContext} . This is a path to the data that is displayed in the spreadsheet. It can be set explicitely by an action of the user (e.g. clicking the preview icon in a geometry node) or it can be derived from context automatically based on some heuristic. </p>", 
+        "context_path": "<p> List of {@link SpreadsheetContext} . This is a path to the data that is displayed in the spreadsheet. It can be set explicitly by an action of the user (e.g. clicking the preview icon in a geometry node) or it can be derived from context automatically based on some heuristic. </p>", 
         "filter_flag": "<p> eSpaceSpreadsheet_FilterFlag. </p>", 
         "flag": "<p> eSpaceSpreadsheet_Flag. </p>", 
         "geometry_component_type": "<p> #GeometryComponentType. </p>", 
         "object_eval_state": "<p> eSpaceSpreadsheet_ObjectContext. </p>", 
-        "regionbase": "<p> Storage of regions for inactive spaces. </p>"
+        "regionbase": "<p> Storage of regions for inactive spaces. </p>", 
+        "row_filters": "<p>{@link SpreadsheetRowFilter} . </p>"
       }
     }, 
     "SpaceStatusBar": {
@@ -4985,13 +5269,20 @@
         "volume_max": "<p> not animatable properties </p>"
       }
     }, 
+    "SpeedControlVars": {
+      "fields": {
+        "globalSpeed": "<p> DEPRECATED, only used for versioning. </p>"
+      }
+    }, 
     "SPHFluidSettings": {
       "fields": {
-        "radius": "<p>{@link Particle}  Fluid </p>"
+        "radius": "<p>{@link Particle}  Fluid. </p>"
       }
     }, 
     "SpreadsheetColumn": {
       "fields": {
+        "data_type": "<p> An indicator of the type of values in the column, set at runtime. #eSpreadsheetColumnValueType. </p>", 
+        "display_name": "<p> The final column name generated by the data source, also just cached at runtime when the data source columns are generated. </p>", 
         "id": "<p> Identifies the data in the column. This is a pointer instead of a struct to make it easier if we want to \"subclass\" {@link SpreadsheetColumnID}  in the future for different kinds of ids. </p>"
       }
     }, 
@@ -4999,6 +5290,13 @@
       "doc": "<p> An item in {@link SpaceSpreadsheet.context_path} . This is a bases struct for the structs below. </p>", 
       "fields": {
         "type": "<p> eSpaceSpreadsheet_ContextType. </p>"
+      }
+    }, 
+    "SpreadsheetRowFilter": {
+      "fields": {
+        "column_name": "<p> MAX_NAME. </p>", 
+        "flag": "<p> eSpaceSpreadsheet_RowFilterFlag. </p>", 
+        "operation": "<p> eSpreadsheetFilterOperation. </p>"
       }
     }, 
     "Stereo3dFormat": {
@@ -5033,6 +5331,11 @@
         "file": "<p> (defaults to BL_proxy) custom file </p>", 
         "quality": "<p> proxy build quality </p>", 
         "tc": "<p> time code in use </p>"
+      }
+    }, 
+    "StripTransform": {
+      "fields": {
+        "origin": "<p> 0-1 range, use SEQ_image_transform_origin_offset_pixelspace_get to convert to pixel space. </p>"
       }
     }, 
     "SubdivGpencilModifierData": {
@@ -5085,13 +5388,16 @@
       }
     }, 
     "TexMapping": {
-      "doc": "<p> used for mapping and texture nodes. note: rot is now in radians </p>"
+      "doc": "<p> Used for mapping and texture nodes. </p>", 
+      "fields": {
+        "rot": "<p> Rotation in radians. </p>"
+      }
     }, 
     "TexNodeOutput": {
       "doc": "<p> TEX_output </p>"
     }, 
     "TexPaintSlot": {
-      "doc": "<p> WATCH IT: change type? also make changes in ipo.h <br/> \n </p>", 
+      "doc": "<p> WATCH IT: change type? also make changes in ipo.h </p>", 
       "fields": {
         "ima": "<p>{@link Image}  to be painted on. </p>", 
         "interp": "<p> Copy of node interpolation setting. </p>", 
@@ -5128,6 +5434,7 @@
     "ThemeSpace": {
       "doc": "<p> try to put them all in one, if needed a special struct can be created as well for example later on, when we introduce wire colors for ob types or so... </p>", 
       "fields": {
+        "_pad7": "<p> For dopesheet - scale factor for size of keyframes (i.e. height of channels). </p>", 
         "active_object": "<p> Outliner - active object. </p>", 
         "anim_active": "<p> NLA Active Action + Summary Channel. </p>", 
         "anim_non_active": "<p> Active Action = NULL. </p>", 
@@ -5143,7 +5450,6 @@
         "header": "<p> header colors Region background. </p>", 
         "header_title": "<p> Unused. </p>", 
         "info_selected": "<p> info </p>", 
-        "keyframe_scale_fac": "<p> For dopesheet - scale factor for size of keyframes (i.e. height of channels). </p>", 
         "keytype_keyframe": "<p> Keytypes. </p>", 
         "keytype_keyframe_select": "<p> Keytypes. </p>", 
         "list": "<p> listview regions Region background. </p>", 
@@ -5157,7 +5463,7 @@
         "nla_transition": "<p> NLA \"Transition\" strips. </p>", 
         "nla_tweakdupli": "<p> NLA - warning color for duplicate instances of tweaking strip. </p>", 
         "nla_tweaking": "<p> NLA 'Tweaking' action/strip. </p>", 
-        "panelcolors": "<p> note, cannot use name 'panel' because of DNA mapping old files </p>", 
+        "panelcolors": "<p> NOTE: cannot use name 'panel' because of DNA mapping old files. </p>", 
         "row_alternate": "<p> Outliner - row color difference. </p>", 
         "selected_highlight": "<p> Outliner - selected item. </p>", 
         "selected_object": "<p> Outliner - selected object. </p>", 
@@ -5252,11 +5558,9 @@
         "gp_vertexpaint": "<p> Gpencil vertex paint. </p>", 
         "gp_weightpaint": "<p> Gpencil weight paint. </p>", 
         "gpencil_flags": "<p> Grease Pencil Flags/options for how the tool works. </p>", 
-        "gpencil_ima_align": "<p>{@link Image}  Editor. </p>", 
         "gpencil_selectmode_edit": "<p> Stroke selection mode for Edit. </p>", 
         "gpencil_selectmode_sculpt": "<p> Stroke selection mode for {@link Sculpt} . </p>", 
         "gpencil_selectmode_vertex": "<p> Stroke selection mode for Vertex {@link Paint} . </p>", 
-        "gpencil_seq_align": "<p> Sequencer Preview. </p>", 
         "gpencil_v2d_align": "<p> General 2D Editor. </p>", 
         "gpencil_v3d_align": "<p> Stroke placement settings: 3D View. </p>", 
         "imapaint": "<p>{@link Image}  {@link Paint}  (8 bytes aligned please!) </p>", 
@@ -5277,6 +5581,7 @@
         "sculpt_paint_unified_unprojected_radius": "<p>\n@deprecated\n Deprecated</p>", 
         "select_thresh": "<p> Select Group Threshold </p>", 
         "selectmode": "<p> Selection Mode for {@link Mesh}  </p>", 
+        "snap_uv_flag": "<p><code></code> , limited to: #SCE_SNAP_ABS_GRID. </p>", 
         "transform_pivot_point": "<p> Transform </p>", 
         "unified_paint_settings": "<p> Unified {@link Paint}  Settings </p>", 
         "unwrapper": "<p> UV Calculation </p>", 
@@ -5333,7 +5638,6 @@
       "doc": "<p> This state defines appearance of text. </p>", 
       "fields": {
         "italic": "<p> Style hint. </p>", 
-        "kerning": "<p> Unfitted or default kerning value. </p>", 
         "points": "<p> Actual size depends on 'global' dpi. </p>", 
         "shadow": "<p> Value is amount of pixels blur. </p>", 
         "shadowalpha": "<p> Total alpha. </p>", 
@@ -5344,6 +5648,8 @@
     }, 
     "uiList": {
       "fields": {
+        "custom_activate_opname": "<p> Operator executed when activating an item. </p>", 
+        "custom_drag_opname": "<p> Operator executed when dragging an item (item gets activated too, without running custom_activate_opname above). </p>", 
         "dyn_data": "<p> Dynamic data (runtime). </p>", 
         "filter_byname": "<p> Filtering data. Defined as UI_MAX_NAME_STR. </p>", 
         "layout_type": "<p> How items are laid out in the list. </p>", 
@@ -5356,6 +5662,9 @@
     "uiListDyn": {
       "doc": "<p>{@link uiList}  dynamic data... These two Lines with # tell makesdna this struct can be excluded. </p>", 
       "fields": {
+        "columns": "<p> Number of columns drawn for grid layouts. </p>", 
+        "customdata": "<p> Allocated custom data. Freed together with the {@link uiList}  (and when re-assigning). </p>", 
+        "free_runtime_data_fn": "<p> Callback to free UI data when freeing UI-Lists in BKE. </p>", 
         "height": "<p> Number of rows needed to draw all elements. </p>", 
         "items_filter_flags": "<p> Filtering data. Items_len length. </p>", 
         "items_filter_neworder": "<p> Org_idx -> new_idx, items_len length. </p>", 
@@ -5404,7 +5713,7 @@
     "UnitSettings": {
       "doc": "<p><hr/> \n Assorted {@link Scene}  Data <hr/> \n Unit Settings </p>", 
       "fields": {
-        "scale_length": "<p> Display/Editing unit options for each scene Maybe have other unit conversions?. </p>", 
+        "scale_length": "<p> Display/Editing unit options for each scene Maybe have other unit conversions? </p>", 
         "system": "<p> Imperial, metric etc. </p>", 
         "system_rotation": "<p> Not implemented as a proper unit system yet. </p>"
       }
@@ -5427,6 +5736,7 @@
         "drag_threshold_mouse": "<p> Drag pixels (scaled by DPI). </p>", 
         "dupflag": "<p>{@link eDupli_ID_Flags} . </p>", 
         "fcu_inactive_alpha": "<p> Opacity of inactive F-Curves in F-Curve Editor. </p>", 
+        "file_preview_type": "<p> eUserpref_File_Preview_Type </p>", 
         "filebrowser_display_type": "<p> eUserpref_TempSpaceDisplayType </p>", 
         "flag": "<p>{@link eUserPref_Flag} . </p>", 
         "gizmo_size": "<p> Generic gizmo size. </p>", 
@@ -5455,7 +5765,7 @@
         "pressure_softness": "<p>{@link Curve}  non-linearity parameter. </p>", 
         "pressure_threshold_max": "<p> Raw tablet pressure that maps to 100%. </p>", 
         "pythondir": "<p> Optional user location for scripts.</p><p><code></code> .</p><p><h2>Note</h2><p><code></code><code></code><code></code><em></em>  have been in gets complicated.</p><code></code>  is refreshed when loading preferences. This is done to support #PREFERENCES_OT_copy_prev which is available to the user when they launch with a new version of Blender. In this case setting the script path on top of factory settings will work without problems. </p>", 
-        "recent_files": "<p> Maximum number of recently used files to remember . </p>", 
+        "recent_files": "<p> Maximum number of recently used files to remember. </p>", 
         "render_cachedir": "<p> EXR cache path 768 = FILE_MAXDIR. </p>", 
         "render_display_type": "<p> eUserpref_RenderDisplayType </p>", 
         "renderdir": "<p> FILE_MAX length. </p>", 
@@ -5501,7 +5811,7 @@
       "fields": {
         "details_flags": "<p>{@link FileSelectParams.details_flags}  </p>", 
         "display_type": "<p>{@link FileSelectParams.display}  </p>", 
-        "filter_id": "<p> FileSelectParams.filter_id </p>", 
+        "filter_id": "<p>{@link FileSelectParams.filter_id}  </p>", 
         "flag": "<p>{@link FileSelectParams.flag}  </p>", 
         "sort_type": "<p>{@link FileSelectParams.sort}  </p>", 
         "temp_win_sizex": "<p> Info used when creating the file browser in a temporary window. </p>", 
@@ -5548,7 +5858,7 @@
     "VFont": {
       "fields": {
         "filepath": "<p> 1024 = FILE_MAX. </p>", 
-        "temp_pf": "<p> runtime only, holds memory for freetype to read from TODO, replace this with blf_font_new() style loading </p>"
+        "temp_pf": "<p> runtime only, holds memory for freetype to read from TODO: replace this with #blf_font_new() style loading. </p>"
       }
     }, 
     "View2D": {
@@ -5559,7 +5869,7 @@
         "around": "<p> Pivot point for transforms (rotate and scale). </p>", 
         "flag": "<p> Settings. </p>", 
         "keepofs": "<p> Keepofs - axes that translation is not allowed to occur on. </p>", 
-        "keeptot": "<p> Keeptot - 'cur' rect cannot move outside the 'tot' rect?. </p>", 
+        "keeptot": "<p> Keeptot - 'cur' rect cannot move outside the 'tot' rect? </p>", 
         "keepzoom": "<p> Keepzoom - axes that zooming cannot occur on, and also clamp within zoom-limits. </p>", 
         "mask": "<p>{@link Mask}  - region (in screenspace) within which 'cur' can be viewed. </p>", 
         "min": "<p> Min/max sizes of 'cur' rect (only when keepzoom not set). </p>", 
@@ -5584,7 +5894,7 @@
         "gpd": "<p> XXX deprecated? Grease-Pencil Data (annotation layers). \n@deprecated\n Deprecated</p>", 
         "gridsubdiv": "<p> Number of subdivisions in the grid between each highlighted grid line. </p>", 
         "layact": "<p>\n@deprecated\n Deprecated</p>", 
-        "localvd": "<p> Allocated backup of its self while in localview. </p>", 
+        "localvd": "<p> Allocated backup of its self while in local-view. </p>", 
         "multiview_eye": "<p> Multiview current eye - for internal use. </p>", 
         "ob_center_bone": "<p> Optional string for armature bone to define center, MAXBONENAME. </p>", 
         "ob_center_cursor": "<p> Optional bool for 3d cursor to define center. </p>", 
@@ -5602,6 +5912,7 @@
     "View3D_Runtime": {
       "fields": {
         "flag": "<p> Runtime only flags. </p>", 
+        "local_stats": "<p> Only used for overlay stats while in local-view. </p>", 
         "properties_storage": "<p> Nkey panel stores stuff here. </p>"
       }
     }, 
@@ -5717,16 +6028,45 @@
         "flag": "<p> Flags. </p>"
       }
     }, 
+    "WeightAngleGpencilModifierData": {
+      "fields": {
+        "angle": "<p> Angle </p>", 
+        "axis": "<p> Axis. </p>", 
+        "flag": "<p> Flags. </p>", 
+        "layer_pass": "<p> Custom index for passes. </p>", 
+        "layername": "<p> Layer name. </p>", 
+        "material": "<p>{@link Material}  for filtering. </p>", 
+        "min_weight": "<p> Minimum valid weight (clamp value). </p>", 
+        "pass_index": "<p> Custom index for passes. </p>", 
+        "space": "<p> Space (Local/World). </p>", 
+        "target_vgname": "<p> Target vertexgroup name, MAX_VGROUP_NAME. </p>", 
+        "vgname": "<p> Optional vertexgroup filter name, MAX_VGROUP_NAME. </p>"
+      }
+    }, 
     "WeightedNormalModifierData": {
       "fields": {
         "defgrp_name": "<p> MAX_VGROUP_NAME. </p>"
+      }
+    }, 
+    "WeightProxGpencilModifierData": {
+      "fields": {
+        "dist_start": "<p> Start/end distances. </p>", 
+        "flag": "<p> Flags. </p>", 
+        "layer_pass": "<p> Custom index for passes. </p>", 
+        "layername": "<p> Layer name. </p>", 
+        "material": "<p>{@link Material}  for filtering. </p>", 
+        "min_weight": "<p> Minimum valid weight (clamp value). </p>", 
+        "object": "<p> Reference object </p>", 
+        "pass_index": "<p> Custom index for passes. </p>", 
+        "target_vgname": "<p> Target vertexgroup name, MAX_VGROUP_NAME. </p>", 
+        "vgname": "<p> Optional vertexgroup filter name, MAX_VGROUP_NAME. </p>"
       }
     }, 
     "WeightVGEditModifierData": {
       "fields": {
         "_pad0": "<p> Padding... </p>", 
         "add_threshold": "<p> The add/remove vertices weight thresholds. </p>", 
-        "cmap_curve": "<p> Mapping stuff. The custom mapping curve!. </p>", 
+        "cmap_curve": "<p> Mapping stuff. The custom mapping curve. </p>", 
         "default_weight": "<p> Weight for vertices not in vgroup. </p>", 
         "defgrp_name": "<p> Name of vertex group to edit. MAX_VGROUP_NAME. </p>", 
         "edit_flags": "<p> Using MOD_WVG_EDIT_* flags. </p>", 
@@ -5752,7 +6092,7 @@
         "mask_defgrp_name": "<p> Name of mask vertex group from which to get weight factors. MAX_VGROUP_NAME. </p>", 
         "mask_tex_map_bone": "<p> Name of the map bone. </p>", 
         "mask_tex_map_obj": "<p> Name of the map object. </p>", 
-        "mask_tex_mapping": "<p> How to map the texture!. </p>", 
+        "mask_tex_mapping": "<p> How to map the texture. </p>", 
         "mask_tex_use_channel": "<p> Texture masking. Which channel to use as weightf. </p>", 
         "mask_tex_uvlayer_name": "<p> Name of the UV map. MAX_CUSTOMDATA_LAYER_NAME. </p>", 
         "mask_texture": "<p> The texture. </p>", 
@@ -5763,14 +6103,14 @@
     "WeightVGProximityModifierData": {
       "fields": {
         "_pad0": "<p> Padding... </p>", 
-        "cmap_curve": "<p> Mapping stuff. The custom mapping curve!. </p>", 
+        "cmap_curve": "<p> Mapping stuff. The custom mapping curve. </p>", 
         "defgrp_name": "<p> Name of vertex group to modify/weight. MAX_VGROUP_NAME. </p>", 
         "falloff_type": "<p> Put here to avoid breaking existing struct... Using MOD_WVG_MAPPING_* enums. </p>", 
         "mask_constant": "<p> Masking options. The global \"influence\", if no vgroup nor tex is used as mask. </p>", 
         "mask_defgrp_name": "<p> Name of mask vertex group from which to get weight factors. MAX_VGROUP_NAME. </p>", 
         "mask_tex_map_bone": "<p> Name of the map bone. </p>", 
         "mask_tex_map_obj": "<p> Name of the map object. </p>", 
-        "mask_tex_mapping": "<p> How to map the texture!. </p>", 
+        "mask_tex_mapping": "<p> How to map the texture. </p>", 
         "mask_tex_use_channel": "<p> Texture masking. Which channel to use as weightf. </p>", 
         "mask_tex_uvlayer_name": "<p> Name of the UV Map. MAX_CUSTOMDATA_LAYER_NAME. </p>", 
         "mask_texture": "<p> The texture. </p>", 
@@ -5834,7 +6174,7 @@
         "propvalue": "<p> If used, the item is from modal map. </p>", 
         "propvalue_str": "<p> modal Runtime temporary storage for loading. </p>", 
         "ptr": "<p> RNA pointer to access properties.</p><p><h2>Note</h2><p><code></code>  value must be NULL, as a signal not to use the context when running property callbacks such as ENUM item functions. </p> The ptr.owner_id value must be NULL, as a signal not to use the context when running property callbacks such as ENUM item functions. \n\n</p>", 
-        "shift": "<p> Oskey is apple or windowskey, value denotes order of pressed. </p>", 
+        "shift": "<p><code></code>  also known as apple, windows-key or super, value denotes order of pressed. </p>", 
         "type": "<p> event Event code itself. </p>", 
         "val": "<p> KM_ANY, KM_PRESS, KM_NOTHING etc. </p>"
       }
@@ -5868,7 +6208,7 @@
       }
     }, 
     "wmWindow": {
-      "doc": "<p> IME is win32 only! the saveable part, rest of data is local in ghostwinlay </p>", 
+      "doc": "<p> IME is win32 and apple only! the saveable part, rest of data is local in ghostwinlay </p>", 
       "fields": {
         "active": "<p> Set to 1 if an active window, for quick rejects. </p>", 
         "addmousemove": "<p> Internal: tag this for extra mouse-move event, makes cursors/buttons active on UI switching. </p>", 
@@ -5886,7 +6226,7 @@
         "gpuctx": "<p> Don't want to include gpu stuff. </p>", 
         "grabcursor": "<p> Cursor grab mode. </p>", 
         "handlers": "<p> Window+screen handlers, handled last. </p>", 
-        "ime_data": "<p> Input Method Editor data - complex character input (especially for Asian character input) Currently WIN32, runtime-only data. </p>", 
+        "ime_data": "<p> Input Method Editor data - complex character input (especially for Asian character input) Currently WIN32 and APPLE, runtime-only data. </p>", 
         "lastcursor": "<p> Previous cursor when setting modal one. </p>", 
         "modalcursor": "<p> The current modal cursor. </p>", 
         "modalhandlers": "<p> Priority handlers, handled first. </p>", 
@@ -5925,6 +6265,7 @@
         "timers": "<p> Active timers. </p>", 
         "undo_stack": "<p> All undo history (runtime only). </p>", 
         "userconf": "<p> User configuration. </p>", 
+        "winactive": "<p><h2>Note</h2><p><code></code>  is usually preferred. Avoid relying on this where possible as this may become NULL during when handling events that close or replace windows (opening a file for e.g.). While this happens rarely in practice, it can cause difficult to reproduce bugs. </p> CTX_wm_window(C) is usually preferred. Avoid relying on this where possible as this may become NULL during when handling events that close or replace windows (opening a file for e.g.). While this happens rarely in practice, it can cause difficult to reproduce bugs. \n\n</p>", 
         "windrawable": "<p> Separate active from drawable. </p>", 
         "xr": "<p> #ifdef WITH_XR_OPENXR </p>"
       }
@@ -5938,6 +6279,7 @@
     }, 
     "WorkSpace": {
       "fields": {
+        "asset_library_ref": "<p> Workspace-wide active asset library, for asset UIs to use (e.g. asset view UI template). The Asset Browser has its own and doesn't use this. </p>", 
         "flags": "<p> Enum eWorkSpaceFlags. </p>", 
         "hook_layout_relations": "<p> Store for each hook (so for each window) which layout has been activated the last time this workspace was visible. {@link WorkSpaceDataRelation} . </p>", 
         "layouts": "<p>{@link WorkSpaceLayout} . </p>", 
@@ -5950,7 +6292,7 @@
     "WorkSpaceDataRelation": {
       "doc": "<p> Generic (and simple/primitive) struct for storing a history of assignments/relations of workspace data to non-workspace data in a listbase inside the workspace.</p><p> Using this we can restore the old state of a workspace if the user switches back to it.</p><p><em></em> . More concretely:<ul><li><p> There are two windows, win1 and win2.</p></li><li><p> Both show workspace ws1, but both also had workspace ws2 activated at some point before.</p></li><li><p> Last time ws2 was active in win1, screen-layout sl1 was activated.</p></li><li><p> Last time ws2 was active in win2, screen-layout sl2 was activated.</p></li><li><p> When changing from ws1 to ws2 in win1, screen-layout sl1 should be activated again.</p></li><li><p> When changing from ws1 to ws2 in win2, screen-layout sl2 should be activated again. So that means we have to store the active screen-layout in a per workspace, per window relation. This struct is used to store an active screen-layout for each window within the workspace. To find the screen-layout to activate for this window-workspace combination, simply lookup the {@link WorkSpaceDataRelation}  with the workspace-hook of the window set as parent. </p></li></ul> \nThere are two windows, win1 and win2.\nBoth show workspace ws1, but both also had workspace ws2 activated at some point before.\nLast time ws2 was active in win1, screen-layout sl1 was activated.\nLast time ws2 was active in win2, screen-layout sl2 was activated.\nWhen changing from ws1 to ws2 in win1, screen-layout sl1 should be activated again.\nWhen changing from ws1 to ws2 in win2, screen-layout sl2 should be activated again. So that means we have to store the active screen-layout in a per workspace, per window relation. This struct is used to store an active screen-layout for each window within the workspace. To find the screen-layout to activate for this window-workspace combination, simply lookup the WorkSpaceDataRelation with the workspace-hook of the window set as parent. \n\n</p>", 
       "fields": {
-        "parent": "<p> The data used to identify the relation (e.g. to find screen-layout (= value) from/for a hook). Note: Now runtime only. </p>", 
+        "parent": "<p> The data used to identify the relation (e.g. to find screen-layout (= value) from/for a hook). NOTE: Now runtime only. </p>", 
         "parentid": "<p> Reference to the actual parent window, wmWindow->winid. Used in read/write code. </p>", 
         "value": "<p> The value for this parent-data/workspace relation. </p>"
       }
@@ -5982,16 +6324,54 @@
         "preview": "<p> previews </p>"
       }
     }, 
+    "XrActionMap": {
+      "doc": "<p><hr/> \n </p>", 
+      "fields": {
+        "items": "<p>{@link XrActionMapItem}  </p>", 
+        "name": "<p> Unique name. MAX_NAME </p>"
+      }
+    }, 
+    "XrActionMapBinding": {
+      "doc": "<p><hr/> \n </p>", 
+      "fields": {
+        "axis_flag": "<p> eXrAxisFlag </p>", 
+        "component_path0": "<p> OpenXR component paths. </p>", 
+        "float_threshold": "<p> Input threshold/region. </p>", 
+        "name": "<p> Unique name. MAX_NAME </p>", 
+        "pose_location": "<p> Pose action properties. </p>", 
+        "profile": "<p> OpenXR interaction profile path. </p>"
+      }
+    }, 
+    "XrActionMapItem": {
+      "doc": "<p><hr/> \n </p>", 
+      "fields": {
+        "_pad": "<p> eXrActionType </p>", 
+        "action_flag": "<p> eXrActionFlag </p>", 
+        "bindings": "<p>{@link XrActionMapBinding}  </p>", 
+        "haptic_flag": "<p> eXrHapticFlag </p>", 
+        "haptic_name": "<p> Haptic properties. MAX_NAME </p>", 
+        "name": "<p> Unique name. MAX_NAME </p>", 
+        "op": "<p> Operator to be called on XR events. OP_MAX_TYPENAME </p>", 
+        "op_flag": "<p> eXrOpFlag </p>", 
+        "op_properties": "<p> Operator properties, assigned to ptr->data and can be written to a file. </p>", 
+        "op_properties_ptr": "<p> RNA pointer to access properties. </p>", 
+        "pose_flag": "<p> Pose action properties. eXrPoseFlag </p>", 
+        "type": "<p> Type. </p>", 
+        "user_path0": "<p> OpenXR user paths. </p>"
+      }
+    }, 
     "XrSessionSettings": {
+      "doc": "<p><hr/> \n </p>", 
       "fields": {
         "base_pose_object": "<p>{@link Object}  to take the location and rotation as base position from. </p>", 
-        "base_pose_type": "<p> eXRSessionBasePoseType </p>", 
+        "base_pose_type": "<p> #eXRSessionBasePoseType </p>", 
         "clip_start": "<p> Clipping distance. </p>", 
+        "controller_draw_style": "<p> Draw style for controller visualization. </p>", 
         "draw_flags": "<p>{@link View3D}  draw flags (V3D_OFSDRAW_NONE, V3D_OFSDRAW_SHOW_ANNOTATION, ...). </p>", 
         "shading": "<p> Shading settings, struct shared with 3D-View so settings are the same. </p>"
       }
     }
   }, 
   "system": "Blender", 
-  "version": "2.93"
+  "version": "3.0"
 }
