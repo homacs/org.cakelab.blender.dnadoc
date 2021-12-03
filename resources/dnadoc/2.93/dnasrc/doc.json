@@ -3734,6 +3734,7 @@
     }, 
     "Object": {
       "fields": {
+        "_pad9": "<p> Runtime evaluation data (keep last). </p>", 
         "actcol": "<p> Currently selected material in the UI. </p>", 
         "actdef": "<p> Current deformation group, note: index starts at 1. </p>", 
         "actfmap": "<p> Current face map, note: index starts at 1. </p>", 
@@ -3797,7 +3798,6 @@
         "rotAngle": "<p> Axis angle rotation - angle part. </p>", 
         "rotAxis": "<p> Axis angle rotation - axis part. </p>", 
         "rotmode": "<p> Rotation mode - uses defines set out in {@link DNA_action_types.h}  for PoseChannel rotations.... </p>", 
-        "runtime": "<p> Runtime evaluation data (keep last). </p>", 
         "scale": "<p> Scale (can be negative). </p>", 
         "shader_fx": "<p> List of viewport effects. Actually only used by grease pencil. </p>", 
         "shapeflag": "<p> Flag for pinning. </p>", 
@@ -4545,6 +4545,7 @@
       "doc": "<p> The sequence structure is the basic struct used by any strip. each of the strips uses a different sequence structure.</p><p><h2>Warning</h2><p> The first part identical to {@link ID}  (for use in ipo's) the comment above is historic, probably we can drop the {@link ID}  compatibility, but take care making this change.</p> The first part identical to ID (for use in ipo's) the comment above is historic, probably we can drop the ID compatibility, but take care making this change.\n\n<h2>Warning</h2><p> This is really a '{@link Strip} ' in the UI!, name is highly confusing. </p> This is really a 'Strip' in the UI!, name is highly confusing. \n\n</p>", 
       "fields": {
         "anim_endofs": "<p> Is subtle different to startofs / endofs. </p>", 
+        "anim_preseek": "<p> UNUSED. </p>", 
         "anim_startofs": "<p> Only use part of animation file. </p>", 
         "anims": "<p> For MOVIE strips. </p>", 
         "clip": "<p> For MOVIECLIP strips. </p>", 
