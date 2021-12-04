@@ -13,9 +13,13 @@
 # -homac
 #
 
-source blender-utils.sh
+JAVA_BLEND_TOOLING="../org.cakelab.blender.io.tooling"
 
+source "$JAVA_BLEND_TOOLING/sh/config.sh"   || exit -1
+include "blender/app/version.sh"  || exit -1
+include "cakelab/classpath.sh"  || exit -1
 
+echo "BLENDER_HOME: $BLENDER_HOME"
 
 
 ################# CONFIGURATION SECTION ################
@@ -54,17 +58,6 @@ BLENDER_SOURCE="$BLENDER_REPO_HOME/blender"
 # - bin: containing the blender executable
 # - lib: containing all custom build third-party libraries
 BLENDER_BUILD="$BLENDER_SOURCE/build"
-
-
-# JSON_CLASSPATH
-# 
-# classpath for dependency org.cakelab.json
-JSON_CLASSPATH="$CAKELAB_REPO_HOME/org.cakelab.json/bin"
-
-# JAVA_BLEND_CLASSPATH
-# 
-# Java .Blend SDK class path
-JAVA_BLEND_CLASSPATH="$CAKELAB_REPO_HOME/org.cakelab.blender.io/bin"
 
 #
 # SCRIPT
@@ -137,16 +130,18 @@ fi
 
 if [ -z "$VERSION" ] ; then
 	echo "retrieving blender version string"
-	VERSION=$(blender-version)
+	VERSION=$(blender_app_version_normalized_short)
 fi
 
 if [ -z "$VERSION" ] ; then
-	echo_exit "cannot determine blender version."
+	abort "cannot determine blender version."
 fi
 
 if ! [ -e $SCRIPT ] ; then
-	echo_exit "script '$SCRIPT' does not exist." 
+	abort "script '$SCRIPT' does not exist." 
 fi
+
+
 
 
 #
@@ -166,7 +161,7 @@ python script:        "${SCRIPT}"
 
 EOF
 
-proceed || abort
+proceed
 
 
 #
@@ -209,10 +204,13 @@ fi
 echo "stripped output contains $len lines"
 echo "calling converter class: org.cakelab.blender.doc.extract.ExtractPyAPIDoc"
 
-CLASSPATH="$JSON_CLASSPATH:$JAVA_BLEND_CLASSPATH"
+CLASSPATH=$(cakelab_classpath 
+	$CAKELAB_BLENDER_IO_PROJECT
+	$CAKELAB_JSON_PROJECT
+)
 
 echo "CLASSPATH=$CLASSPATH"
-java -cp ${CLASSPATH} org.cakelab.blender.doc.extract.rnadocs.ExtractPyAPIDoc -v ${VERSION} -in $CONVERTER_INPUT -out ${OUTPUT}
+"$JAVA_HOME/java" -cp ${CLASSPATH} org.cakelab.blender.doc.extract.rnadocs.ExtractPyAPIDoc -v ${VERSION} -in $CONVERTER_INPUT -out ${OUTPUT}
 
 EXTRACT_RESULT="$?"
 
@@ -227,3 +225,5 @@ else
 	echo " "
 	echo "extract resulted in ERRORS (see above)."
 fi
+
+exit $EXTRACT_RESULT

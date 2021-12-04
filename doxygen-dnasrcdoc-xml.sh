@@ -8,7 +8,13 @@
 # -homac
 #
 
-source blender-utils.sh
+
+JAVA_BLEND_TOOLING="../org.cakelab.blender.io.tooling"
+
+source "$JAVA_BLEND_TOOLING/sh/config.sh"   || exit -1
+source "$SH_FOLDER/blender/app/version.sh"  || exit -1
+
+
 
 ################## CONFIG SECTION ##################
 
@@ -16,7 +22,7 @@ source blender-utils.sh
 # BLENDER_VERSION
 #
 # Major and minor part of blender version string
-BLENDER_VERSION=$(blender-version)
+BLENDER_VERSION=$(blender_app_version_normalized_short)
 
 # ENV_PATH_BASE
 #
