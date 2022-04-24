@@ -145,5 +145,5 @@ rm -rf $ENV_OUTPUT_DIR
 doxygen ./blender-dnasrc-xml.doxygen || error_exit "doxygen execution failed"
 
 # extract documentation to dnadoc
-CLASSPATH="$(cakelab_classpath $CAKELAB_JDOXML_PROJECT $CAKELAB_JSON_PROJECT $CAKELAB_BLENDER_IO_PROJECT")
+CLASSPATH="$(cakelab_classpath $CAKELAB_JDOXML_PROJECT $CAKELAB_JSON_PROJECT $CAKELAB_BLENDER_IO_PROJECT)"
 java -cp $CLASSPATH org.cakelab.blender.doc.extract.dnadocs.Main -in "$ENV_OUTPUT_DIR" -out "$OUTPUT_PATH" -v "$BLENDER_VERSION" || error_exit "dnadox extraction failed"
