@@ -210,7 +210,7 @@ CLASSPATH=$(cakelab_classpath \
 )
 
 echo "CLASSPATH=$CLASSPATH"
-"$JAVA_HOME/java" -cp ${CLASSPATH} org.cakelab.blender.doc.extract.rnadocs.ExtractPyAPIDoc -v ${VERSION} -in $CONVERTER_INPUT -out ${OUTPUT}
+"$JAVA_HOME/bin/java" -cp ${CLASSPATH} org.cakelab.blender.doc.extract.rnadocs.ExtractPyAPIDoc -v ${VERSION} -in $CONVERTER_INPUT -out ${OUTPUT}
 
 EXTRACT_RESULT="$?"
 

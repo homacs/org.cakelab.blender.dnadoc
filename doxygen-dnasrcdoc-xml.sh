@@ -12,7 +12,8 @@
 JAVA_BLEND_TOOLING="../org.cakelab.blender.io.tooling"
 
 source "$JAVA_BLEND_TOOLING/sh/config.sh"   || exit -1
-source "$SH_FOLDER/blender/app/version.sh"  || exit -1
+include "blender/app/version.sh"  || exit -1
+include "cakelab/classpath.sh"  || exit -1
 
 
 
@@ -27,7 +28,7 @@ BLENDER_VERSION=$(blender_app_version_normalized_short)
 # ENV_PATH_BASE
 #
 # Path to blender source code directory
-ENV_PATH_BASE="${BLENDER_REPO_HOME}/blender"
+ENV_PATH_BASE="${1:-${BLENDER_REPO_HOME}/blender}"
 
 # REL_SRC_PATH
 #
@@ -144,5 +145,5 @@ rm -rf $ENV_OUTPUT_DIR
 doxygen ./blender-dnasrc-xml.doxygen || error_exit "doxygen execution failed"
 
 # extract documentation to dnadoc
-CLASSPATH="$JDOXML_CLASSPATH:$JSON_CLASSPATH:$JAVA_BLEND_CLASSPATH"
+CLASSPATH="$(cakelab_classpath $CAKELAB_JDOXML_PROJECT $CAKELAB_JSON_PROJECT $CAKELAB_BLENDER_IO_PROJECT")
 java -cp $CLASSPATH org.cakelab.blender.doc.extract.dnadocs.Main -in "$ENV_OUTPUT_DIR" -out "$OUTPUT_PATH" -v "$BLENDER_VERSION" || error_exit "dnadox extraction failed"
