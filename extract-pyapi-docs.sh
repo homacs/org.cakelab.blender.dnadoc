@@ -204,9 +204,9 @@ fi
 echo "stripped output contains $len lines"
 echo "calling converter class: org.cakelab.blender.doc.extract.ExtractPyAPIDoc"
 
-CLASSPATH=$(cakelab_classpath 
-	$CAKELAB_BLENDER_IO_PROJECT
-	$CAKELAB_JSON_PROJECT
+CLASSPATH=$(cakelab_classpath \
+	$CAKELAB_BLENDER_IO_PROJECT \
+	$CAKELAB_JSON_PROJECT \
 )
 
 echo "CLASSPATH=$CLASSPATH"
