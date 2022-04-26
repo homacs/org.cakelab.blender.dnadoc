@@ -58,6 +58,7 @@
       }, 
     "ARegion_Runtime": {
       "fields": {
+        "block_name_map": "<p> Maps uiBlock->name to uiBlock for faster lookups. </p>", 
         "category": "<p>{@link Panel}  category to use between 'layout' and 'draw'. </p>", 
         "offset_x": "<p> The offset needed to not overlap with window scrollbars. Only used by HUD regions for now. </p>", 
         "visible_rect": "<p> The visible part of the region, use with region overlap not to draw on top of the overlapping regions.</p><p> Lazy initialize, zero'd when unset, relative to {@link ARegion.winrct}  x/y min. </p>"
@@ -97,18 +98,18 @@
       }, 
     "ArrayModifierData": {
       "fields": {
-        "count": "<p> the number of duplicates to generate for MOD_ARR_FIXEDCOUNT </p>", 
-        "curve_ob": "<p> the curve object to use for MOD_ARR_FITCURVE. </p>", 
-        "end_cap": "<p> the object with which to cap the end of the array. </p>", 
-        "fit_type": "<p> determines how duplicate count is calculated; one of:<ul><li><p> MOD_ARR_FIXEDCOUNT -> fixed</p></li><li><p> MOD_ARR_FITLENGTH -> calculated to fit a set length</p></li><li><p> MOD_ARR_FITCURVE -> calculated to fit the length of a {@link Curve}  object </p></li></ul> \nMOD_ARR_FIXEDCOUNT -> fixed\nMOD_ARR_FITLENGTH -> calculated to fit a set length\nMOD_ARR_FITCURVE -> calculated to fit the length of a Curve object \n\n</p>", 
-        "flags": "<p> general flags: MOD_ARR_MERGE -> merge vertices in adjacent duplicates </p>", 
-        "length": "<p> the length over which to distribute the duplicates </p>", 
-        "merge_dist": "<p> the limit below which to merge vertices in adjacent duplicates </p>", 
-        "offset": "<p> a constant duplicate offset; 1 means the duplicates are 1 unit apart </p>", 
-        "offset_ob": "<p> the object to use for object offset. </p>", 
-        "offset_type": "<p> flags specifying how total offset is calculated; binary OR of:<ul><li><p> MOD_ARR_OFF_CONST -> total offset += offset</p></li><li><p> MOD_ARR_OFF_RELATIVE -> total offset += relative * object width</p></li><li><p> MOD_ARR_OFF_OBJ -> total offset += offset_ob's matrix total offset is the sum of the individual enabled offsets </p></li></ul> \nMOD_ARR_OFF_CONST -> total offset += offset\nMOD_ARR_OFF_RELATIVE -> total offset += relative * object width\nMOD_ARR_OFF_OBJ -> total offset += offset_ob's matrix total offset is the sum of the individual enabled offsets \n\n</p>", 
-        "scale": "<p> a scaled factor for duplicate offsets; 1 means the duplicates are 1 object-width apart </p>", 
-        "start_cap": "<p> the object with which to cap the start of the array. </p>"
+        "count": "<p> The number of duplicates to generate for #MOD_ARR_FIXEDCOUNT. </p>", 
+        "curve_ob": "<p> The curve object to use for #MOD_ARR_FITCURVE. </p>", 
+        "end_cap": "<p> The object with which to cap the end of the array. </p>", 
+        "fit_type": "<p> Determines how duplicate count is calculated; one of:<ul><li><p> #MOD_ARR_FIXEDCOUNT -> fixed.</p></li><li><p> #MOD_ARR_FITLENGTH -> calculated to fit a set length.</p></li><li><p> #MOD_ARR_FITCURVE -> calculated to fit the length of a {@link Curve}  object. </p></li></ul> \n#MOD_ARR_FIXEDCOUNT -> fixed.\n#MOD_ARR_FITLENGTH -> calculated to fit a set length.\n#MOD_ARR_FITCURVE -> calculated to fit the length of a Curve object. \n\n</p>", 
+        "flags": "<p> General flags: #MOD_ARR_MERGE -> merge vertices in adjacent duplicates. </p>", 
+        "length": "<p> The length over which to distribute the duplicates. </p>", 
+        "merge_dist": "<p> The limit below which to merge vertices in adjacent duplicates. </p>", 
+        "offset": "<p> A constant duplicate offset; 1 means the duplicates are 1 unit apart. </p>", 
+        "offset_ob": "<p> The object to use for object offset. </p>", 
+        "offset_type": "<p> Flags specifying how total offset is calculated; binary OR of:<ul><li><p> #MOD_ARR_OFF_CONST -> total offset += offset.</p></li><li><p> #MOD_ARR_OFF_RELATIVE -> total offset += relative * object width.</p></li><li><p> #MOD_ARR_OFF_OBJ -> total offset += offset_ob's matrix. Total offset is the sum of the individual enabled offsets. </p></li></ul> \n#MOD_ARR_OFF_CONST -> total offset += offset.\n#MOD_ARR_OFF_RELATIVE -> total offset += relative * object width.\n#MOD_ARR_OFF_OBJ -> total offset += offset_ob's matrix. Total offset is the sum of the individual enabled offsets. \n\n</p>", 
+        "scale": "<p> A scaled factor for duplicate offsets; 1 means the duplicates are 1 object-width apart. </p>", 
+        "start_cap": "<p> The object with which to cap the start of the array. </p>"
         }
       }, 
     "AssetFilterSettings": {
@@ -176,6 +177,7 @@
         "chanbase": "<p> Legacy data - Action Channels ({@link bActionChannel} ) in pre-2.5 animation system. \n@deprecated\n Deprecated</p>", 
         "curves": "<p> Function-curves ({@link FCurve} ). </p>", 
         "flag": "<p> Settings for this action. </p>", 
+        "frame_start": "<p> Start and end of the manually set intended playback frame range. Used by UI and some editing tools, but doesn't directly affect animation evaluation in any way. </p>", 
         "groups": "<p> Groups of function-curves ({@link bActionGroup} ). </p>", 
         "id": "<p> -serialization for relinking. </p>", 
         "idroot": "<p> Type of ID-blocks that action can be assigned to (if 0, will be set to whatever {@link ID}  first evaluates it). </p>", 
@@ -213,7 +215,7 @@
         }
       }, 
     "bActionModifier": {
-      "doc": "<p> simple uniform modifier structure, assumed it can hold all type info </p>", 
+      "doc": "<p> Simple uniform modifier structure, assumed it can hold all type info. </p>", 
       "fields": {
         "no_rot_axis": "<p> path deform modifier </p>", 
         "noisesize": "<p> noise modifier </p>"
@@ -266,8 +268,8 @@
         "act_bone": "<p> active bones should work like active object where possible<ul><li><p> active and selection are unrelated</p></li><li><p> active & hidden is not allowed</p></li><li><p> from the user perspective active == last selected</p></li><li><p> active should be ignored when not visible (hidden layer) Active bone. </p></li></ul> \nactive and selection are unrelated\nactive & hidden is not allowed\nfrom the user perspective active == last selected\nactive should be ignored when not visible (hidden layer) Active bone. \n\n</p>", 
         "act_edbone": "<p> Active edit-bone (in edit-mode). </p>", 
         "axes_position": "<p> Relative position of the axes on the bone, from head (0.0f) to tail (1.0f). </p>", 
-        "bonehash": "<p> Ghash for quicker lookups of bones by name. </p>", 
-        "edbo": "<p> Editbone listbase, we use pointer so we can check state. </p>", 
+        "bonehash": "<p> Use a hash-table for quicker lookups of bones by name. </p>", 
+        "edbo": "<p> #EditBone list (use an allocated pointer so the state can be checked). </p>", 
         "layer": "<p> For buttons to work, both variables in this order together. </p>", 
         "layer_used": "<p> For UI, to show which layers are there. </p>", 
         "needs_flush_to_id": "<p>{@link ID}  data is older than edit-mode data (TODO: move to edit-mode struct). </p>"
@@ -751,9 +753,8 @@
       "fields": {
         "anim_init_locx": "<p> Initial locx for insert offset animation. </p>", 
         "anim_ofsx": "<p> Offset that will be added to locx for insert offset animation. </p>", 
-        "block": "<p> Runtime during drawing. </p>", 
         "branch_tag": "<p> Used at runtime to tag derivatives branches. EEVEE only. </p>", 
-        "butr": "<p> Optional buttons area. </p>", 
+        "changed_flag": "<p> #eNodeTreeChangedFlag. </p>", 
         "color": "<p> Custom user-defined color. </p>", 
         "custom1": "<p> To be abused for buttons. </p>", 
         "declaration": "<p> Describes the desired interface of the node. This is run-time data only. The actual interface of the node may deviate from the declaration temporarily. It's possible to sync the actual state of the node to the desired state. Currently, this is only done when a node is created or loaded.</p><p> In the future, we may want to keep more data only in the declaration, so that it does not have to be synced to other places that are stored in files. That especially applies to data that can't be edited by users directly (e.g. min/max values of sockets, tooltips, ...).</p><p> The declaration of a node can be recreated at any time when it is used. Caching it here is just a bit more efficient when it is used a lot. To make sure that the cache is up-to-date, call #nodeDeclarationEnsure before using it.</p><p> Currently, the declaration is the same for every node of the same type. Going forward, that is intended to change though. Especially when nodes become more dynamic with respect to how many sockets they have. </p>", 
@@ -777,7 +778,7 @@
         "sss_id": "<p> XXX: eevee only, id of screen subsurface scatter layer, needs to be a float to feed GPU_uniform. </p>", 
         "storage": "<p> Custom data, must be struct, for storage in file. </p>", 
         "tmp_flag": "<p> Used at runtime when going through the tree. Initialize before use. </p>", 
-        "totr": "<p> Entire boundbox (worldspace). </p>", 
+        "totr": "<p> Entire bound-box (world-space). </p>", 
         "typeinfo": "<p> Runtime type information. </p>", 
         "update": "<p> Update flags. </p>", 
         "width": "<p> Node custom width and height. </p>"
@@ -801,23 +802,28 @@
       "fields": {
         "attribute_domain": "<p> #AttributeDomain used when the geometry nodes modifier creates an attribute for a group output. </p>", 
         "cache": "<p> Cached data from execution. </p>", 
+        "changed_flag": "<p> #eNodeTreeChangedFlag. </p>", 
+        "declaration": "<p><code></code> . This is only runtime data. It has to be updated when the node declaration changes. </p>", 
         "default_value": "<p> Default input value used for unlinked sockets. </p>", 
+        "flag": "<p>{@link eNodeSocketFlag}  </p>", 
         "groupsock": "<p> XXX deprecated, still forward compatible since verification restores pointer from matching own_index. \n@deprecated\n Deprecated</p>", 
         "identifier": "<p> Unique identifier for mapping. </p>", 
         "idname": "<p> Runtime type identifier. </p>", 
         "in_out": "<p> Input/output type. </p>", 
         "label": "<p> Custom dynamic defined label, MAX_NAME. </p>", 
-        "limit": "<p> Max. number of links. Read via nodeSocketLinkLimit, because the limit might be defined on the socket type. </p>", 
-        "link": "<p> A link pointer, set in ntreeUpdateTree. </p>", 
+        "limit": "<p> Maximum number of links that can connect to the socket. Read via #nodeSocketLinkLimit, because the limit might be defined on the socket type, in which case this value does not have any effect. It is necessary to store this in the socket because it is exposed as an RNA property for custom nodes. </p>", 
+        "link": "<p> A link pointer, set in #BKE_ntree_update_main. </p>", 
+        "locx": "<p> The location of the sockets, in the view-space of the node editor. <h2>Note</h2><p> These are runtime data<ndash/>  only calculated when drawing, and could be removed from DNA. </p> These are runtime data only calculated when drawing, and could be removed from DNA. \n\n</p>", 
         "name": "<p> MAX_NAME. </p>", 
         "ns": "<p> XXX deprecated, socket input values are stored in default_value now. kept for forward compatibility Custom data for inputs, only UI writes in this. \n@deprecated\n Deprecated</p>", 
         "own_index": "<p> internal data to retrieve relations and groups DEPRECATED, now uses the generic identifier string instead Group socket identifiers, to find matching pairs after reading files. \n@deprecated\n Deprecated</p>", 
         "prop": "<p> User-defined properties. </p>", 
         "stack_index": "<p> execution data Local stack index. </p>", 
         "stack_type": "<p> XXX deprecated, kept for forward compatibility \n@deprecated\n Deprecated</p>", 
-        "storage": "<p> XXX deprecated, only used for the {@link Image}  and OutputFile nodes, should be removed at some point. Custom storage. </p>", 
+        "storage": "<p> Only used for the {@link Image}  and OutputFile nodes, should be removed at some point. </p>", 
         "to_index": "<p> XXX deprecated, only used for restoring old group node links \n@deprecated\n Deprecated</p>", 
         "total_inputs": "<p> Runtime-only cache of the number of input links, for multi-input sockets. </p>", 
+        "type": "<p> The socket's data type. {@link eNodeSocketDatatype} . </p>", 
         "typeinfo": "<p> Runtime type information. </p>"
         }
       }, 
@@ -857,6 +863,7 @@
       "fields": {
         "active_viewer_key": "<p> Defines the node tree instance to use for the \"active\" context, in case multiple different editors are used and make context ambiguous. </p>", 
         "adt": "<p> Animation data (must be immediately after id for utilities to use it). </p>", 
+        "changed_flag": "<p><code></code> . #eNodeTreeChangedFlag. </p>", 
         "chunksize": "<p> Tile size for compositor engine. </p>", 
         "cur_index": "<p> Sockets in groups have unique identifiers, adding new sockets always will increase this counter. </p>", 
         "done": "<p> Generic temporary flag for recursion check (DFS/BFS). </p>", 
@@ -870,13 +877,14 @@
         "interface_type": "<p> Runtime RNA type of the group interface. </p>", 
         "is_updating": "<p> Flag to prevent re-entrant update calls. </p>", 
         "nodetype": "<p> Specific node type this tree is used for. \n@deprecated\n Deprecated</p>", 
+        "output_topology_hash": "<p> A hash of the topology of the node tree leading up to the outputs. This is used to determine of the node tree changed in a way that requires updating geometry nodes or shaders. </p>", 
+        "preview": "<p>{@link Image}  representing what the node group does. </p>", 
         "previews": "<p> Node preview hash table Only available in base node trees (e.g. scene->node_tree) </p>", 
         "progress": "<p> Callbacks. </p>", 
         "render_quality": "<p> Quality setting when rendering. </p>", 
         "stats_draw": "<p><h2>Warning</h2><p> may be called by different threads </p> may be called by different threads \n\n</p>", 
         "type": "<p> Set init on fileread. </p>", 
         "typeinfo": "<p> Runtime type information. </p>", 
-        "update": "<p> Update flags. </p>", 
         "view_center": "<p> Node tree stores own offset for consistent editor view. </p>"
         }
       }, 
@@ -978,7 +986,7 @@
         "avs": "<p> Settings for visualization of bone animation. </p>", 
         "chan_array": "<p> Flat array of pose channels. It references pointers from chanbase. Used for quick pose channel lookup from an index. </p>", 
         "chanbase": "<p> List of pose channels, PoseBones in RNA. </p>", 
-        "chanhash": "<p> Ghash for quicker string lookups. </p>", 
+        "chanhash": "<p> Use a hash-table for quicker string lookups. </p>", 
         "ctime": "<p> Local action time of this pose. </p>", 
         "cyclic_offset": "<p> Result of match and cycles, applied in BKE_pose_where_is(). </p>", 
         "ikdata": "<p> Temporary IK data, depends on the IK solver. Not saved in file. </p>", 
@@ -1146,7 +1154,7 @@
       "fields": {
         "active_smooth": "<p> Smooth while drawing factor. </p>", 
         "aspect_ratio": "<p> factor xy of shape for dots gradients </p>", 
-        "brush_draw_mode": "<p>{@link Brush}  preselected mode (Active/Material/Vertexcolor). </p>", 
+        "brush_draw_mode": "<p>{@link Brush}  preselected mode (Active/Material/Vertex-color). </p>", 
         "brush_type": "<p> Moved to '{@link Brush.gpencil_tool} '. \n@deprecated\n Deprecated</p>", 
         "caps_type": "<p> Type of caps: eGPDstroke_Caps. </p>", 
         "dilate_pixels": "<p> Number of pixels to dilate fill area. </p>", 
@@ -1275,7 +1283,7 @@
         }
       }, 
     "bToolRef": {
-      "doc": "<p> Stored per mode. </p>", 
+      "doc": "<p><h2>Note</h2><p> Stored per mode. </p> Stored per mode. \n\n</p>", 
       "fields": {
         "idname_fallback": "<p> Optionally use these when not interacting directly with the primary tools gizmo. </p>", 
         "mode": "<p> Value depends on the 'space_type', object mode for 3D view, image editor has own mode too. RNA needs to handle using item function. </p>", 
@@ -1372,11 +1380,17 @@
     "bUserMenuItem": {
       "doc": "<p> May be part of {@link bUserMenu}  or other list. </p>"
       }, 
+    "bUserMenuItem_Op": {
+      "fields": {
+        "opcontext": "<p> #wmOperatorCallContext </p>"
+        }
+      }, 
     "bUUID": {
       "doc": "<p> Universally Unique Identifier according to RFC4122. </p><p><code></code> , because Windows already defines that type. </p>"
       }, 
     "CacheFile": {
       "fields": {
+        "active_layer": "<p> Index of the currently selected layer in the UI, starts at 1. </p>", 
         "filepath": "<p> 1024 = FILE_MAX. </p>", 
         "flag": "<p> Animation flag. </p>", 
         "frame": "<p> The frame/time to lookup in the cache file. </p>", 
@@ -1388,6 +1402,11 @@
         "use_prefetch": "<p> Enable data prefetching when using the Cycles Procedural. </p>", 
         "use_render_procedural": "<p> Do not load data from the cache file and display objects in the scene as boxes, Cycles will load objects directly from the {@link CacheFile} . Other render engines which can load Alembic data directly can take care of rendering it themselves. </p>", 
         "velocity_name": "<p> Name of the velocity property in the archive. </p>"
+        }
+      }, 
+    "CacheFileLayer": {
+      "fields": {
+        "filepath": "<p> 1024 = FILE_MAX. </p>"
         }
       }, 
     "CacheObjectPath": {
@@ -1430,7 +1449,8 @@
       }, 
     "CastModifierData": {
       "fields": {
-        "defgrp_name": "<p> MAX_VGROUP_NAME. </p>"
+        "defgrp_name": "<p> MAX_VGROUP_NAME. </p>", 
+        "type": "<p> Cast modifier projection type. </p>"
         }
       }, 
     "ChannelDriver": {
@@ -1452,7 +1472,7 @@
         }
       }, 
     "ChildParticle": {
-      "doc": "<p> Child particles are created around or between parent particles </p>", 
+      "doc": "<p> Child particles are created around or between parent particles. </p>", 
       "fields": {
         "fuv": "<p> Face vertex weights and offset. </p>", 
         "num": "<p> Face index on the final derived mesh. </p>", 
@@ -1484,9 +1504,9 @@
       "fields": {
         "clothObject": "<p> The internal data structure for cloth. </p>", 
         "coll_parms": "<p> Definition is in {@link DNA_cloth_types.h} . </p>", 
-        "hair_grid_min": "<p> grid geometry values of hair continuum </p>", 
-        "hairdata": "<p> XXX nasty hack, remove once hair can be separated from cloth modifier data </p>", 
-        "point_cache": "<p>{@link PointCache}  can be shared with other instances of {@link ClothModifierData} . Inspect (modifier.flag & eModifierFlag_SharedCaches) to find out. Definition is in {@link DNA_object_force_types.h} . </p>", 
+        "hair_grid_min": "<p> Grid geometry values of hair continuum. </p>", 
+        "hairdata": "<p> XXX: nasty hack, remove once hair can be separated from cloth modifier data. </p>", 
+        "point_cache": "<p>{@link PointCache}  can be shared with other instances of {@link ClothModifierData}<code></code>  to find out. Definition is in {@link DNA_object_force_types.h} . </p>", 
         "sim_parms": "<p> Definition is in {@link DNA_cloth_types.h} . </p>"
         }
       }, 
@@ -1575,7 +1595,7 @@
         }
       }, 
     "ColorBand": {
-      "doc": "<p> 32 = MAXCOLORBAND note that this has to remain a single struct, for {@link UserDef}  </p>"
+      "doc": "<p> 32 = #MAXCOLORBAND <h2>Note</h2><p> that this has to remain a single struct, for {@link UserDef} . </p> that this has to remain a single struct, for UserDef. \n\n</p>"
       }, 
     "ColorGpencilModifierData": {
       "fields": {
@@ -1615,7 +1635,7 @@
         }
       }, 
     "ConsoleLine": {
-      "doc": "<p> Console content </p>", 
+      "doc": "<p> Console content. </p>", 
       "fields": {
         "len": "<p> Real len - strlen(). </p>", 
         "len_alloc": "<p> keep these 3 vars so as to share free, realloc funcs Allocated length. </p>", 
@@ -1658,7 +1678,6 @@
         "pos": "<p> copy of EditFont vars (wchar_t aligned), warning! don't use in editmode (storage only) </p>", 
         "resolu": "<p> default </p>", 
         "taper_radius_mode": "<p> Determine how the effective radius of the bevel point is computed when a taper object is specified. The effective radius is a function of the bevel point radius and the taper radius. </p>", 
-        "texflag": "<p> Keep a short because of BKE_object_obdata_texspace_get(). </p>", 
         "type": "<p> Creation-time type of curve datablock. </p>"
         }
       }, 
@@ -1780,7 +1799,7 @@
         "angle": "<p> (mode == MOD_DECIM_MODE_DISSOLVE). </p>", 
         "defgrp_name": "<p> MAX_VGROUP_NAME. </p>", 
         "delimit": "<p> (mode == MOD_DECIM_MODE_DISSOLVE). </p>", 
-        "face_count": "<p> runtime only </p>", 
+        "face_count": "<p> runtime only. </p>", 
         "iter": "<p> (mode == MOD_DECIM_MODE_UNSUBDIV). </p>", 
         "percent": "<p> (mode == MOD_DECIM_MODE_COLLAPSE). </p>", 
         "symmetry_axis": "<p> (mode == MOD_DECIM_MODE_COLLAPSE). </p>"
@@ -1790,12 +1809,12 @@
       "fields": {
         "defgrp_name": "<p> MAX_VGROUP_NAME. </p>", 
         "strength": "<p> end {@link MappingInfoModifierData}  </p>", 
-        "texture": "<p> keep in sync with {@link MappingInfoModifierData}  </p>", 
+        "texture": "<p> Keep in sync with {@link MappingInfoModifierData} . </p>", 
         "uvlayer_name": "<p> MAX_CUSTOMDATA_LAYER_NAME. </p>"
         }
       }, 
     "DisplaySafeAreas": {
-      "doc": "<p><hr/> \n Safe Area options used in {@link Camera}  View & Sequencer </p>", 
+      "doc": "<p> Safe Area options used in {@link Camera}  View & Sequencer. </p>", 
       "fields": {
         "action": "<p> Image/Graphics Safe. </p>", 
         "title": "<p> each value represents the (x,y) margins as a multiplier. 'center' in this context is just the name for a different kind of safe-area Title Safe. </p>", 
@@ -2001,12 +2020,12 @@
       "fields": {
         "build_commit_timestamp": "<p> Commit timestamp from buildinfo. </p>", 
         "build_hash": "<p> Hash from buildinfo. </p>", 
-        "filename": "<p> File path where this was saved, for recover (1024 = FILE_MAX). </p>", 
+        "filepath": "<p> File path where this was saved, for recover (1024 = FILE_MAX). </p>", 
         "subvstr": "<p> Needs to be here, for human file-format recognition (keep first!). </p>"
         }
       }, 
     "FileSelectParams": {
-      "doc": "<p> Config and Input for File Selector </p>", 
+      "doc": "<p> Config and Input for File Selector. </p>", 
       "fields": {
         "active_file": "<p> Active file used for keyboard navigation. </p>", 
         "details_flags": "<p> Details toggles (file size, creation date, etc.) </p>", 
@@ -2066,7 +2085,7 @@
         "fluidmat_wt": "<p> High res fluid matrix. </p>", 
         "fmd": "<p><ndash/>  Runtime-only fields (from here on). <ndash/>  For fast RNA access. </p>", 
         "force_group": "<p> UNUSED </p>", 
-        "global_size": "<p> Global size of domain axises. </p>", 
+        "global_size": "<p> Global size of domain axes. </p>", 
         "gravity_final": "<p>{@link Scene}  or domain gravity multiplied with gravity weight. </p>", 
         "gridlines_color_field": "<p>{@link Simulation}  field used to color map onto gridlines. </p>", 
         "guide_alpha": "<p> Fluid guiding options. Guiding weight scalar (determines strength). </p>", 
@@ -2096,7 +2115,7 @@
         "surface_tension": "<p> Diffusion options. </p>", 
         "type": "<p> Gas, liquid. </p>", 
         "vector_field": "<p>{@link Simulation}  field used for vector display. </p>", 
-        "viewsettings": "<p><ndash/>  Deprecated / unsed options (below). <ndash/>  View options. </p>", 
+        "viewsettings": "<p><ndash/>  Deprecated / unused options (below). <ndash/>  View options. </p>", 
         "viscosity_value": "<p> Viscosity options. </p>"
         }
       }, 
@@ -2132,7 +2151,7 @@
         }
       }, 
     "FluidsimModifierData": {
-      "doc": "<p> DEPRECATED, only used for versioning. </p>", 
+      "doc": "<p> DEPRECATED: only used for versioning. </p>", 
       "fields": {
         "fss": "<p> Definition is in {@link DNA_object_fluidsim_types.h} . </p>"
         }
@@ -2301,16 +2320,16 @@
         }
       }, 
     "GP_Interpolate_Settings": {
-      "doc": "<p> Settings for GP Interpolation Operators </p>", 
+      "doc": "<p> Settings for GP Interpolation Operators. </p>", 
       "fields": {
         "custom_ipo": "<p> Custom interpolation curve (for use with GP_IPO_CURVEMAP). </p>"
         }
       }, 
     "GP_Sculpt_Guide": {
-      "doc": "<p> Settings for a GPencil Speed Guide </p>"
+      "doc": "<p> Settings for a GPencil Speed Guide. </p>"
       }, 
     "GP_Sculpt_Settings": {
-      "doc": "<p> GPencil Stroke Sculpting Settings </p>", 
+      "doc": "<p> GPencil Stroke Sculpting Settings. </p>", 
       "fields": {
         "cur_falloff": "<p> Multiframe edit falloff effect by frame. </p>", 
         "cur_primitive": "<p>{@link Curve}  used for primitive tools. </p>", 
@@ -2328,7 +2347,7 @@
         }
       }, 
     "GpPaint": {
-      "doc": "<p> grease pencil drawing brushes </p>", 
+      "doc": "<p> Grease pencil drawing brushes. </p>", 
       "fields": {
         "mode": "<p> Mode of paint (Materials or Vertex Color). </p>"
         }
@@ -2503,10 +2522,17 @@
         "eye": "<p> Multiview For viewer node stereoscopy. </p>", 
         "filepath": "<p> File path, 1024 = FILE_MAX. </p>", 
         "gen_x": "<p> for generated images </p>", 
-        "gpu_refresh_areas": "<p><code></code> . </p>", 
+        "gpuframenr": "<p> GPU texture flag. </p>", 
         "gputexture": "<p> Not written in file 3 = TEXTARGET_COUNT, 2 = stereo eyes, 2 = IMA_TEXTURE_RESOLUTION_LEN. </p>", 
         "packedfile": "<p> Deprecated. \n@deprecated\n Deprecated</p>", 
         "views": "<p>{@link ImageView} . </p>"
+        }
+      }, 
+    "Image_Runtime": {
+      "fields": {
+        "cache_mutex": "<p> Mutex used to guarantee thread-safe access to the cached ImBuf of the corresponding image {@link ID} . </p>", 
+        "partial_update_register": "<p> Register containing partial updates. </p>", 
+        "partial_update_user": "<p> Partial update user for GPUTextures stored inside the {@link Image} . </p>"
         }
       }, 
     "ImageFormatData": {
@@ -2532,7 +2558,7 @@
         }
       }, 
     "ImagePaintSettings": {
-      "doc": "<p><hr/> \n {@link Image}  {@link Paint}  Texture/Image Editor </p>", 
+      "doc": "<p><hr/> \n {@link Image}  {@link Paint}  Texture/Image Editor. </p>", 
       "fields": {
         "canvas": "<p> Canvas when the explicit system is used for painting. </p>", 
         "clone": "<p> Clone layer for image mode for projective texture painting. </p>", 
@@ -2710,7 +2736,10 @@
         "overshoot_fac": "<p> Overshoot trajectory factor. </p>", 
         "pass_index": "<p> Custom index for passes. </p>", 
         "point_density": "<p> Curvature parameters. </p>", 
-        "start_fac": "<p> Length. </p>"
+        "rand_start_fac": "<p> Random length factors. </p>", 
+        "seed": "<p> (first element is the index) random values. </p>", 
+        "start_fac": "<p> Length. </p>", 
+        "step": "<p> How many frames before recalculate randoms. </p>"
         }
       }, 
     "Library": {
@@ -2761,7 +2790,7 @@
     "LightCacheTexture": {
       "doc": "<p> These are used as UBO data. They need to be aligned to size of vec4. ---<mdash/>  Eevee Lightcache ----<mdash/>  </p>", 
       "fields": {
-        "data": "<p> Copy of GPU datas to create GPUTextures on file read. </p>"
+        "data": "<p> Copy of GPU data to create GPUTextures on file read. </p>"
         }
       }, 
     "LightGridCache": {
@@ -2871,7 +2900,7 @@
       "doc": "<p> Never change the size of this! dna_genfile.c detects pointer_size with it. </p>"
       }, 
     "MappingInfoModifierData": {
-      "doc": "<p> not a real modifier </p>", 
+      "doc": "<p><h2>Note</h2><p> Not a real modifier. </p> Not a real modifier. \n\n</p>", 
       "fields": {
         "uvlayer_name": "<p> MAX_CUSTOMDATA_LAYER_NAME. </p>"
         }
@@ -2906,7 +2935,7 @@
         }
       }, 
     "MaskModifierData": {
-      "doc": "<p>{@link Mask}  Modifier </p>", 
+      "doc": "<p>{@link Mask}  Modifier. </p>", 
       "fields": {
         "flag": "<p> Flags for various things. </p>", 
         "mode": "<p> Using armature or hardcoded vgroup. </p>", 
@@ -3014,12 +3043,15 @@
       "doc": "<p> Tessellation vertex color data.</p><p><h2>Note</h2><p> The red and blue are swapped for historical reasons. </p> The red and blue are swapped for historical reasons. \n\n</p>"
       }, 
     "MDeformVert": {
+      "doc": "<p> Stores all of an element's vertex groups, and their weight values. </p>", 
       "fields": {
-        "flag": "<p> Flag is only in use as a run-time tag at the moment. </p>"
+        "dw": "<p> Array of weight indices and values.<ul><li><p> There must not be any duplicate #def_nr indices.</p></li><li><p> Groups in the array are unordered.</p></li><li><p> Indices outside the usable range of groups are ignored. </p></li></ul> \nThere must not be any duplicate #def_nr indices.\nGroups in the array are unordered.\nIndices outside the usable range of groups are ignored. \n\n</p>", 
+        "flag": "<p> Flag is only in use as a run-time tag at the moment. </p>", 
+        "totweight": "<p> The length of the {@link dw}  array. <h2>Note</h2><p> This is not necessarily the same length as the total number of vertex groups. However, generally it isn't larger. </p> This is not necessarily the same length as the total number of vertex groups. However, generally it isn't larger. \n\n</p>"
         }
       }, 
     "MDeformWeight": {
-      "doc": "<p> Vertex group index and weight for #MDeformVert.dw </p>", 
+      "doc": "<p> Vertex group index and weight for {@link MDeformVert.dw}  </p>", 
       "fields": {
         "def_nr": "<p><em></em>  be unique when in an array. </p>", 
         "weight": "<p> Weight between 0.0 and 1.0. </p>"
@@ -3040,48 +3072,72 @@
       }, 
     "Mesh": {
       "fields": {
-        "act_face": "<p> the last selected vertex/edge/face are used for the active face however this means the active face must always be selected, this is to keep track of the last selected face and is similar to the old active face flag where the face does not need to be selected, -1 is inactive </p>", 
+        "act_face": "<p> In most cases the last selected element (see {@link mselect} ) represents the active element. For faces we make an exception and store the active face separately so it can be active even when no faces are selected. This is done to prevent flickering in the material properties and UV Editor which base the content they display on the current material which is controlled by the active face.</p><p><h2>Note</h2><p> This is mainly stored for use in edit-mode. </p> This is mainly stored for use in edit-mode. \n\n</p>", 
         "adt": "<p> Animation data (must be immediately after id for utilities to use it). </p>", 
-        "attributes_active_index": "<p> END BMESH ONLY </p>", 
-        "cd_flag": "<p> customdata flag, for bevel-weight and crease, which are now optional </p>", 
-        "dvert": "<p> Deform-group vertices. </p>", 
-        "edit_mesh": "<p> When the object is available, the preferred access method is: BKE_editmesh_from_object(ob) Not saved in file. </p>", 
+        "attributes_active_index": "<p> The index of the active attribute in the UI. The attribute list is a combination of the generic type attributes from vertex, edge, face, and corner custom data. </p>", 
+        "cd_flag": "<p> Flag for choosing whether or not so store bevel weight and crease as custom data layers in the edit mesh (they are always stored in {@link MVert}  and {@link MEdge}  currently). In the future, this data may be stored as generic named attributes (see T89054 and T93602). </p>", 
+        "dvert": "<p> \"Vertex group\" vertices. </p>", 
+        "edit_mesh": "<p> Runtime storage of the edit mode mesh. If it exists, it generally has the most up-to-date information about the mesh. <h2>Note</h2><p> When the object is available, the preferred access method is #BKE_editmesh_from_object. </p> When the object is available, the preferred access method is #BKE_editmesh_from_object. \n\n</p>", 
+        "editflag": "<p> Various flags used when editing the mesh. </p>", 
         "face_sets_color_default": "<p> Stores the initial Face Set to be rendered white. This way the overlay can be enabled by default and Face Sets can be used without affecting the color of the mesh. </p>", 
+        "fdata": "<p> Deprecated storage of old faces (only triangles or quads). </p>", 
+        "flag": "<p> Mostly more flags used when editing or displaying the mesh. </p>", 
         "ipo": "<p> Old animation system, deprecated for 2.5. \n@deprecated\n Deprecated</p>", 
-        "ldata": "<p> BMESH ONLY </p>", 
-        "loc": "<p> texture space, copied as one block in editobject.c </p>", 
-        "mcol": "<p> array of colors for the tessellated faces, must be number of tessellated faces * 4 in length </p>", 
-        "medge": "<p> Array of edges. </p>", 
-        "mface": "<p> END BMESH ONLY Legacy face storage (quads & tries only), faces are now stored in {@link Mesh.mpoly}  & #Mesh.mloop arrays.</p><p><h2>Note</h2><p> This would be marked deprecated however the particles still use this at run-time for placing particles on the mesh (something which should be eventually upgraded). </p> This would be marked deprecated however the particles still use this at run-time for placing particles on the mesh (something which should be eventually upgraded). \n\n</p>", 
-        "mpoly": "<p> BMESH ONLY New face structures. </p>", 
-        "mtface": "<p> Store tessellation face UV's and texture here. </p>", 
-        "mvert": "<p> Array of verts. </p>", 
+        "loc": "<p> Texture space location and size, used for procedural coordinates when rendering. </p>", 
+        "mat": "<p> An array of materials, with length {@link totcol} . These can be overridden by material slots on {@link Object} . Indices in #MPoly.mat_nr control which material is used for every face. </p>", 
+        "mcol": "<p> Deprecated. Array of colors for the tessellated faces, must be number of tessellated faces * 4 in length. This is stored in {@link fdata} , and deprecated. </p>", 
+        "medge": "<p> Array of edges, containing vertex indices. For simple triangle or quad meshes, edges could be calculated from the {@link MPoly}  and {@link MLoop}  arrays, however, edges need to be stored explicitly to edge domain attributes and to support loose edges that aren't connected to faces. <h2>Note</h2><p> This pointer is for convenient access to the #CD_MEDGE layer in #edata. </p> This pointer is for convenient access to the #CD_MEDGE layer in #edata. \n\n</p>", 
+        "mface": "<p> Deprecated face storage (quads & triangles only); faces are now pointed to by {@link Mesh.mpoly}  and {@link Mesh.mloop} .</p><p><h2>Note</h2><p> This would be marked deprecated, however the particles still use this at run-time for placing particles on the mesh (something which should be eventually upgraded). </p> This would be marked deprecated, however the particles still use this at run-time for placing particles on the mesh (something which should be eventually upgraded). \n\n</p>", 
+        "mloop": "<p> The vertex and edge index at each face corner. <h2>Note</h2><p> This pointer is for convenient access to the #CD_MLOOP layer in #ldata. </p> This pointer is for convenient access to the #CD_MLOOP layer in #ldata. \n\n</p>", 
+        "mloopcol": "<p> The active vertex corner color layer, if it exists. Also called \"Vertex Color\" in Blender's UI, even though it is stored per face corner. <h2>Note</h2><p> This pointer is for convenient access to the #CD_MLOOPCOL layer in #ldata. </p> This pointer is for convenient access to the #CD_MLOOPCOL layer in #ldata. \n\n</p>", 
+        "mloopuv": "<p> 2D vector data used for UVs. \"UV\" data can also be stored as generic attributes in #ldata. <h2>Note</h2><p> This pointer is for convenient access to the {@link CD_MLOOPUV}  layer in #ldata. </p> This pointer is for convenient access to the CD_MLOOPUV layer in #ldata. \n\n</p>", 
+        "mpoly": "<p> Face topology storage of the size and offset of each face's section of the {@link mloop}<code></code>  attribute. <h2>Note</h2><p> This pointer is for convenient access to the {@link CD_MPOLY}  layer in #pdata. </p> This pointer is for convenient access to the CD_MPOLY layer in #pdata. \n\n</p>", 
+        "mselect": "<p> This array represents the selection order when the user manually picks elements in edit-mode, some tools take advantage of this information. All elements in this array are expected to be selected, see #BKE_mesh_mselect_validate which ensures this. For procedurally created meshes, this is generally empty (selections are stored as boolean attributes in the corresponding custom data). </p>", 
+        "mtface": "<p> Deprecated. Store of runtime data for tessellation face UVs and texture.</p><p><h2>Note</h2><p> This would be marked deprecated, however the particles still use this at run-time for placing particles on the mesh (something which should be eventually upgraded). </p> This would be marked deprecated, however the particles still use this at run-time for placing particles on the mesh (something which should be eventually upgraded). \n\n</p>", 
+        "mvert": "<p> Array of vertices. Edges and faces are defined by indices into this array. <h2>Note</h2><p> This pointer is for convenient access to the #CD_MVERT layer in #vdata. </p> This pointer is for convenient access to the #CD_MVERT layer in #vdata. \n\n</p>", 
+        "remesh_mode": "<p> Choice between different remesh methods in the UI. </p>", 
+        "remesh_voxel_size": "<p> Per-mesh settings for voxel remesh. </p>", 
+        "smoothresh": "<p><code></code>  (180 degrees) causes all edges to be smooth. </p>", 
         "subdiv": "<p>\n@deprecated\n Deprecated</p>", 
         "subdivr": "<p>\n@deprecated\n Deprecated</p>", 
-        "subsurftype": "<p> Only kept for backwards compat, not used anymore. \n@deprecated\n Deprecated</p>", 
-        "symmetry": "<p> Indicates the symmetry that a mesh has, according to the artist, so that tools can consistently ensure that this symmetry is maintained. </p>", 
+        "subsurftype": "<p>\n@deprecated\n Deprecated</p>", 
+        "symmetry": "<p> User-defined symmetry flag ({@link eMeshSymmetryType} ) that causes editing operations to maintain symmetrical geometry. Supported by operations such as transform and weight-painting. </p>", 
+        "texcomesh": "<p> An optional mesh owned elsewhere (by #Main) that can be used to override the texture space {@link loc}  and #size. <h2>Note</h2><p> Vertex indices should be aligned for this to work usefully. </p> Vertex indices should be aligned for this to work usefully. \n\n</p>", 
         "tface": "<p> Deprecated, use mtface. \n@deprecated\n Deprecated</p>", 
-        "totpoly": "<p> BMESH ONLY </p>", 
-        "totvert": "<p> END BMESH ONLY </p>", 
-        "vertex_group_names": "<p> List of {@link bDeformGroup}  names and flag only. </p>"
+        "totcol": "<p> The length of the {@link mat}  array. </p>", 
+        "totedge": "<p> The number of edges ({@link MEdge} ) in the mesh, and the size of #edata. </p>", 
+        "totface": "<p> Deprecated size of {@link fdata} . </p>", 
+        "totloop": "<p> The number of face corners ({@link MLoop} ) in the mesh, and the size of #ldata. </p>", 
+        "totpoly": "<p> The number of polygons/faces ({@link MPoly} ) in the mesh, and the size of #pdata. </p>", 
+        "totselect": "<p> The length of the {@link mselect}  array. </p>", 
+        "totvert": "<p> The number of vertices ({@link MVert} ) in the mesh, and the size of #vdata. </p>", 
+        "vertex_group_active_index": "<p> The active index in the {@link vertex_group_names}  list. </p>", 
+        "vertex_group_names": "<p> List of vertex group ({@link bDeformGroup} ) names and flags only. Actual weights are stored in dvert. <h2>Note</h2><p> This pointer is for convenient access to the #CD_MDEFORMVERT layer in #vdata. </p> This pointer is for convenient access to the #CD_MDEFORMVERT layer in #vdata. \n\n</p>"
         }
       }, 
     "Mesh_Runtime": {
-      "doc": "<p> not saved in file! </p>", 
+      "doc": "<p> Runtime data, not saved in files. </p>", 
       "fields": {
-        "bvh_cache": "<p><code></code>  defined in 'BKE_bvhutil.c' </p>", 
+        "batch_cache": "<p><code></code> . </p>", 
+        "bvh_cache": "<p> Cache for BVH trees generated for the mesh. Defined in 'BKE_bvhutil.c' </p>", 
+        "cd_dirty_vert": "<p> Used to mark when derived data needs to be recalculated for a certain layer. Currently only normals. </p>", 
         "cd_mask_extra": "<p> Needed in case we need to lazily initialize the mesh. </p>", 
         "deformed_only": "<p> Set by modifier stack if only deformed from original. </p>", 
+        "edit_data": "<p> Lazily initialized SoA data from the #edit_mesh field in {@link Mesh} . </p>", 
         "is_original": "<p> Copied from edit-mesh (hint, draw with edit-mesh data when true).</p><p> Modifiers that edit the mesh data in-place must set this to false (most #eModifierTypeType_NonGeometrical modifiers). Otherwise the edit-mesh data will be used for drawing, missing changes from modifiers. See T79517. </p>", 
+        "looptris": "<p> Cache for derived triangulation of the mesh. </p>", 
         "mesh_eval": "<p> Evaluated mesh for objects which do not have effective modifiers. This mesh is used as a result of modifier stack evaluation. Since modifier stack evaluation is threaded on object level we need some synchronization. </p>", 
+        "normals_mutex": "<p> A separate mutex is needed for normal calculation, because sometimes the normals are needed while #eval_mutex is already locked. </p>", 
         "render_mutex": "<p> Needed to ensure some thread-safety during render data pre-processing. </p>", 
-        "shrinkwrap_data": "<p> Non-manifold boundary data for Shrinkwrap Target Project. </p>", 
+        "shrinkwrap_data": "<p> Cache of non-manifold boundary data for Shrinkwrap Target Project. </p>", 
+        "subsurf_apply_render": "<p> Settings for lazily evaluating the subdivision on the CPU if needed. These are set in the modifier when GPU subdivision can be performed. </p>", 
+        "vert_normals_dirty": "<p> Caches for lazily computed vertex and polygon normals. These are stored here rather than in {@link CustomData}  because they can be calculated on a const mesh, and adding custom data layers on a const mesh is not thread-safe. </p>", 
         "wrapper_type": "<p>{@link eMeshWrapperType}  and others. </p>", 
         "wrapper_type_finalize": "<p> A type mask from wrapper_type, in case there are differences in finalizing logic between types. </p>"
         }
       }, 
     "MeshCacheModifierData": {
-      "doc": "<p> cache modifier </p>", 
+      "doc": "<p>{@link Mesh}  cache modifier. </p>", 
       "fields": {
         "eval_frame": "<p> play_mode == MOD_MESHCACHE_PLAY_EVAL we could use one float for all these but their purpose is very different </p>", 
         "filepath": "<p> FILE_MAX. </p>", 
@@ -3118,7 +3174,7 @@
         }
       }, 
     "MeshStatVis": {
-      "doc": "<p><hr/> \n Stats Stats for Meshes </p>", 
+      "doc": "<p><hr/> \n Stats Stats for Meshes. </p>", 
       "fields": {
         "distort_min": "<p> distort </p>", 
         "overhang_axis": "<p> overhang </p>", 
@@ -3194,10 +3250,10 @@
         }
       }, 
     "MLoop": {
-      "doc": "<p>{@link Mesh}  Loops. Each loop represents the corner of a polygon ({@link MPoly} ).</p><p> Typically accessed from #Mesh.mloop. </p>", 
+      "doc": "<p>{@link Mesh}  Face Corners. \"Loop\" is an internal name for the corner of a polygon ({@link MPoly} ).</p><p> Typically accessed from {@link Mesh.mloop} . </p>", 
       "fields": {
-        "e": "<p> Edge index.</p><p><h2>Note</h2><p> The e here is because we want to move away from relying on edge hashes. </p> The e here is because we want to move away from relying on edge hashes. \n\n</p>", 
-        "v": "<p> Vertex index. </p>"
+        "e": "<p> Edge index into an {@link MEdge}  array. </p>", 
+        "v": "<p> Vertex index into an {@link MVert}  array. </p>"
         }
       }, 
     "MLoopCol": {
@@ -3218,10 +3274,9 @@
     "ModifierData": {
       "fields": {
         "name": "<p> MAX_NAME. </p>", 
-        "orig_modifier_data": "<p> Pointer to a {@link ModifierData}  in the original domain. </p>", 
         "runtime": "<p> Runtime field which contains runtime data which is specific to a modifier type. </p>", 
         "session_uuid": "<p> Runtime field which contains unique identifier of the modifier. </p>", 
-        "ui_expand_flag": "<p> An \"expand\" bit for each of the modifier's (sub)panels (uiPanelDataExpansion). </p>"
+        "ui_expand_flag": "<p> An \"expand\" bit for each of the modifier's (sub)panels ({@link uiPanelDataExpansion} ). </p>"
         }
       }, 
     "MovieClip": {
@@ -3452,7 +3507,7 @@
       "doc": "<p> Old game engine recast navigation data, while unused 2.7x files may contain this. </p>"
       }, 
     "MSelect": {
-      "doc": "<p> Optionally store the order of selected elements. This won't always be set since only some selection operations have an order.</p><p> Typically accessed from #Mesh.mselect </p>", 
+      "doc": "<p> Optionally store the order of selected elements. This won't always be set since only some selection operations have an order.</p><p> Typically accessed from {@link Mesh.mselect}  </p>", 
       "fields": {
         "index": "<p> Index in the vertex, edge or polygon array. </p>", 
         "type": "<p> #ME_VSEL, #ME_ESEL, #ME_FSEL. </p>"
@@ -3488,10 +3543,7 @@
         }
       }, 
     "MVert": {
-      "doc": "<p>{@link Mesh}  Vertices.</p><p> Typically accessed from {@link Mesh.mvert}  </p>", 
-      "fields": {
-        "no": "<p> Cache the normal, can always be recalculated from surrounding faces. See #CD_CUSTOMLOOPNORMAL for custom normals. </p>"
-        }
+      "doc": "<p>{@link Mesh}  Vertices.</p><p> Typically accessed from {@link Mesh.mvert}  </p>"
       }, 
     "MVertSkin": {
       "fields": {
@@ -3529,6 +3581,12 @@
         "index": "<p> Index of the track in the stack <h2>Note</h2><p> not really useful, but we need a '_pad' var anyways! </p> not really useful, but we need a '_pad' var anyways! \n\n</p>", 
         "name": "<p><code></code> . </p>", 
         "strips": "<p> BActionStrips in this track. </p>"
+        }
+      }, 
+    "NodeAccumulateField": {
+      "fields": {
+        "data_type": "<p> CustomDataType. </p>", 
+        "domain": "<p> AttributeDomain. </p>"
         }
       }, 
     "NodeAttributeClamp": {
@@ -3630,6 +3688,13 @@
     "NodeDefocus": {
       "doc": "<p> Defocus blur node. </p>"
       }, 
+    "NodeFunctionCompare": {
+      "fields": {
+        "data_type": "<p> eNodeSocketDatatype </p>", 
+        "mode": "<p> NodeCompareMode </p>", 
+        "operation": "<p> NodeCompareOperation </p>"
+        }
+      }, 
     "NodeGeometryAlignRotationToVector": {
       "fields": {
         "axis": "<p> GeometryNodeAlignRotationToVectorAxis </p>", 
@@ -3662,6 +3727,11 @@
     "NodeGeometryCurveFillet": {
       "fields": {
         "mode": "<p> GeometryNodeCurveFilletMode. </p>"
+        }
+      }, 
+    "NodeGeometryCurvePrimitiveArc": {
+      "fields": {
+        "mode": "<p> GeometryNodeCurvePrimitiveArcMode. </p>"
         }
       }, 
     "NodeGeometryCurvePrimitiveBezierSegment": {
@@ -3730,6 +3800,11 @@
       "fields": {
         "domain": "<p> AttributeDomain. </p>", 
         "mode": "<p> GeometryNodeDeleteGeometryMode. </p>"
+        }
+      }, 
+    "NodeGeometryExtrudeMesh": {
+      "fields": {
+        "mode": "<p> GeometryNodeExtrudeMeshMode </p>"
         }
       }, 
     "NodeGeometryMeshCircle": {
@@ -3818,7 +3893,8 @@
       "fields": {
         "align_x": "<p> GeometryNodeStringToCurvesAlignXMode </p>", 
         "align_y": "<p> GeometryNodeStringToCurvesAlignYMode </p>", 
-        "overflow": "<p> GeometryNodeStringToCurvesOverflowMode </p>"
+        "overflow": "<p> GeometryNodeStringToCurvesOverflowMode </p>", 
+        "pivot_mode": "<p> GeometryNodeStringToCurvesPivotMode </p>"
         }
       }, 
     "NodeGeometrySubdivisionSurface": {
@@ -3851,10 +3927,10 @@
         }
       }, 
     "NodeHueSat": {
-      "doc": "<p> NOTE: Only for do-version code. </p>"
+      "doc": "<p><h2>Note</h2><p> Only for do-version code. </p> Only for do-version code. \n\n</p>"
       }, 
     "NodeImageAnim": {
-      "doc": "<p> This one has been replaced with {@link ImageUser} , keep it for do_versions(). </p>", 
+      "doc": "<p><h2>Note</h2><p> This one has been replaced with {@link ImageUser} , keep it for do_versions(). </p> This one has been replaced with ImageUser, keep it for do_versions(). \n\n</p>", 
       "fields": {
         "cyclic": "<p>\n@deprecated\n Deprecated</p>", 
         "frames": "<p>\n@deprecated\n Deprecated</p>", 
@@ -3876,7 +3952,7 @@
         }
       }, 
     "NodeImageMultiFile": {
-      "doc": "<p> XXX first struct fields should match {@link NodeImageFile}  to ensure forward compatibility </p>", 
+      "doc": "<p> XXX: first struct fields should match {@link NodeImageFile}  to ensure forward compatibility. </p>", 
       "fields": {
         "active_input": "<p> Selected input in details view list. </p>", 
         "base_path": "<p> 1024 = FILE_MAX. </p>", 
@@ -3894,6 +3970,12 @@
       }, 
     "NodeLensDist": {
       "doc": "<p> Lens distortion node. </p>"
+      }, 
+    "NodeMapRange": {
+      "fields": {
+        "data_type": "<p> CustomDataType </p>", 
+        "interpolation_type": "<p> NodeMapRangeType. </p>"
+        }
       }, 
     "NodeRandomValue": {
       "fields": {
@@ -3971,7 +4053,7 @@
         }
       }, 
     "NormalEditModifierData": {
-      "doc": "<p> Set Split Normals modifier </p>", 
+      "doc": "<p> Set Split Normals modifier. </p>", 
       "fields": {
         "defgrp_name": "<p> MAX_VGROUP_NAME. </p>", 
         "target": "<p> Source of normals, or center of ellipsoid. </p>"
@@ -3989,7 +4071,7 @@
         }
       }, 
     "ObHook": {
-      "doc": "<p> Warning, this is not used anymore because hooks are now modifiers </p>", 
+      "doc": "<p> DEPRECATED: this is not used anymore because hooks are now modifiers. </p>", 
       "fields": {
         "cent": "<p> Visualization of hook. </p>", 
         "falloff": "<p> If not zero, falloff is distance where influence zero. </p>", 
@@ -4034,7 +4116,7 @@
         "greasepencil_modifiers": "<p> List of {@link GpencilModifierData}  structures. </p>", 
         "hooks": "<p><p> XXX deprecated... old animation system </p>\n@deprecated\n DeprecatedXXX deprecated... old animation system \n</p>", 
         "ima_ofs": "<p> Offset for image empties. </p>", 
-        "imat": "<p> Inverse matrix of 'obmat' for any other use than rendering!</p><p><h2>Note</h2><p> this isn't assured to be valid as with 'obmat', before using this value you should do... invert_m4_m4(ob->imat, ob->obmat); </p> this isn't assured to be valid as with 'obmat', before using this value you should do... invert_m4_m4(ob->imat, ob->obmat); \n\n</p>", 
+        "imat": "<p> Inverse matrix of 'obmat' for any other use than rendering!</p><p><h2>Note</h2><p><code></code>  </p> this isn't assured to be valid as with 'obmat', before using this value you should do: invert_m4_m4(ob->imat, ob->obmat) \n\n</p>", 
         "index": "<p> Custom index, for renderpasses. </p>", 
         "instance_collection": "<p>{@link Object}  duplicator for group. </p>", 
         "instance_faces_scale": "<p> Dupliface scale. </p>", 
@@ -4049,14 +4131,14 @@
         "mpath": "<p> Motion path cache for this object. </p>", 
         "nlaflag": "<p> Used for DopeSheet filtering settings (expanded/collapsed). </p>", 
         "nlastrips": "<p><p> XXX deprecated... old animation system </p>\n@deprecated\n DeprecatedXXX deprecated... old animation system \n</p>", 
-        "obmat": "<p> Final worldspace matrix with constraints & animsys applied. </p>", 
+        "obmat": "<p> Final world-space matrix with constraints & animsys applied. </p>", 
         "par1": "<p> Can be vertexnrs. </p>", 
         "parentinv": "<p> Inverse result of parent, so that object doesn't 'stick' to parent. </p>", 
         "parsubstr": "<p> String describing subobject info, MAX_ID_NAME-2. </p>", 
         "particlesystem": "<p>{@link Particle}  systems. </p>", 
         "pd": "<p>{@link Particle}  deflector/attractor/collision data. </p>", 
         "pose": "<p> Pose data, armature objects only. </p>", 
-        "proxy": "<p> if ob->proxy (or proxy_group), this object is proxy for object ob->proxy proxy_from is set in target back to the proxy. </p>", 
+        "proxy": "<p><code></code><code></code> . proxy_from is set in target back to the proxy. </p>", 
         "quat": "<p> Quaternion rotation. </p>", 
         "rigidbody_constraint": "<p> Settings for Bullet constraint. </p>", 
         "rigidbody_object": "<p> Settings for Bullet rigid body. </p>", 
@@ -4078,10 +4160,13 @@
     "Object_Runtime": {
       "doc": "<p> Not saved in file! </p>", 
       "fields": {
-        "bb": "<p> Axis aligned boundbox (in localspace). </p>", 
+        "bb": "<p> Axis aligned bound-box (in local-space). </p>", 
+        "collection_management": "<p> Opaque data reserved for management of objects in collection context. E.g. used currently to check for potential duplicates of objects in a collection, after remapping process. </p>", 
         "curve_cache": "<p> Runtime evaluated curve-specific data, not stored in the file. </p>", 
         "data_eval": "<p>{@link Object}  data structure created during object evaluation. It has all modifiers applied. The type is determined by the type of the original object. </p>", 
         "data_orig": "<p> Original data pointer, before object->data was changed to point to data_eval. Is assigned by dependency graph's copy-on-write evaluation. </p>", 
+        "editmesh_bb_cage": "<p><code></code>  for selection. </p>", 
+        "editmesh_eval_cage": "<p> Evaluated mesh cage in edit mode. </p>", 
         "geometry_set_eval": "<p> s can evaluate to a geometry set instead of a single {@link ID} . In those cases, the evaluated geometry set will be stored here. An {@link ID}  of the correct type is still stored in {@link data_eval} . {@link geometry_set_eval}  might reference the {@link ID}  pointed to by {@link data_eval}  as well, but does not own the data. </p>", 
         "gpd_eval": "<p>{@link bGPdata}  structure created during object evaluation. It has all modifiers applied. </p>", 
         "gpd_orig": "<p> Original grease pencil {@link bGPdata}  pointer, before object->data was changed to point to gpd_eval. Is assigned by dependency graph's copy-on-write evaluation. </p>", 
@@ -4143,7 +4228,7 @@
       "doc": "<p> Original space within a face (similar to UV coordinates), however they are used to determine the original position in a face.</p><p> Unlike UV's these are not user editable and always start out using a fixed 0-1 range. Currently only used for particle placement. </p>"
       }, 
     "Paint": {
-      "doc": "<p>{@link Paint}  Tool {@link Base}  </p>", 
+      "doc": "<p>{@link Paint}  Tool {@link Base} . </p>", 
       "fields": {
         "cavity_curve": "<p> Cavity curve. </p>", 
         "flags": "<p> enum ePaintFlags </p>", 
@@ -4210,7 +4295,7 @@
       "doc": "<p> Notes on {@link Panel}  Categories:</p><p><ul><li><p>{@link ARegion.panels_category}  ({@link PanelCategoryDyn} ) is a runtime only list of categories collected during draw.</p></li><li><p>{@link ARegion.panels_category_active}  ({@link PanelCategoryStack} ) is basically a list of strings (category id's).</p></li></ul> \nARegion.panels_category (PanelCategoryDyn) is a runtime only list of categories collected during draw.\nARegion.panels_category_active (PanelCategoryStack) is basically a list of strings (category id's).\n\n</p><p> Clicking on a tab moves it to the front of region->panels_category_active, If the context changes so this tab is no longer displayed, then the first-most tab in {@link ARegion.panels_category_active}  is used.</p><p> This way you can change modes and always have the tab you last clicked on. region level tabs </p>"
       }, 
     "PanelCategoryStack": {
-      "doc": "<p> region stack of active tabs </p>"
+      "doc": "<p> Region stack of active tabs. </p>"
       }, 
     "PartDeflect": {
       "fields": {
@@ -4262,7 +4347,7 @@
         }
       }, 
     "ParticleBrushData": {
-      "doc": "<p><hr/> \n {@link Particle}  Edit Settings for a {@link Particle}  {@link Editing}  {@link Brush}  </p>", 
+      "doc": "<p><hr/> \n {@link Particle}  Edit Settings for a {@link Particle}  {@link Editing}  {@link Brush} . </p>", 
       "fields": {
         "size": "<p> Common setting. </p>", 
         "step": "<p> For specific brushes only. </p>"
@@ -4292,7 +4377,7 @@
         }
       }, 
     "ParticleEditSettings": {
-      "doc": "<p>{@link Particle}  Edit Mode Settings </p>", 
+      "doc": "<p>{@link Particle}  Edit Mode Settings. </p>", 
       "fields": {
         "paintcursor": "<p> Runtime. </p>"
         }
@@ -4368,7 +4453,7 @@
         "pathcache": "<p> Path cache (runtime). </p>", 
         "pathcachebufs": "<p> Buffers for the above. </p>", 
         "pointcache": "<p> point cache </p>", 
-        "recalc": "<p> NOTE: Recalc is one of ID_RECALC_PSYS_ALL flags.</p><p> TODO(sergey): Use part->id.recalc instead of this duplicated flag somehow. </p>", 
+        "recalc": "<p> NOTE: Recalc is one of ID_RECALC_PSYS_ALL flags.</p><p> TODO(sergey): Use #ParticleSettings.id.recalc instead of this duplicated flag somehow. </p>", 
         "targets": "<p> Used for keyed and boid physics. </p>", 
         "tree": "<p> Used for interactions with self and other systems. </p>", 
         "vgroup": "<p> if you change these remember to update array lengths to PSYS_TOT_VG! Vertex groups, 0==disable, 1==starting index. </p>"
@@ -4421,12 +4506,12 @@
         "coba": "<p> For time -> color </p>", 
         "color_source": "<p> psys_color_source </p>", 
         "falloff_curve": "<p> Falloff density curve. </p>", 
-        "ob_cache_space": "<p> cache points in worldspace, object space, ... ? </p>", 
+        "ob_cache_space": "<p> cache points in world-space, object space, ... ? </p>", 
         "object": "<p> for '{@link Object} ' or '{@link Particle}  system' type - source object </p>", 
         "point_data": "<p> Dynamically allocated extra for extra information, like particle age. </p>", 
         "point_tree": "<p> The acceleration tree containing points. </p>", 
         "psys": "<p><code></code>  in ob.particlesystem, non-ID pointer not allowed </p>", 
-        "psys_cache_space": "<p> cache points in worldspace, object space, ... ? </p>", 
+        "psys_cache_space": "<p> cache points in world-space, object space, ... ? </p>", 
         "vertex_attribute_name": "<p> vertex attribute layer for color source, MAX_CUSTOMDATA_LAYER_NAME </p>"
         }
       }, 
@@ -4454,14 +4539,14 @@
         "camdx": "<p>{@link Camera}  view offsets, 1.0 = viewplane moves entire width/height. </p>", 
         "camzoom": "<p> Viewport zoom on the camera frame, see BKE_screen_view3d_zoom_to_fac. </p>", 
         "clip": "<p> User defined clipping planes. </p>", 
-        "clip_local": "<p> Clip in object space, means we can test for clipping in editmode without first going into worldspace. </p>", 
+        "clip_local": "<p> Clip in object space, means we can test for clipping in edit-mode without first going into world-space. </p>", 
         "dist": "<p> Distance from 'ofs' along -viewinv[2] vector, where result is negative as is 'ofs'. </p>", 
         "gridview": "<p>\n@deprecated\n Deprecated</p>", 
         "is_persp": "<p> Check if persp/ortho view, since 'persp' can't be used for this since it can have cameras assigned as well. (only set in #view3d_winmatrix_set) </p>", 
-        "localvd": "<p> Allocated backup of its self while in local-view. </p>", 
+        "localvd": "<p> Allocated backup of itself while in local-view. </p>", 
         "lpersp": "<p> Lpersp can never be set to 'RV3D_CAMOB'. </p>", 
         "lviewquat": "<p> Last view (use when switching out of camera view). </p>", 
-        "ofs": "<p> View center & orbit pivot, negative of worldspace location, also matches -viewinv[3][0:3] in ortho mode. </p>", 
+        "ofs": "<p><code></code>  in orthographic mode. </p>", 
         "ofs_lock": "<p> Normalized offset for locked view: (-1, -1) bottom left, (1, 1) upper right. </p>", 
         "persinv": "<p> Inverse of persmat. </p>", 
         "persmat": "<p> Viewmat*winmat. </p>", 
@@ -4513,7 +4598,7 @@
         "mblur_shutter_curve": "<p> Motion blur shutter </p>", 
         "mode": "<p> Flags for render settings. Use bit-masking to access the settings. </p>", 
         "perf_flag": "<p> Performance Options </p>", 
-        "pic": "<p> path to render output 1024 = FILE_MAX. </p>", 
+        "pic": "<p><code></code><code></code>  code. </p>", 
         "planes": "<p>\n@deprecated\n Deprecated</p>", 
         "psfra": "<p> Start+end frames of preview range. </p>", 
         "quality": "<p>\n@deprecated\n Deprecated</p>", 
@@ -4539,7 +4624,7 @@
         }
       }, 
     "RenderProfile": {
-      "doc": "<p><hr/> \n Render Conversion/Simplification Settings control render convert and shading engine </p>"
+      "doc": "<p><hr/> \n Render Conversion/Simplification Settings Control render convert and shading engine. </p>"
       }, 
     "RenderSlot": {
       "fields": {
@@ -4554,7 +4639,7 @@
         }
       }, 
     "ReportList": {
-      "doc": "<p> saved in the wm, don't remove </p>", 
+      "doc": "<p><h2>Note</h2><p> Saved in the wm, don't remove. </p> Saved in the wm, don't remove. \n\n</p>", 
       "fields": {
         "printlevel": "<p> eReportType. </p>", 
         "storelevel": "<p> eReportType. </p>"
@@ -4631,7 +4716,7 @@
         }
       }, 
     "RigidBodyWorld_Shared": {
-      "doc": "<p><hr/> \n RigidBody {@link World}  Container for data shared by original and evaluated copies of {@link RigidBodyWorld}  </p>", 
+      "doc": "<p><hr/> \n RigidBody {@link World}  Container for data shared by original and evaluated copies of {@link RigidBodyWorld} . </p>", 
       "fields": {
         "physics_world": "<p> References to Physics Sim objects. Exist at runtime only -------------------<mdash/>  Physics sim world (i.e. #btDiscreteDynamicsWorld). </p>", 
         "pointcache": "<p> cache </p>"
@@ -4681,7 +4766,7 @@
         }
       }, 
     "SceneDisplay": {
-      "doc": "<p><hr/> \n {@link Scene}  Display - used for store scene specific display settings for the 3d view </p>", 
+      "doc": "<p>{@link Scene}  Display - used for store scene specific display settings for the 3d view. </p>", 
       "fields": {
         "light_direction": "<p>{@link Light}  direction for shadows/highlight. </p>", 
         "matcap_ssao_distance": "<p> Settings for Cavity Shader. </p>", 
@@ -4697,7 +4782,7 @@
         }
       }, 
     "SceneRenderLayer": {
-      "doc": "<p><hr/> \n Render Layers Render Layer </p>", 
+      "doc": "<p><hr/> \n Render Layers Render Layer. </p>", 
       "fields": {
         "freestyleConfig": "<p> Converted to {@link ViewLayer}  freestyleConfig. \n@deprecated\n Deprecated</p>", 
         "lay": "<p> Converted to {@link LayerCollection}  cycles camera visibility override. \n@deprecated\n Deprecated</p>", 
@@ -4714,7 +4799,7 @@
         }
       }, 
     "SceneRenderView": {
-      "doc": "<p> View - MultiView </p>", 
+      "doc": "<p> View - MultiView. </p>", 
       "fields": {
         "name": "<p> MAX_NAME. </p>", 
         "suffix": "<p> MAX_NAME. </p>"
@@ -4760,7 +4845,7 @@
         }
       }, 
     "Script": {
-      "doc": "<p>{@link Script}  Runtime Data - Obsolete (pre 2.5) </p>", 
+      "doc": "<p>{@link Script}  Runtime Data - Obsolete (pre 2.5). </p>", 
       "fields": {
         "scriptarg": "<p> 1024 = FILE_MAX. </p>", 
         "scriptname": "<p> Store the script file here so we can re-run it on loading blender, if \"Enable Scripts\" is on 1024 = FILE_MAX. </p>"
@@ -4772,7 +4857,7 @@
         }
       }, 
     "Sculpt": {
-      "doc": "<p><hr/> \n {@link Sculpt}  {@link Sculpt}  </p>", 
+      "doc": "<p><hr/> \n {@link Sculpt}  {@link Sculpt} . </p>", 
       "fields": {
         "constant_detail": "<p> scale for constant detail size Constant detail resolution (Blender unit / constant_detail). </p>", 
         "detail_size": "<p> Maximum edge length for dynamic topology sculpting (in pixels) </p>", 
@@ -4851,20 +4936,16 @@
         }
       }, 
     "SequenceModifierData": {
-      "doc": "<p> ***************** {@link Sequence}  modifiers ****************** </p>", 
       "fields": {
         "mask_input_type": "<p> mask input, either sequence or mask {@link ID}  </p>", 
         "name": "<p> MAX_NAME. </p>"
         }
       }, 
-    "SequencerScopes": {
-      "doc": "<p> ***************** {@link Scopes}  ****************** </p>"
-      }, 
     "SequencerToolSettings": {
       "fields": {
         "fit_method": "<p> eSeqImageFitMethod </p>", 
         "overlap_mode": "<p> eSeqOverlapMode </p>", 
-        "snap_distance": "<p> When there are many snap points, 0-1 range corresponds to resolution from boundbox to all possible snap points. </p>"
+        "snap_distance": "<p> When there are many snap points, 0-1 range corresponds to resolution from bound-box to all possible snap points. </p>"
         }
       }, 
     "SessionUUID": {
@@ -4880,11 +4961,33 @@
         }
       }, 
     "ShaderFxData_Runtime": {
-      "doc": "<p> Runtime temp data </p>"
+      "doc": "<p> Runtime temp data. </p>"
       }, 
     "ShadowShaderFxData": {
       "fields": {
         "flag": "<p> Flags. </p>"
+        }
+      }, 
+    "ShrinkwrapGpencilModifierData": {
+      "fields": {
+        "aux_target": "<p> Additional shrink target. </p>", 
+        "cache_data": "<p> Runtime only. </p>", 
+        "flag": "<p> Flags. </p>", 
+        "keep_dist": "<p> Distance offset to keep from mesh/projection point. </p>", 
+        "layer_pass": "<p> Custom index for passes. </p>", 
+        "layername": "<p> Layer name. </p>", 
+        "material": "<p>{@link Material}  for filtering. </p>", 
+        "pass_index": "<p> Custom index for passes. </p>", 
+        "proj_axis": "<p> Axis to project over. </p>", 
+        "proj_limit": "<p> Limit the projection ray cast. </p>", 
+        "shrink_mode": "<p> Shrink to surface mode. </p>", 
+        "shrink_opts": "<p> Shrink options. </p>", 
+        "shrink_type": "<p> Shrink type projection. </p>", 
+        "smooth_factor": "<p> Factor of smooth. </p>", 
+        "smooth_step": "<p> How many times apply smooth. </p>", 
+        "subsurf_levels": "<p> If using projection over vertex normal this controls the level of subsurface that must be done before getting the vertex coordinates and normal </p>", 
+        "target": "<p> Shrink target. </p>", 
+        "vgname": "<p> Optional vertexgroup filter name, MAX_VGROUP_NAME. </p>"
         }
       }, 
     "ShrinkwrapModifierData": {
@@ -4934,17 +5037,17 @@
         }
       }, 
     "SkinModifierData": {
-      "doc": "<p> Skin modifier </p>"
+      "doc": "<p> Skin modifier. </p>"
       }, 
     "SmokeModifierData": {
-      "doc": "<p> DEPRECATED, only used for versioning. </p>", 
+      "doc": "<p> DEPRECATED: only used for versioning. </p>", 
       "fields": {
         "type": "<p> Domain, inflow, outflow, .... </p>"
         }
       }, 
     "SmoothGpencilModifierData": {
       "fields": {
-        "factor": "<p> Factor of noise. </p>", 
+        "factor": "<p> Factor of smooth. </p>", 
         "flag": "<p> Several flags. </p>", 
         "layer_pass": "<p> Custom index for passes. </p>", 
         "layername": "<p> Layer name. </p>", 
@@ -5022,7 +5125,7 @@
         }
       }, 
     "SpaceClip": {
-      "doc": "<p> Clip Editor </p>", 
+      "doc": "<p> Clip Editor. </p>", 
       "fields": {
         "_pad1": "<p> End '{@link SpaceLink} ' header. </p>", 
         "around": "<p> Pivot point for transforms. </p>", 
@@ -5033,7 +5136,7 @@
         "loc": "<p> current stabilization data Pre-composed stabilization data. </p>", 
         "mode": "<p> Editor mode (editing context being displayed). </p>", 
         "path_length": "<p> Length of displaying path, in frames. </p>", 
-        "postproc_flag": "<p> movie postprocessing </p>", 
+        "postproc_flag": "<p> Movie postprocessing. </p>", 
         "regionbase": "<p> Storage of regions for inactive spaces. </p>", 
         "scopes": "<p> Different scoped displayed in space panels. </p>", 
         "stabmat": "<p> Current stabilization matrix and the same matrix in unified space, defined when drawing and used for mouse position calculation. </p>", 
@@ -5045,7 +5148,7 @@
         }
       }, 
     "SpaceConsole": {
-      "doc": "<p> Console View </p>", 
+      "doc": "<p> Console View. </p>", 
       "fields": {
         "history": "<p>{@link ConsoleLine} ; command history, current edited line is the first. </p>", 
         "language": "<p> Multiple consoles are possible, not just python. </p>", 
@@ -5056,7 +5159,7 @@
         }
       }, 
     "SpaceFile": {
-      "doc": "<p> File Browser </p>", 
+      "doc": "<p> File Browser. </p>", 
       "fields": {
         "browse_mode": "<p> End '{@link SpaceLink} ' header. Is this a File Browser or an Asset Browser? eFileBrowse_Mode </p>", 
         "files": "<p> Holds the list of files to show. Currently recreated when browse-mode changes. Could be per browse-mode to avoid refreshes. </p>", 
@@ -5069,7 +5172,7 @@
         }
       }, 
     "SpaceGraph": {
-      "doc": "<p> 'Graph' Editor (formerly known as the IPO Editor) </p>", 
+      "doc": "<p> 'Graph' Editor (formerly known as the IPO Editor). </p>", 
       "fields": {
         "ads": "<p> Settings for filtering animation data <h2>Note</h2><p> we use a pointer due to code-linking issues. </p> we use a pointer due to code-linking issues. \n\n</p>", 
         "around": "<p> Pivot point for transforms. </p>", 
@@ -5110,7 +5213,7 @@
       "doc": "<p> Image/UV Editor </p>"
       }, 
     "SpaceInfo": {
-      "doc": "<p> Info Header </p>", 
+      "doc": "<p> Info Header. </p>", 
       "fields": {
         "regionbase": "<p> Storage of regions for inactive spaces. </p>", 
         "rpt_mask": "<p> End '{@link SpaceLink} ' header. </p>"
@@ -5147,18 +5250,23 @@
         "zoom": "<p> Zoom for backdrop. </p>"
         }
       }, 
+    "SpaceNodeOverlay": {
+      "fields": {
+        "flag": "<p> eSpaceNodeOverlay_Flag </p>"
+        }
+      }, 
     "SpaceOutliner": {
       "doc": "<p> Outliner </p>", 
       "fields": {
         "regionbase": "<p> Storage of regions for inactive spaces. </p>", 
         "search_string": "<p> search stuff </p>", 
         "sync_select_dirty": "<p> Selection syncing flag (#WM_OUTLINER_SYNC_SELECT_FROM_OBJECT and similar flags). </p>", 
-        "treestore": "<p> treestore is an ordered list of {@link TreeStoreElem} 's from outliner tree; Note that treestore may contain duplicate elements if element is used multiple times in outliner tree (e. g. linked objects) Also note that BLI_mempool can not be read/written in DNA directly, therefore readfile.c/writefile.c linearize treestore into {@link TreeStore}  structure </p>", 
+        "treestore": "<p> treestore is an ordered list of {@link TreeStoreElem}<code></code>  linearize treestore into {@link TreeStore}  structure </p>", 
         "v2d": "<p> End '{@link SpaceLink} ' header. Deprecated, copied to region. \n@deprecated\n Deprecated</p>"
         }
       }, 
     "SpaceProperties": {
-      "doc": "<p> Properties Editor </p>", 
+      "doc": "<p> Properties Editor. </p>", 
       "fields": {
         "mainb": "<p> Context tabs. </p>", 
         "outliner_sync": "<p> eSpaceButtons_OutlinerSync </p>", 
@@ -5172,14 +5280,14 @@
         }
       }, 
     "SpaceScript": {
-      "doc": "<p>{@link Script}  View - Obsolete (pre 2.5) </p>", 
+      "doc": "<p>{@link Script}  View - Obsolete (pre 2.5). </p>", 
       "fields": {
         "regionbase": "<p> Storage of regions for inactive spaces. </p>", 
         "script": "<p> End '{@link SpaceLink} ' header. </p>"
         }
       }, 
     "SpaceSeq": {
-      "doc": "<p> Sequencer </p>", 
+      "doc": "<p> Sequencer. </p>", 
       "fields": {
         "cursor": "<p> 2D cursor for transform. </p>", 
         "draw_flag": "<p> Overlay an image of the editing on below the strips. </p>", 
@@ -5221,7 +5329,7 @@
         }
       }, 
     "SpaceText": {
-      "doc": "<p>{@link Text}  Editor </p>", 
+      "doc": "<p>{@link Text}  Editor. </p>", 
       "fields": {
         "findstr": "<p> ST_MAX_FIND_STR. </p>", 
         "left": "<p> Determines the horizontal scroll (in columns). </p>", 
@@ -5355,6 +5463,11 @@
         "emCache": "<p> TODO(sergey): Get rid of those with the old CCG subdivision code. </p>"
         }
       }, 
+    "SubsurfRuntimeData": {
+      "fields": {
+        "subdiv": "<p> Cached subdivision surface descriptor, with topology and settings. </p>"
+        }
+      }, 
     "SurfaceDeformModifierData": {
       "fields": {
         "target": "<p> Bind target object. </p>", 
@@ -5394,7 +5507,7 @@
         }
       }, 
     "TexNodeOutput": {
-      "doc": "<p> TEX_output </p>"
+      "doc": "<p> TEX_output. </p>"
       }, 
     "TexPaintSlot": {
       "doc": "<p> WATCH IT: change type? also make changes in ipo.h </p>", 
@@ -5496,7 +5609,7 @@
         }
       }, 
     "ThemeWireColor": {
-      "doc": "<p> set of colors for use as a custom color set for Objects/Bones wire drawing </p>", 
+      "doc": "<p> Set of colors for use as a custom color set for Objects/Bones wire drawing. </p>", 
       "fields": {
         "flag": "<p>{@link eWireColor_Flags} . </p>"
         }
@@ -5612,8 +5725,8 @@
     "TreeStore": {
       "doc": "<p> Used only to store data in blend files. </p>", 
       "fields": {
-        "data": "<p> Elements to be packed from mempool in writefile.c or extracted to mempool in readfile.c </p>", 
-        "totelem": "<p> Was previously used for memory preallocation. \n@deprecated\n Deprecated</p>", 
+        "data": "<p><code></code><code></code> . </p>", 
+        "totelem": "<p> Was previously used for memory pre-allocation. \n@deprecated\n Deprecated</p>", 
         "usedelem": "<p> Number of elements in data array. </p>"
         }
       }, 
@@ -5623,14 +5736,13 @@
         }
       }, 
     "TriangulateModifierData": {
-      "doc": "<p> Triangulate modifier </p>"
+      "doc": "<p> Triangulate modifier. </p>"
       }, 
     "uiFont": {
-      "doc": "<p> default fonts to load/initialize first font is the default (index 0), others optional </p>", 
+      "doc": "<p> Default fonts to load/initialize. First font is the default (index 0), others optional. </p>", 
       "fields": {
         "blf_id": "<p> From blfont lib. </p>", 
-        "filename": "<p> 1024 = FILE_MAX. </p>", 
-        "r_to_l": "<p> Fonts that read from left to right. </p>", 
+        "filepath": "<p> 1024 = FILE_MAX. </p>", 
         "uifont_id": "<p> Own id (eUIFont_ID). </p>"
         }
       }, 
@@ -5831,7 +5943,7 @@
       }, 
     "UVProjectModifierData": {
       "fields": {
-        "projectors": "<p> the objects which do the projecting MOD_UVPROJECT_MAXPROJECTORS. </p>", 
+        "projectors": "<p> The objects which do the projecting. <h2>Note</h2><p> 10=MOD_UVPROJECT_MAXPROJECTORS. </p> 10=MOD_UVPROJECT_MAXPROJECTORS. \n\n</p>", 
         "uvlayer_name": "<p> MAX_CUSTOMDATA_LAYER_NAME. </p>"
         }
       }, 
@@ -5862,7 +5974,7 @@
         }
       }, 
     "View2D": {
-      "doc": "<p><hr/> \n View 2D data - stored per region </p>", 
+      "doc": "<p><hr/> \n View 2D data - stored per region. </p>", 
       "fields": {
         "align": "<p> Alignment of content in totrect. </p>", 
         "alpha_vert": "<p> Usually set externally (as in, not in view2d files). Alpha of vertical and horizontal scrollbars (range is [0, 255]). </p>", 
@@ -5894,7 +6006,7 @@
         "gpd": "<p> XXX deprecated? Grease-Pencil Data (annotation layers). \n@deprecated\n Deprecated</p>", 
         "gridsubdiv": "<p> Number of subdivisions in the grid between each highlighted grid line. </p>", 
         "layact": "<p>\n@deprecated\n Deprecated</p>", 
-        "localvd": "<p> Allocated backup of its self while in local-view. </p>", 
+        "localvd": "<p> Allocated backup of itself while in local-view. </p>", 
         "multiview_eye": "<p> Multiview current eye - for internal use. </p>", 
         "ob_center_bone": "<p> Optional string for armature bone to define center, MAXBONENAME. </p>", 
         "ob_center_cursor": "<p> Optional bool for 3d cursor to define center. </p>", 
@@ -5981,8 +6093,8 @@
     "Volume_Runtime": {
       "fields": {
         "default_simplify_level": "<p> Default simplify level for volume grids loaded from files. </p>", 
-        "frame": "<p> Current frame in sequence for evaluated volume </p>", 
-        "grids": "<p> OpenVDB Grids </p>"
+        "frame": "<p> Current frame in sequence for evaluated volume. </p>", 
+        "grids": "<p> OpenVDB Grids. </p>"
         }
       }, 
     "VolumeToMeshModifierData": {
@@ -5994,7 +6106,7 @@
         }
       }, 
     "VPaint": {
-      "doc": "<p><hr/> \n Vertex {@link Paint}  Vertex {@link Paint}  </p>", 
+      "doc": "<p><hr/> \n Vertex {@link Paint}  Vertex {@link Paint} . </p>", 
       "fields": {
         "radial_symm": "<p> For mirrored painting. </p>"
         }
@@ -6010,16 +6122,16 @@
         "bone_from": "<p> Optional name of bone target, MAX_ID_NAME-2. </p>", 
         "bone_to": "<p> Optional name of bone target, MAX_ID_NAME-2. </p>", 
         "defgrp_name": "<p> Optional vertexgroup name, MAX_VGROUP_NAME. </p>", 
-        "object_from": "<p> end {@link MappingInfoModifierData}  </p>", 
-        "texture": "<p> keep in sync with {@link MappingInfoModifierData}  </p>", 
+        "object_from": "<p> End {@link MappingInfoModifierData} . </p>", 
+        "texture": "<p> Keep in sync with {@link MappingInfoModifierData} . </p>", 
         "uvlayer_name": "<p> MAX_CUSTOMDATA_LAYER_NAME. </p>"
         }
       }, 
     "WaveModifierData": {
       "fields": {
         "defgrp_name": "<p> MAX_VGROUP_NAME. </p>", 
-        "objectcenter": "<p> end {@link MappingInfoModifierData}  </p>", 
-        "texture": "<p> keep in sync with {@link MappingInfoModifierData}  </p>", 
+        "objectcenter": "<p> End {@link MappingInfoModifierData} . </p>", 
+        "texture": "<p> Keep in sync with {@link MappingInfoModifierData} . </p>", 
         "uvlayer_name": "<p> MAX_CUSTOMDATA_LAYER_NAME. </p>"
         }
       }, 
@@ -6076,7 +6188,7 @@
         "mask_tex_map_bone": "<p> Name of the map bone. </p>", 
         "mask_tex_map_obj": "<p> Name of the map object. </p>", 
         "mask_tex_mapping": "<p> How to map the texture (using MOD_DISP_MAP_* enums). </p>", 
-        "mask_tex_use_channel": "<p> Texture masking. Which channel to use as weightf. </p>", 
+        "mask_tex_use_channel": "<p> Texture masking. Which channel to use as weight/mask. </p>", 
         "mask_tex_uvlayer_name": "<p> Name of the UV map. MAX_CUSTOMDATA_LAYER_NAME. </p>", 
         "mask_texture": "<p> The texture. </p>"
         }
@@ -6105,7 +6217,7 @@
         "_pad0": "<p> Padding... </p>", 
         "cmap_curve": "<p> Mapping stuff. The custom mapping curve. </p>", 
         "defgrp_name": "<p> Name of vertex group to modify/weight. MAX_VGROUP_NAME. </p>", 
-        "falloff_type": "<p> Put here to avoid breaking existing struct... Using MOD_WVG_MAPPING_* enums. </p>", 
+        "falloff_type": "<p> Put here to avoid breaking existing struct... Mapping modes (using MOD_WVG_MAPPING_* enums). </p>", 
         "mask_constant": "<p> Masking options. The global \"influence\", if no vgroup nor tex is used as mask. </p>", 
         "mask_defgrp_name": "<p> Name of mask vertex group from which to get weight factors. MAX_VGROUP_NAME. </p>", 
         "mask_tex_map_bone": "<p> Name of the map bone. </p>", 
@@ -6115,7 +6227,8 @@
         "mask_tex_uvlayer_name": "<p> Name of the UV Map. MAX_CUSTOMDATA_LAYER_NAME. </p>", 
         "mask_texture": "<p> The texture. </p>", 
         "min_dist": "<p> Distances mapping to 0.0/1.0 weights. </p>", 
-        "proximity_mode": "<p> Proximity modes. </p>", 
+        "proximity_flags": "<p> Options for proximity weighting. </p>", 
+        "proximity_mode": "<p> Modes of proximity weighting. </p>", 
         "proximity_ob_target": "<p> Target object from which to calculate vertices distances. </p>"
         }
       }, 
@@ -6125,11 +6238,8 @@
         "merge_dist": "<p> The limit below which to merge vertices. </p>"
         }
       }, 
-    "WipeVars": {
-      "doc": "<p> ************* {@link Effect}  Variable Structs ********* </p>"
-      }, 
     "WireframeModifierData": {
-      "doc": "<p> many of these options match 'solidify' </p>", 
+      "doc": "<p><h2>Note</h2><p> many of these options match 'solidify'. </p> many of these options match 'solidify'. \n\n</p>", 
       "fields": {
         "defgrp_name": "<p> MAX_VGROUP_NAME. </p>"
         }
@@ -6147,7 +6257,7 @@
         }
       }, 
     "wmKeyMap": {
-      "doc": "<p> stored in WM, the actively used keymaps </p>", 
+      "doc": "<p> Stored in WM, the actively used key-maps. </p>", 
       "fields": {
         "flag": "<p> General flags. </p>", 
         "idname": "<p> Global editor keymaps, or for more per space/region. </p>", 
@@ -6208,7 +6318,7 @@
         }
       }, 
     "wmWindow": {
-      "doc": "<p> IME is win32 and apple only! the saveable part, rest of data is local in ghostwinlay </p>", 
+      "doc": "<p> IME is win32 and apple only! The saveable part, the rest of the data is local in GHOST. </p>", 
       "fields": {
         "active": "<p> Set to 1 if an active window, for quick rejects. </p>", 
         "addmousemove": "<p> Internal: tag this for extra mouse-move event, makes cursors/buttons active on UI switching. </p>", 
@@ -6245,7 +6355,7 @@
         }
       }, 
     "wmWindowManager": {
-      "doc": "<p> #endif </p><p> reports need to be before {@link wmWindowManager}  windowmanager is saved, tag WMAN </p>", 
+      "doc": "<p> #endif </p><p> reports need to be before {@link wmWindowManager}  Window-manager is saved, tag WMAN. </p>", 
       "fields": {
         "addonconf": "<p> Addon configuration. </p>", 
         "autosavetimer": "<p> Timer for auto save. </p>", 
