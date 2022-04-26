@@ -14,7 +14,7 @@ JAVA_BLEND_TOOLING="../org.cakelab.blender.io.tooling"
 source "$JAVA_BLEND_TOOLING/sh/config.sh"   || exit -1
 include "blender/app/version.sh"  || exit -1
 include "cakelab/classpath.sh"  || exit -1
-
+include "blender/repo.sh"
 
 
 ################## CONFIG SECTION ##################
@@ -28,7 +28,7 @@ BLENDER_VERSION=$(blender_app_version_normalized_short)
 # ENV_PATH_BASE
 #
 # Path to blender source code directory
-ENV_PATH_BASE="${1:-${BLENDER_REPO_HOME}/blender}"
+ENV_PATH_BASE="${1:-$BLENDER_REPO_WORK}"
 
 # REL_SRC_PATH
 #
