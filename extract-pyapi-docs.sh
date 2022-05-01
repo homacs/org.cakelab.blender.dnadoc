@@ -16,214 +16,56 @@
 JAVA_BLEND_TOOLING="../org.cakelab.blender.io.tooling"
 
 source "$JAVA_BLEND_TOOLING/sh/config.sh"   || exit -1
-include "blender/app/version.sh"  || exit -1
-include "cakelab/classpath.sh"  || exit -1
-
-echo "BLENDER_HOME: $BLENDER_HOME"
-
-
-################# CONFIGURATION SECTION ################
+include "utils/commons.sh"
+include "blender/app/version.sh"
+include "cakelab/doc.sh"
 
 
 
-
-# BLENDER_SYSTEM_SCRIPTS
-#
-# Directory which contains blender system scripts.
-# Default is "/usr/share/blender/scripts" .
-# > BLENDER_SYSTEM_SCRIPTS="/usr/share/blender/scripts"
-# When downloading and extracting blender manually it is instead
-# > BLENDER_SYSTEM_SCRIPTS="${BLENDER_HOME}/$VERSION/scripts"
-# Since we do not know the version yet, we use a wildcard path instead:
-BLENDER_SYSTEM_SCRIPTS="${BLENDER_HOME}/*/scripts"
-
-# BLENDER_BUILD_ENV
-#
-# This variable controls whether the script uses the standard
-# installation or a custom built installation in a different
-# directory. Valid values: true/false
-BLENDER_BUILD_ENV=false
-
-# BLENDER_SOURCE
-#
-# Required only if BLENDER_BUILD_ENV is set to true.
-# Path to blender source code. 
-BLENDER_SOURCE="$BLENDER_REPO_HOME/blender"
-
-# BLENDER_BUILD
-#
-# Required only if BLENDER_BUILD_ENV is set to true.
-# Specifies the blender build directory.
-# This directory has to contain the following directories
-# - bin: containing the blender executable
-# - lib: containing all custom build third-party libraries
-BLENDER_BUILD="$BLENDER_SOURCE/build"
-
-#
-# SCRIPT
-# This the path to the python script called rna_info.py. It
-# Reads the runtime API documentation and dumps it on stdout.
-# We use the standard path on linux distros here. If it is not
-# there then use the following command to locate it:
-# > updatedb && locate rna_info.py
-#
-SCRIPT=$(echo ${BLENDER_SYSTEM_SCRIPTS}"/modules/rna_info.py")
-
-#
-# OUTPUT
-# This is the folder, where the Java Blend documentation system
-# stores documentation for DNA structs. The documentation is
-# used by the model generator to write it to generated classes.
-# Default: "resources/dnadoc"
-#
-OUTPUT="resources/dnadoc"
-
-#
-# VERSION
-#
-# Default: <empty>
-#
-# This is the version of Blender executable used to receive 
-# python api documentation. If left empty, the script will determine
-# the version on its own using `blender -v`.
-#
-# This version information is used to create a subfolder in the
-# documentation system. 
-#
-VERSION=
-
-#
-# TMP
-# Temp directory to store temporary files.
-#
-TMP=/tmp
-
-
-################# END OF CONFIGURATION SECTION ################
-
-
-
-
-function length () {
-	wc -l $1 | awk '{ print $1 }' 
+function main () {
+	#
+	# OUTPUT
+	# This is the folder, where the Java Blend documentation system
+	# stores documentation for DNA structs. The documentation is
+	# used by the model generator to write it to generated classes.
+	# Default: "$CAKELAB_REPO_HOME/resources/dnadoc"
+	#
+	local OUTPUT="${1:-$CAKELAB_DNADOC_HOME}"
+	
+	
+	local version=$(blender_app_version_normalized_short)
+	
+	#
+	# give feedback
+	#
+	
+cat <<EOF
+===============================================================================
+	Importing Blenders python api documentation
+	
+	
+	blender: ${BLENDER}
+	version: $version
+	output:  $OUTPUT
+	
+	
+EOF
+	
+	proceed
+	
+	cakelab_docs_import_pyapi "$OUTPUT"
+	
+	EXTRACT_RESULT="$?"
+	
+	if [ $EXTRACT_RESULT -eq 0 ]
+	then
+		echo "successfully imported documentation in \"${OUTPUT}/${version}\""
+	else
+		echo "FAILED!"
+	fi
+	
+	exit $EXTRACT_RESULT
 }
 
 
-
-if $BLENDER_BUILD_ENV ; then
-	# preparing to run the custom build blender executable
-
-	export BLENDER_SYSTEM_DATAFILES="$BLENDER_SOURCE/release/datafiles"
-	export BLENDER_SYSTEM_SCRIPTS="$BLENDER_SOURCE/release/scripts"
-	export LD_LIBRARY_PATH="$BLENDER_BUILD/lib"
-
-	# BLENDER
-	#
-	# The blender executable.
-	BLENDER="$BLENDER_BUILD/bin/blender"
-fi
-
-
-#
-# check inputs
-#
-
-if [ -z "$VERSION" ] ; then
-	echo "retrieving blender version string"
-	VERSION=$(blender_app_version_normalized_short)
-fi
-
-if [ -z "$VERSION" ] ; then
-	abort "cannot determine blender version."
-fi
-
-if ! [ -e $SCRIPT ] ; then
-	abort "script '$SCRIPT' does not exist." 
-fi
-
-
-
-
-#
-# give feedback
-#
-
-cat <<EOF
-===============================================================================
-Extracting blenders python api documentation using the following configuration:
-
-
-blender executable:   "${BLENDER}"
-blender version:      "${VERSION}"
-python script:        "${SCRIPT}"
-
-
-
-EOF
-
-proceed
-
-
-#
-# start work
-#
-
-SCRIPT_OUTPUT=$TMP/pyapi-${VERSION}.txt
-CONVERTER_INPUT=$TMP/pyapi-${VERSION}-clean.txt
-
-rm -f $SCRIPT_OUTPUT
-$BLENDER --background -noaudio --python $SCRIPT 2> $SCRIPT_OUTPUT >/dev/null || error_exit "blender did not successfully executed the script"
-
-len=`length $SCRIPT_OUTPUT`
-if [ $len -lt 10 ] ; then
-	error_exit "output contains less than 10 lines!"
-fi
-echo "output contains $len lines"
-count=1
-echo "removing debug output"
-cat $SCRIPT_OUTPUT | while read line && [ "$line" != "EOF" ] ; do 
-	echo -n -e "\rprocessing $((count++))" 1>&2
-	#
-	# filter debug output
-	#
-	if expr "$line" : "^[^\\.\\:]*:" >/dev/null; then 
-		continue ;
-	fi
-	echo "$line"
-done > $CONVERTER_INPUT
-
-echo ""
-
-len=`length "$CONVERTER_INPUT"`
-if [ $len -lt 10 ] ; then
-	error_exit "output contains less than 10 lines after removal of debug output!"
-fi
-
-
-
-echo "stripped output contains $len lines"
-echo "calling converter class: org.cakelab.blender.doc.extract.ExtractPyAPIDoc"
-
-CLASSPATH=$(cakelab_classpath \
-	$CAKELAB_BLENDER_IO_PROJECT \
-	$CAKELAB_JSON_PROJECT \
-)
-
-echo "CLASSPATH=$CLASSPATH"
-"$JAVA_HOME/bin/java" -cp ${CLASSPATH} org.cakelab.blender.doc.extract.rnadocs.ExtractPyAPIDoc -v ${VERSION} -in $CONVERTER_INPUT -out ${OUTPUT}
-
-EXTRACT_RESULT="$?"
-
-rm -f $SCRIPT_OUTPUT
-rm -f $CONVERTER_INPUT
-
-if [ $EXTRACT_RESULT -eq 0 ]
-then
-	echo "successfully added documentation in \"${OUTPUT}\""
-	echo "done."
-else
-	echo " "
-	echo "extract resulted in ERRORS (see above)."
-fi
-
-exit $EXTRACT_RESULT
+main "$@"
