@@ -3322,8 +3322,10 @@
         "shift": "(read-only)    True when the Shift key is held", 
         "tilt": "(read-only)    The pressure of the tablet or zeroes if no tablet present", 
         "type": "(read-only)", 
+        "type_prev": "(read-only)", 
         "unicode": "(read-only)    Single unicode character for this event", 
         "value": "(read-only)    The type of event, only applies to some", 
+        "value_prev": "(read-only)    The type of event, only applies to some", 
         "xr": "(read-only)    XR event data"
         }
       }, 
