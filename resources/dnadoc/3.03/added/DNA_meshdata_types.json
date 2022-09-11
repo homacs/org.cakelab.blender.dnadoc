@@ -1,0 +1,94 @@
+{
+	"system" : "Blender",
+	"module" : "DNA",
+	"version" : "2.78",
+	"authors" : [
+		"Holger Machens"
+	],
+	"includes" : [],
+	"structs" : {
+		"MVert" : {
+			"doc" : "A single vertex with coordinates and normal vector.",
+			"fields" : {
+				"flag" : "<h3>Values</h3>
+				<pre>
+	SELECT				= 1
+	ME_VERT_TMP_TAG     = (1 << 2),
+	ME_HIDE             = (1 << 4),
+	ME_VERT_MERGED      = (1 << 6),
+	ME_VERT_PBVH_UPDATE = (1 << 7),
+				</pre>",
+				"co" : "XYZ coordinates.",
+				"no" : "Normal vector."
+			}
+		},
+		"MEdge" : {
+			"doc" : "An edge defined by two vertices v1 and v2. Vertex order does not tell which side is front facing. @see {@link MLoop}, {@link MVert}",
+			"fields" : {
+				"flag" : "<h3>Values</h3>
+				<pre>
+//	SELECT              = (1 << 0), 
+	ME_EDGEDRAW         = (1 << 1),
+	ME_SEAM             = (1 << 2),
+//	ME_HIDE             = (1 << 4), 
+	ME_EDGERENDER       = (1 << 5),
+	ME_LOOSEEDGE        = (1 << 7),
+	ME_EDGE_TMP_TAG     = (1 << 8),
+	ME_SHARP            = (1 << 9),
+				</pre>",
+				"v1" : "First vertex of the edge (index in vertex array).",
+				"v2" : "Second vertex of the edge (index in vertex array)."
+			}
+		},
+		"MLoop" : {
+			"doc" : "A loop element defined by a vertex and an edge. A loop is a face of the 3D object in Blender. A full loop (face) is defined by a set of loop entries, where each entry references a vertex and the adjacent edge in clock order. Thus, for each loop entry the system knows which side is front facing",
+			"fields" : {
+				"e" : "Associated edge (index in edge array).",
+				"v" : "Associated vertex (index in vertex array)."
+			}
+		},
+		"MLoopUV" : {
+			"doc" : "Elements of the UV map. Each element contains the UV coordinates for a point of the corresponding loop entry. Thus for each loopuv entry there exists a loop entry with the same index.",
+			"fields" : {
+				"flag" : "<h3>Values:</h3>
+				<pre>
+	MLOOPUV_EDGESEL = (1 << 0),
+	MLOOPUV_VERTSEL = (1 << 1),
+	MLOOPUV_PINNED  = (1 << 2),
+				</pre>",
+				"uv" : "The 2D UV coordinates."
+			}
+		},
+		"MTexPoly" : {
+			"doc" : "Assigns a texture to a polygon (face). If a {@link Mesh} has UV coordinates, each entry in mpoly (defining the face) has a corresponding mtexpoly entry to assign a texture to it.",
+			"fields" : {
+				"flag" : "<h3>Values:</h3>
+				<pre>
+	// TF_SELECT = (1 << 0),  // use MFace hide flag (after 2.43), should be able to reuse after 2.44 
+	// TF_ACTIVE = (1 << 1),  // deprecated! 
+	TF_SEL1   = (1 << 2),
+	TF_SEL2   = (1 << 3),
+	TF_SEL3   = (1 << 4),
+	TF_SEL4   = (1 << 5),
+				</pre>
+				",
+				"tpage" : "Pointer on the assigned texture."
+			}
+		},
+		"MPoly" : {
+			"doc" : "Defines a polygon based on a subset of the loop entries of the {@link Mesh}.",
+			"fields" : {
+				"flag" : "<h3>Values:</h3>
+				<pre>
+	ME_SMOOTH   = (1 << 0),
+	ME_FACE_SEL = (1 << 1),
+//	ME_HIDE     = (1 << 4), 
+				</pre>
+				",
+				"loopstart" : "offset in loop array ({@link #getMLoop})",
+				"totloop" : "Number of loop entries from loopstart"
+			}
+		}
+	}
+		
+}
