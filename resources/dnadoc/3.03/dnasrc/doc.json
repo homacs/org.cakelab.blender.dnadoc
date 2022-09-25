@@ -947,7 +947,7 @@
         }
       }, 
     "BoundBox": {
-      "doc": "<p> The following illustrates the orientation of the bounding box in local space</p><p><pre></pre></p><p><pre></pre>  </p>"
+      "doc": "<p> The following illustrates the orientation of the bounding box in local space</p><p><pre></pre>  </p>"
       }, 
     "bPathCompare": {
       "fields": {
@@ -3441,7 +3441,7 @@
       "fields": {
         "flag": "<p> Marker's flag (alive, ...). </p>", 
         "framenr": "<p> Number of frame marker is associated with. </p>", 
-        "pattern_corners": "<p> corners of pattern in the following order: <pre> Y\n ^\n | (3) --- (2)\n |  |       |\n |  |       |\n |  |       |\n | (0) --- (1)\n +-------------> X\n</pre>  Y\n ^\n | (3) --- (2)\n |  |       |\n |  |       |\n |  |       |\n | (0) --- (1)\n +-------------> X\n</p><p> the coordinates are stored relative to pos. </p>", 
+        "pattern_corners": "<p> corners of pattern in the following order: <pre> Y\n ^\n | (3) --- (2)\n |  |       |\n |  |       |\n |  |       |\n | (0) --- (1)\n +-------------> X\n</pre>  Y\n ^\n | (3) --- (2)\n |  |       |\n |  |       |\n |  |       |\n | (0) --- (1)\n +-------------> X\n the coordinates are stored relative to pos. </p>", 
         "pos": "<p> 2d position of marker on frame (in unified 0..1 space). </p>", 
         "search_min": "<p> positions of left-bottom and right-top corners of search area (in unified 0..1 units, relative to marker->pos </p>"
         }
@@ -3458,7 +3458,7 @@
       }, 
     "MovieTrackingPlaneMarker": {
       "fields": {
-        "corners": "<p> Corners of the plane in the following order: <pre> Y\n ^\n | (3) --- (2)\n |  |       |\n |  |       |\n |  |       |\n | (0) --- (1)\n +-------------> X\n</pre>  Y\n ^\n | (3) --- (2)\n |  |       |\n |  |       |\n |  |       |\n | (0) --- (1)\n +-------------> X\n</p><p> The coordinates are stored in frame normalized coordinates. </p>", 
+        "corners": "<p> Corners of the plane in the following order: <pre> Y\n ^\n | (3) --- (2)\n |  |       |\n |  |       |\n |  |       |\n | (0) --- (1)\n +-------------> X\n</pre>  Y\n ^\n | (3) --- (2)\n |  |       |\n |  |       |\n |  |       |\n | (0) --- (1)\n +-------------> X\n The coordinates are stored in frame normalized coordinates. </p>", 
         "flag": "<p> Marker's flag (alive, ...). </p>", 
         "framenr": "<p> Number of frame plane marker is associated with. </p>"
         }
