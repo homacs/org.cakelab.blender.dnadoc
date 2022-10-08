@@ -9570,6 +9570,7 @@
         "use_mouse_continuous": "Let the mouse wrap around the view boundaries so mouse movements are not limited by the screen size (used by transform, dragging of UI controls, etc.)", 
         "use_mouse_depth_navigate": "Use the depth under the mouse to improve view pan/rotate/zoom functionality", 
         "use_mouse_emulate_3_button": "Emulate Middle Mouse with Alt+Left Mouse", 
+        "use_multitouch_gestures": "Use multitouch gestures for navigation with touchpad, instead of scroll wheel emulation", 
         "use_ndof": "(read-only)", 
         "use_numeric_input_advanced": "When entering numbers while transforming, default to advanced mode for full math expression evaluation", 
         "use_rotate_around_active": "Use selection as the pivot point", 
