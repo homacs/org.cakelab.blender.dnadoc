@@ -353,7 +353,9 @@
         "active": "Active attribute", 
         "active_color": "Active color attribute for display and editing", 
         "active_color_index": "Active color attribute index", 
+        "active_color_name": "(read-only)    The name of the active color attribute for display and editing", 
         "active_index": "Active attribute index", 
+        "default_color_name": "(read-only)    The name of the default color attribute used as a fallback for rendering", 
         "render_color_index": "The index of the color attribute used as a fallback for rendering"
         }
       }, 
